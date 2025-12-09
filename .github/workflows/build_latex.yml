@@ -34,8 +34,7 @@ jobs:
           tag_name: ${{ env.VERSION_TAG }}
           name: "${{ env.VERSION_TAG }}"
           body: |
-            Autobuild version: ${{ env.VERSION_TAG }}
-            Date: ${{ steps.date.outputs.date }}
+            PDF Version: ${{ env.VERSION_TAG }}
           files: CompNet_Notes.pdf
           draft: false
           prerelease: false
