@@ -1,0 +1,79 @@
+\documentclass[11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, subcaption}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsthm,textcomp}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{wrapfig}
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdfborder=0 0 0}
+
+\usepackage{cmap}
+\usepackage{times}
+\usepackage{geometry}
+\usepackage[super]{nth}
+\usepackage[labelfont=bf]{caption}
+\usepackage{tikz}
+
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+
+\patchcmd{\part}{\thispagestyle{plain}}{\thispagestyle{empty}}{}{}
+
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    aboveskip={1.0\baselineskip},
+    belowskip={1.0\baselineskip},
+    columns=fixed,
+    extendedchars=true,
+    breaklines=true,
+    tabsize=4,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=lines,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    keywordstyle=\color[rgb]{0.627,0.126,0.941},
+    commentstyle=\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\color[rgb]{01,0,0},
+    numbers=left,
+    numberstyle=\small,
+    stepnumber=1,
+    numbersep=10pt,
+    captionpos=t,
+    escapeinside={\%*}{*)}
+}
+
+\title{\textbf{\Huge Computer Networks \\ Lecture Notes}}
+\author{\LARGE{Son Dang Huu Trung} \\ \\ \Large{Lecturer: Prof. Dr. Oliver Hahm}}
+\date{Frankfurt am Main, \today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\part{Lecture Notes}
+
+\input{chapters/chap_1.tex}
+\input{chapters/chap_2.tex}
+
+\end{document}

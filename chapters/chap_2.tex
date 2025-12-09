@@ -1,0 +1,485 @@
+\chapter{Physical Layer}
+
+\section{Fundamentals of Data Signals}
+
+\subsection{Physical Representation of Data}
+
+\noindent
+Signal $\rightarrow$ a physical representation of data.
+
+\begin{itemize}
+    \item Analog signal (continuous signal) $\rightarrow$ tín hiệu liên tục (continuous); biến đổi liên tục theo thời gian (ví dụ, nó sẽ chạy từ 0 đến 1, chấp nhận các giá trị trong khoảng này như 0.1, 0.01, 0.001, ...).
+    \item Digital signal (discrete signal) $\rightarrow$ tín hiệu rời rạc (discrete); biến đổi theo từng bước (ví dụ, nó chỉ chấp nhận các giá trị 0 và 1).
+\end{itemize}
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.62\textwidth]{assets/chap_2/cont_dis.png}
+\end{figure}
+\medskip
+
+\noindent
+The translator $\Rightarrow$ NIC (Network Interface Card, nghĩa là card mạng) hoạt động như bộ mã hóa và giải mã (\textbf{co}der and \textbf{dec}oder $\rightarrow$ CODEC).
+\medskip
+
+\subsection{The Telephone Example}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/chap_2/telephone_ex.png}
+\end{figure}
+\medskip
+
+\noindent
+\underline{Giải thích:}
+
+\begin{enumerate}
+    \item Giọng nói tạo ra sóng âm (ra tín hiệu âm thanh (analog acoustic signal)) $\rightarrow$ đi qua microphone, hoạt động như như bộ chuyển đổi ($\rightarrow$ biến sóng âm thành dòng điện).
+    \item Tín hiệu điện (analog electrical signal) truyền trong dây dẫn (cable) tới converter (là speaker).
+    \item Ở đây, speaker sẽ biến dòng điện trở lại thành âm thanh (acoustic signal) để người nghe có thể nghe được.
+\end{enumerate}
+
+\subsection{Basics of Signal Processing}
+
+\noindent
+Periodic signal (tín hiệu tuần hoàn) $\rightarrow$ simplest signals.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/chap_2/wave.jpg}
+\end{figure}
+\medskip
+
+\noindent
+\underline{Parameters:}
+
+\begin{itemize}
+    \item Period ($T$)
+    \item Frequency ($f$) $\rightarrow$ số chu kỳ trong 1 giây (Hz) $\Rightarrow$ $f = \frac{1}{T}$.
+    \item Amplitude ($S(t)$) $\rightarrow$ độ lớn tín hiệu.
+    \item Phase ($\phi$) $\rightarrow$ vị trí bắt đầu của sóng trong chu kỳ.
+\end{itemize}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/wave_type.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.55\textwidth}
+    \begin{itemize}
+        \item Sine $\rightarrow$ period of $2\pi$.
+        \item Square wave.
+        \item Triangular wave.
+        \item Sawtooth wave.
+    \end{itemize}
+\end{minipage}
+\end{center}
+
+\vspace{0.5cm}
+
+\subsection{Quantization and Sampling}
+
+\noindent
+Để truyền dữ liệu (transmit data) qua môi trường chuyển dẫn (transmission medium), tín hiệu phải được:
+
+\begin{itemize}
+    \item converted ($\rightarrow$ quantization (lượng hóa)) $\Rightarrow$ chuyển đổi một dãy giá trị liên tục vào một cái gì đó cố định hơn $\Rightarrow$ continuous values (giá trị liên tục) $\rightarrow$ cần quantization.
+    \item measured ($\rightarrow$ sampling (lấy mẫu)) $\Rightarrow$ đo tín hiệu tại các thời điểm khác nhau $\Rightarrow$ discrete time (thời gian rời rạc) $\rightarrow$ cần sampling.
+\end{itemize}
+
+\noindent
+\underline{Self-note:}
+
+\begin{itemize}
+    \item Máy tính lưu dữ liệu bằng các bit (0 và 1); nó cần một danh sách các con số cố định để lựa chọn $\Rightarrow$ cần quantization để chuyển tín hiệu liên tục thành tín hiệu rời rạc để lựa chọn (ví dụ: cân đồ nhưng kim nằm giữa 1kg và 1.1kg, nhưng mình không thể đọc được cái con số siêu lẻ $\rightarrow$ đọc 1kg luôn).
+    \item Máy tính không thể lưu trữ vô hạn trong một khoảng khắc nào đó, nếu nó làm thế thì sẽ dễ bị đầy bộ nhớ $\Rightarrow$ cần sampling để đo tín hiệu tại các thời điểm khác nhau $\rightarrow$ biến thời gian liên tục thành thời gian rời rạc để xử lý (ví dụ: quay video ở 30fps thay vì vô hạn fps).
+\end{itemize}
+
+\subsection{Sampling, Quantization, and Coding}
+
+\noindent
+Target: chuyển tín hiệu analog sang digital representation.
+\medskip
+
+\noindent
+Sampling and quantization:
+
+\begin{itemize}
+    \item Periodic measurement (đo đạt có chu kì) $\rightarrow$ sampling $\Rightarrow$ xử lý việc tín hiệu biến thiên liên tục theo thời gian bằng cách đo ngắt quãng.
+    \item Dividing signal range (chia nhỏ dài tín hiệu) $\rightarrow$ quantization $\Rightarrow$ xử lý việc biên độ tín hiệu liên tục bằng cách chia nhỏ thành các khoảng (intervals) và gán giá trị cho chúng.
+\end{itemize}
+\medskip
+
+\noindent
+Coding (mã hóa):
+\medskip
+
+\noindent
+$\rightarrow$ Focus on translating to binary $\Rightarrow$ gán một mã nhị phân (binary code) cho từng khoảng lượng tử hóa (quantization intervals).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/chap_2/sampling_coding.jpg}
+\end{figure}
+\medskip
+
+\textbf{$\rightarrow$ Giải thích hình:}
+
+\begin{itemize}
+    \item Đường cong analog $\rightarrow$ tín hiệu thực tế; giá trị liên tục (continuous values).
+    \item Các cột digital $\rightarrow$ dữ liệu máy tính ghi lại được $\Rightarrow$ mỗi cột đại diện cho một lần lấy mẫu (sampling).
+    \item Các con số trên đỉnh mỗi cột $\rightarrow$ kết quả của lượng tử hóa (quantization).
+\end{itemize}
+
+\subsection{Symbol Rate}
+
+\noindent
+\underline{Self-note:} symbol rate nghĩa là tốc độ kí hiệu (định nghĩa ở mục tiếp theo).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{assets/chap_2/sym_rate.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Biểu đồ minh họa quaternary (hệ tứ phân; nghĩa là có 4 trạng thái).
+
+\begin{itemize}
+    \item Amplitude value (giá trị biên độ) $\rightarrow$ tín hiệu không chỉ có 2 mức (0 và 1), mà có 4 mức điện áp khác nhau.
+    \item Time $\rightarrow$ mỗi vạch là một khoảng thời gian cho một symbol.
+\end{itemize}
+
+\noindent
+\underline{Bonus:}
+\medskip
+
+\noindent
+$n$ (number of discrete values) $\rightarrow$ số lượng mức giá trị khác nhau mà tín hiệu có thể nhận được.
+
+\begin{itemize}
+    \item $n = 2 \rightarrow$ binary $\Rightarrow$ tín hiệu có 2 mức $\rightarrow$ chỉ được gửi 1 bit mỗi lần ($\log_2 2 = 1$).
+    \item $n = 3 \rightarrow$ ternary $\Rightarrow$ tín hiệu có 3 mức.
+    \item $n = 4 \rightarrow$ quaternary $\Rightarrow$ tín hiệu có 4 mức $\rightarrow$ chỉ được gửi 2 bit mỗi lần ($\log_2 4 = 2$).
+    \item $n = 8 \rightarrow$ octonary $\Rightarrow$ tín hiệu có 8 mức $\rightarrow$ chỉ được gửi 3 bit mỗi lần ($\log_2 8 = 3$).
+    \item $n = 10 \rightarrow$ denary $\Rightarrow$ tín hiệu có 10 mức.
+\end{itemize}
+
+\subsection{Bit Rate and Symbol Rate}
+
+\noindent
+Bit rate (tốc độ bit) $\rightarrow$ tổng số lượng các bit (0 và 1) được truyền đi trong một đơn vị thời gian (thường là giây) $\Rightarrow$ đơn vị là \textbf{bps} (bits per second).
+
+$\Rightarrow$ Đây là tốc độ thực tế người ta quan tâm (tải file nhanh hay chậm phụ thuộc vào bit rate).
+\medskip
+
+\noindent
+Symbol rate (tốc độ kí hiệu) $\rightarrow$ số lượng các kí hiệu (symbols) được truyền đi trong một đơn vị thời gian; một symbol là một trạng thái cụ thể của tín hiệu (ví dụ: một điện áp +5V, một xung sóng); đơn vị là \textbf{baud} (symbols per second).
+
+$\Rightarrow$ Đây là tốc độ làm việc của phần cứng (chẳng hạn như dây cáp phải đổi state (trạng thái) bao nhiêu lần).
+\medskip
+
+\noindent
+The ratio between bit rate and symbol rate $\rightarrow$ phụ thuộc vào công nghệ mã hóa đường truyền (line encoding scheme) được sử dụng.
+\medskip
+
+\noindent
+\underline{Self-note:} line code $\rightarrow$ là quy tắt để máy tính truyền tín hiệu lên dây dẫn sao cho bên nhận có thể hiểu được.
+
+$\Rightarrow$ Quy định: số lượng tín hiệu tối đa có thể truyền qua transmission media được sử dụng (số 1 thì điện áp như nào, số 0 thì điện áp như nào); xác định bởi layer protocol được sử dụng.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/line_code_ex.png}
+\end{figure}
+\medspace
+
+\noindent
+\underline{Bonus:}
+\medskip
+
+\noindent
+NRZ (Non-Return to Zero) encoding $\rightarrow$ gặp số 0 thì giữ điện áp mức thấp, còn gặp 1 thì giữ ở mức cao.
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} hiệu quả cao $\rightarrow$ gửi 10 bit/s thì tín hiệu chỉ cần thay đổi tối đa 10 lần/s (10 Baud).
+    \item \textbf{Cons:} đồng bộ kém (clock recovery problem) $\rightarrow$ gửi một dãy số 1 dài, đường dây sẽ giữ mức điện áp cao mãi $\Rightarrow$ bên nhận không biết đâu là bit thứ nhất, đâu là bit thứ hai.
+\end{itemize}
+\medskip
+
+\noindent
+Manchester Encoding $\rightarrow$ không quan tâm mức cao hay thấp, chỉ quan tâm đến sự thay đổi (transition) giữa bit:
+
+\begin{itemize}
+    \item Số 0 $\rightarrow$ đang cao nhảy xuống thấp (falling edge).
+    \item Số 1 $\rightarrow$ đang thấp nhảy lên cao (rising edge).
+\end{itemize}
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} tự đồng bộ (self-synchronizing) $\rightarrow$ giữa mỗi bit luôn luôn có một cú nhảy (lên hoặc xuống) $\Rightarrow$ máy tính nhận biết ngay lập tức vị trí các bit $\Rightarrow$ không bao giờ bị mất đồng bộ dù có gửi cả đống số 1 liên tiếp.
+    \item \textbf{Cons:} hiệu quả giảm một nửa; để gửi 10 bit/s thì tín hiệu phải thay đổi 20 lần/s (20 Baud) $\Rightarrow$ một bit cần 2 trạng thái điện áp (nửa đầu thấp, nửa sau cao) $\Rightarrow$ tốn băng thông gấp đôi so với NRZ.
+\end{itemize}
+
+\subsection{Data Rate}
+
+\noindent
+Data rate $\rightarrow$ tốc độ truyền dữ liệu tối đa mà đường truyền có thể tải được.
+
+$\Rightarrow$ Nó trả lời cho câu "trong 1s thì gửi được bao nhiêu bit đi?".
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Hai yếu tố ảnh hưởng data rate}:
+
+\begin{enumerate}
+    \item Bandwidth (băng thông), kí hiệu: $H$ $\rightarrow$ độ rộng của đường vận chuyển. Đường càng rộng (Hertz càng cao) $\Rightarrow$ bit chạy càng nhiều.
+    \item Levels (mức tín hiệu) (hoặc độ nhiễu (noise)), kí hiệu: $V$ $\rightarrow$ nếu không có nhiễu $\Rightarrow$ dùng càng nhiều mức tín hiệu ($V$ càng cao; như 4 mức, 8 mức), tốc độ càng nhanh.
+\end{enumerate}
+
+\pagebreak
+
+\noindent
+\textbf{Định luật Hartley (Hartley's law):}
+
+\begin{equation*}
+    \text{Maximum data rate [bit/s]} = 2 * H * \log_2(V)
+\end{equation*}
+
+\noindent
+Trong đó:
+
+\begin{itemize}
+    \item $H \rightarrow$ độ rộng băng tần của đường truyền (tính bằng Hz) $\Rightarrow$ Đường càng rộng thì chạy càng nhanh.
+    \item $V \rightarrow$ số lượng mức tín hiệu (như $n = 2$, $n = 4$).
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Note:} Định luật của Hartley là \textbf{điều kiện lý tưởng} $\rightarrow$ đường truyền hoàn hảo, không có nhiễu (noiseless) $\Rightarrow$ tốc độ tối đa phụ thuộc vào việc mình tạo ra được bao nhiêu tín hiệu.
+\medspace
+
+\subsection{Ideal vs. Real Transmission}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{assets/chap_2/ideal_vs_real.png}
+\end{figure}
+\medspace
+
+\noindent
+Giải thích:
+
+\begin{itemize}
+    \item Bên lý tưởng $\rightarrow$ tín hiệu hoàn hảo mà máy tính gửi đi dưới dạng sóng vuông (square wave) $\Rightarrow$ không bị nhiễu, chuyển đổi tức thì từ mức 0 lên 1.
+    \item Bên thực tế $\rightarrow$ tín hiệu bị biến thành sóng do bị nhiễu, cộng thêm các đường sóng nhỏ (màu xanh, vàng) (theo như chuỗi Fourier (Fourier series) $\rightarrow$ một sóng vuông thực tế là tổng hợp của vô số sóng hình sin có tần số khác nhau cộng lại) $\Rightarrow$ tín hiệu không chuyển đổi tức thì từ mức 0 lên 1 mà cần thời gian để chuyển đổi.
+\end{itemize}
+
+\noindent
+$\Rightarrow$ Nếu đường truyền quá dài hoặc quá tệ (do bị nhiễu quá nhiều chẳng hạn) $\rightarrow$ sóng sẽ bị "méo" đến mức máy tính không thể phân biệt được đâu là mức 1, đâu là mức 0 nữa.
+\medskip
+
+\noindent
+$\rightarrow$ Ở mặt lý tưởng, Claude Shannon cho rằng mục tiêu của truyền tin là tái tạo lại chính xác thông tin $\rightarrow$ tuy nhiên, trên thực tế, có rất nhiều yếu tố làm suy giảm tín hiệu trong quá trình truyền dẫn.
+\medskip
+
+\subsection{Attenuation}
+
+\noindent
+Attenuation (suy hao) $\rightarrow$ tín hiệu yếu đi khi truyền xa.
+
+$\rightarrow$ Làm cho suy yếu tín hiệu (signal weakening) $\rightarrow$ làm yếu đi biên độ của tín hiệu ngày càng nhiều, theo quãng đường truyền tin của các phương tiện truyền tải $\Rightarrow$ năng lượng tín hiệu mất dần.
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Hậu quả:} nếu biên độ (amplitude) của tín hiệu quá thấp so với mức yêu cầu $\Rightarrow$ máy sẽ không thể nhận biết được tín hiệu nữa $\Rightarrow$ mất dữ liệu.
+
+$\Rightarrow$ Attenuation giới hạn khoảng cách tối đa có thể truyền tải tín hiệu với mọi transmission media.
+\medskip
+
+\noindent
+\textbf{Quy luật:} Tầng số càng cao, suy hao càng lớn.
+\medskip
+
+\noindent
+\underline{Idea:} người ta có thể khắc phục điều này bằng việc sử dụng repeater (bộ lặp) hoặc amplifier (bộ khuếch đại) để tăng cường tín hiệu, để tín hiệu có thể truyền đi tiếp.
+\medskip
+
+\subsection{Noise and Distortion}
+
+\noindent
+\textbf{Noise} (nhiễu) $\rightarrow$ tín hiệu không mong muốn làm thay đổi tín hiệu gốc.
+
+\begin{itemize}
+    \item Thermal noise (nhiễu nhiệt) $\rightarrow$ do chuyển động ngẫu nhiên của các electron trong dây dẫn tạo ra.
+    \item Intermodulation noise (nhiễu tương hỗ) $\rightarrow$ do các tần số không mong muốn kết hợp với tín hiệu ban đầu.
+    \item Crosstalk (nhiễu chéo) $\rightarrow$ do tín hiệu từ dây dẫn khác truyền sang.
+    \item Impulse noise (nhiễu xung) $\rightarrow$ do các sự kiện đột ngột như sét đánh hoặc các sự cố điện.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Distortion} (biến dạng) $\rightarrow$ tín hiệu bị thay đổi hình dạng do các đặc tính của phương tiện truyền dẫn.
+
+\begin{itemize}
+    \item Echoes (tiếng vang) $\rightarrow$ tín hiệu phản xạ trở lại.
+    \item Extreme low frequency (ELF) (tần số cực thấp) $\rightarrow$ tín hiệu tần số thấp bị suy giảm nhiều hơn.
+    \item Delay distortion (biến dạng trễ) $\rightarrow$ các thành phần tần số khác nhau truyền với tốc độ khác nhau.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Plus attenuation, refraction (làm lệch hướng), reflection (phản xạ), etc.
+
+\pagebreak
+
+\noindent
+\begin{center}
+\begin{minipage}[c]{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.75\textwidth]{assets/chap_2/gauss.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.55\textwidth}
+    AWGN (Additive White Gaussian Noise) $\rightarrow$ mô hình nhiễu phổ biến nhất.
+\end{minipage}
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent
+Giải thích:
+
+\begin{itemize}
+    \item Additive (cộng tính) $\rightarrow$ nhiễu được thêm vào tín hiệu gốc.
+    \item White $\rightarrow$ phổ tần số rộng (giống như ánh sáng trắng) $\Rightarrow$ nhiễu trắng chứa tất cả các tần số với công suất bằng nhau.
+    \item Gaussian Noise (nhiễu Gauss) $\rightarrow$ cường độ nhiễu tuân theo phân phối Gaussian (phân phối chuẩn - hình chuông).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Gaussian channel} (kênh Gauss) $\rightarrow$ khi một kênh truyền (đường dây) chịu tác động chủ yếu của loại nhiễu này (nhiễu nhiệt, bức xạ nền, ...).
+\medskip
+
+\subsection{Bit Error Rate (BER)}
+
+\noindent
+Bit Error Rate (Tỷ lệ lỗi bit) $\rightarrow$ đánh giá độ tin cậy của một đường truyền dữ liệu.
+
+$\Rightarrow$ Nhiễu có thể làm suy giảm chất lượng đường truyền $\rightarrow$ có thể khiến máy tính khi nhận đọc sai (như 0 thành 1, hay 1 thành 0 chẳng hạn).
+\medskip
+
+\noindent
+$\Rightarrow$ BER được tính theo tỉ lệ phần trăm các bit bị sai so với tổng số bit đã được truyền đi.
+\medskip
+
+\noindent
+\textbf{Công thức:}
+
+\begin{equation*}
+    \text{BER} = \frac{\text{Number of erroneous bits (số bit bị lỗi)}}{\text{Number of transmitted bits (tổng số bit đã truyền)}}
+\end{equation*}
+\medskip
+
+\noindent
+$\rightarrow$ Ví dụ: gửi 1.000 bit và có 1 bit bị sai $\Rightarrow$ BER = $\frac{1}{1000} = 0.001$ (hay $10^{-3}$).
+
+\vspace{0.5cm}
+
+\noindent
+Typical BER values for different link types:
+
+\begin{itemize}
+    \item POTS (Plain Old Telephone Service) $\rightarrow$ $2*10^{-4}$.
+    \item Radio links $\rightarrow$ $10^{-3}$ to $10^{-4}$.
+    \item Ethernet $\rightarrow$ $10^{-9}$ to $10^{-10}$.
+    \item Fiber (cáp quang) $\rightarrow$ $10^{-10}$ to $10^{-12}$.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ Mạng radio có BER tệ nhất $\Rightarrow$ do chịu nhiều tác động từ môi trường xung quanh như thời tiết, vật cản, ... $\Rightarrow$ dễ bị nhiễu hơn so với mạng dây (như Ethernet hay fiber).
+\medskip
+
+\noindent
+BER \textbf{càng nhỏ} (số có mũ càng âm lớn) $\Rightarrow$ đường truyền \textbf{càng tốt}.
+\medskip
+
+\noindent
+\underline{Bonus:} Giảm BER $\rightarrow$ tăng cường độ tín hiệu để át nhiễu. 
+
+$\Rightarrow$ Việc này có thể gây tốn kém (như tốn điện do phải tăng biên độ $\rightarrow$ tăng mức tiêu thụ năng lượng), và gây nhiễu cho các thiết bị xung quanh.
+\medskip
+
+\subsection{Data Rate on a Noisy Channel}
+
+\noindent
+$\rightarrow$ Mọi kênh truyền thực tế đều bị nhiễm bởi nhiễu.
+\medskip
+
+\noindent
+$\rightarrow$ Tốc độ truyền không chỉ phụ thuộc vào số mức tín hiệu ($V$), mà còn phụ thuộc vào cường độ tín hiệu mạnh hơn nhiễu bao nhiêu lần.
+
+$\Rightarrow$ Signal-to-Noise Ratio (SNR) $\rightarrow$ tỉ lệ công suất tín hiệu ($S$) và công suất nhiễu ($N$).
+\medskip
+
+\begin{equation*}
+    \text{SNR} = \frac{\text{Signal Power }(S)}{\text{Noise Power }(N)}
+\end{equation*}
+\medskip
+
+\noindent
+$\Rightarrow$ SNR càng cao $\Rightarrow$ tín hiệu càng mạnh hơn nhiễu.
+\medskip
+
+\noindent
+Ví dụ: nói chuyện trong một quán karaoke, giọng mình ($S$) so với tiếng nhạc ồn ($N$), nếu $S < N$, người ta sẽ không nghe được mình nói gì cả $\rightarrow$ tốc độ truyền tin $= 0$.
+\medskip
+
+\noindent
+\textbf{Định luật Shannon-Hartley (Shannon-Hartley theorem):}
+
+\begin{equation*}
+    \text{Maximum data rate [bit/s]} = H * \log_2(1 + \frac{S}{N})
+\end{equation*}
+\medskip
+
+\noindent
+Trong đó:
+
+\begin{itemize}
+    \item Signal strength ($S$) $\rightarrow$ cường độ tín hiệu.
+    \item Noise strength ($N$) $\rightarrow$ cường độ nhiễu.
+    \item Bandwidth ($H$) $\rightarrow$ độ rộng băng tần (tính bằng Hz).
+\end{itemize}
+\medskip
+
+\noindent
+The SNR is commonly expressed in decibel (dB):
+
+\begin{equation*}
+    \text{SNR [dB]} = 10 * \log_{10}(\frac{S}{N})
+\end{equation*}
+\medskip
+
+\noindent
+\underline{Self-note:} công thức Shannon ở trên dùng tỷ số thường ($S/N$) $\rightarrow$ nếu đề bài cho SNR là 30dB, mình \textbf{không được} thay số 30 vào công thức Shannon 
+
+$\Rightarrow$ Phải chuyển đổi 30dB thành 1000 lần ($S/N = 10^{30/10} = 10^3 = 1000$) rồi mới thay vào công thức Shannon.
+\medskip
+
+\noindent
+\underline{Finalize:} định lý Shannon-Hartley cho ta biết giới hạn lý thuyết về tốc độ truyền dữ liệu tối đa trên một kênh truyền có nhiễu.
+\medskip
