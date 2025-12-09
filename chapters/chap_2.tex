@@ -483,3 +483,23 @@ $\Rightarrow$ Phải chuyển đổi 30dB thành 1000 lần ($S/N = 10^{30/10} =
 \noindent
 \underline{Finalize:} định lý Shannon-Hartley cho ta biết giới hạn lý thuyết về tốc độ truyền dữ liệu tối đa trên một kênh truyền có nhiễu.
 \medskip
+
+\section{Data Encoding}
+
+\subsection{Line Encoding}
+
+\subsubsection{Baseband and Broadband}
+
+\noindent
+Vấn đề được đặt ra: làm thế nào để có thể đưa các bit (0 và 1) lên đường truyền?
+
+$\rightarrow$ Data encoding (mã hóa dữ liệu) cần xác định được kí hiệu nào là 0, kí hiệu nào là 1.
+\medskip
+
+\noindent
+Có 2 cách:
+
+\begin{itemize}
+    \item \textbf{Baseband} (dải cơ sở) $\rightarrow$ truyền tín hiệu nguyên bản (transmitted as is); tín hiệu số (xung vuông) được đẩy trực tiếp lên dây $\Rightarrow$ cần có data encoding để quy định rõ các mức điện áp 0 hay 1 $\rightarrow$ thường dùng cho mạng LAN hoặc kết nối ngắn.
+    \item \textbf{Broadband} (dải rộng) $\rightarrow$ tín hiệu số được biến đổi (modulate) thành analog trước khi truyền đi $\Rightarrow$ cho phép chia đường truyền thành nhiều kênh tần số khác nhau (nhiều luồng dữ liệu có thể truyền cùng một lúc) $\rightarrow$ dùng cho truyền dẫn quãng dài như truyền hình cáp hay 4G chẳng hạn.
+\end{itemize}
