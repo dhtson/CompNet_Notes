@@ -190,7 +190,11 @@ The ratio between bit rate and symbol rate $\rightarrow$ phụ thuộc vào côn
 \medskip
 
 \noindent
-\underline{Self-note:} line code $\rightarrow$ là quy tắt để máy tính truyền tín hiệu lên dây dẫn sao cho bên nhận có thể hiểu được.
+\underline{Self-note:} 
+\medskip
+
+\noindent
+Line code $\rightarrow$ là quy tắt để máy tính truyền tín hiệu lên dây dẫn sao cho bên nhận có thể hiểu được.
 
 $\Rightarrow$ Quy định: số lượng tín hiệu tối đa có thể truyền qua transmission media được sử dụng (số 1 thì điện áp như nào, số 0 thì điện áp như nào); xác định bởi layer protocol được sử dụng.
 \medskip
@@ -199,20 +203,15 @@ $\Rightarrow$ Quy định: số lượng tín hiệu tối đa có thể truyề
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/line_code_ex.png}
 \end{figure}
-\medspace
+
+\pagebreak
 
 \noindent
-\underline{Bonus:}
+\underline{Bonus:} (sẽ được nói kĩ hơn ở mục dưới)
 \medskip
 
 \noindent
 NRZ (Non-Return to Zero) encoding $\rightarrow$ gặp số 0 thì giữ điện áp mức thấp, còn gặp 1 thì giữ ở mức cao.
-\medskip
-
-\begin{itemize}
-    \item \textbf{Pros:} hiệu quả cao $\rightarrow$ gửi 10 bit/s thì tín hiệu chỉ cần thay đổi tối đa 10 lần/s (10 Baud).
-    \item \textbf{Cons:} đồng bộ kém (clock recovery problem) $\rightarrow$ gửi một dãy số 1 dài, đường dây sẽ giữ mức điện áp cao mãi $\Rightarrow$ bên nhận không biết đâu là bit thứ nhất, đâu là bit thứ hai.
-\end{itemize}
 \medskip
 
 \noindent
@@ -223,11 +222,6 @@ Manchester Encoding $\rightarrow$ không quan tâm mức cao hay thấp, chỉ q
     \item Số 1 $\rightarrow$ đang thấp nhảy lên cao (rising edge).
 \end{itemize}
 \medskip
-
-\begin{itemize}
-    \item \textbf{Pros:} tự đồng bộ (self-synchronizing) $\rightarrow$ giữa mỗi bit luôn luôn có một cú nhảy (lên hoặc xuống) $\Rightarrow$ máy tính nhận biết ngay lập tức vị trí các bit $\Rightarrow$ không bao giờ bị mất đồng bộ dù có gửi cả đống số 1 liên tiếp.
-    \item \textbf{Cons:} hiệu quả giảm một nửa; để gửi 10 bit/s thì tín hiệu phải thay đổi 20 lần/s (20 Baud) $\Rightarrow$ một bit cần 2 trạng thái điện áp (nửa đầu thấp, nửa sau cao) $\Rightarrow$ tốn băng thông gấp đôi so với NRZ.
-\end{itemize}
 
 \subsection{Data Rate}
 
@@ -244,8 +238,6 @@ $\Rightarrow$ Nó trả lời cho câu "trong 1s thì gửi được bao nhiêu 
     \item Bandwidth (băng thông), kí hiệu: $H$ $\rightarrow$ độ rộng của đường vận chuyển. Đường càng rộng (Hertz càng cao) $\Rightarrow$ bit chạy càng nhiều.
     \item Levels (mức tín hiệu) (hoặc độ nhiễu (noise)), kí hiệu: $V$ $\rightarrow$ nếu không có nhiễu $\Rightarrow$ dùng càng nhiều mức tín hiệu ($V$ càng cao; như 4 mức, 8 mức), tốc độ càng nhanh.
 \end{enumerate}
-
-\pagebreak
 
 \noindent
 \textbf{Định luật Hartley (Hartley's law):}
@@ -266,6 +258,8 @@ Trong đó:
 \noindent
 \underline{Note:} Định luật của Hartley là \textbf{điều kiện lý tưởng} $\rightarrow$ đường truyền hoàn hảo, không có nhiễu (noiseless) $\Rightarrow$ tốc độ tối đa phụ thuộc vào việc mình tạo ra được bao nhiêu tín hiệu.
 \medspace
+
+\pagebreak
 
 \subsection{Ideal vs. Real Transmission}
 
@@ -338,8 +332,6 @@ $\Rightarrow$ Attenuation giới hạn khoảng cách tối đa có thể truy�
 
 \noindent
 $\rightarrow$ Plus attenuation, refraction (làm lệch hướng), reflection (phản xạ), etc.
-
-\pagebreak
 
 \noindent
 \begin{center}
@@ -503,3 +495,71 @@ Có 2 cách:
     \item \textbf{Baseband} (dải cơ sở) $\rightarrow$ truyền tín hiệu nguyên bản (transmitted as is); tín hiệu số (xung vuông) được đẩy trực tiếp lên dây $\Rightarrow$ cần có data encoding để quy định rõ các mức điện áp 0 hay 1 $\rightarrow$ thường dùng cho mạng LAN hoặc kết nối ngắn.
     \item \textbf{Broadband} (dải rộng) $\rightarrow$ tín hiệu số được biến đổi (modulate) thành analog trước khi truyền đi $\Rightarrow$ cho phép chia đường truyền thành nhiều kênh tần số khác nhau (nhiều luồng dữ liệu có thể truyền cùng một lúc) $\rightarrow$ dùng cho truyền dẫn quãng dài như truyền hình cáp hay 4G chẳng hạn.
 \end{itemize}
+
+\subsubsection{Encoding Schemes}
+
+\noindent
+Cơ chế mã hóa (encoding schemes) $\rightarrow$ tập hợp các quy tắc để chuyển đổi các bit (0 và 1) thành các tín hiệu vật lý để truyền.
+\medskip
+
+\noindent
+\textbf{Có 3 yếu tố chính:}
+
+\begin{itemize}
+    \item Robust (bền vững) $\rightarrow$ tín hiệu phải đủ mạnh và rõ ràng để chống lại nhiễu và distortion (biến dạng) $\rightarrow$ cho dù bị biến đổi thì bên nhận vẫn đọc được đâu là 0, đâu là 1.
+    \item Efficient (hiệu quả) $\rightarrow$ mục tiêu: đạt được tốc độ truyền dữ liệu cao nhất có thể $\Rightarrow$ cơ chế nào cho phép truyền nhiều bit nhất trong cùng một khoảng thời gian (hoặc cùng dải tần) thì hiệu quả nhất.
+    \item Synchronous (đồng bộ) $\rightarrow$ máy gửi và máy nhận phải cùng "nhịp" với nhau thì mới biết được khi nào một bit bắt đầu và kết thúc.
+\end{itemize}
+
+\noindent
+Cách cách để đồng bộ hóa:
+
+\begin{itemize}
+    \item Dùng explicit clock signal (tín hiệu xung nhịp rõ ràng) $\rightarrow$ gửi một tín hiệu xung nhịp riêng biệt cùng với dữ liệu $\Rightarrow$ tốn kém.
+    \item Synchronize on certain points (đồng bộ theo thời điểm) $\rightarrow$ sử dụng như "start bit" để báo hiệu bắt đầu.
+    \item Self-synchronizing signal (tự đồng bộ) $\rightarrow$ bản thân tín hiệu luôn chứa thông tin về xung nhịp (nhờ việc đảo chiều liên tục) $\Rightarrow$ máy nhận không bao giờ lạc nhịp (như Manchester encoding).
+\end{itemize}
+
+\noindent
+$\rightarrow$ There are many ways to encode binary data onto a line; many different encodings are used in different technologies.
+\medskip
+
+\subsubsection{Non-Return-to-Zero (NRZ)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/nrz.jpg}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ là kĩ thuật mã hóa đường truyền đơn giản nhất.
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:} NRZ thực hiện việc gán mức điện áp trực tiếp cho các bit:
+
+\begin{itemize}
+    \item Bit 0 $\rightarrow$ được mã hóa bằng mức điện áp thấp (level 1, chẳng hạn như -5V).
+    \item Bit 1 $\rightarrow$ được mã hóa bằng mức điện áp cao (level 2, chẳng hạn như +5V).
+\end{itemize}
+\medskip
+
+\noindent
+Lý do gọi là "Non-Return-to-Zero" $\rightarrow$ trong suốt thời gian truyền một bit (ví dụ như bit 1) $\rightarrow$ điện áp giữ nguyên ở mức cao từ đầu đến cuối $\Rightarrow$ không trở về mức 0 (zero) giữa các bit (khác với mã RZ).
+
+$\rightarrow$ Khác với mã RZ (Return-to-Zero) $\rightarrow$ nếu là bit 1 (mức cao), điện áp nhảy lên mức cao $\Rightarrow$ nhưng bắt buộc phải trở về mức 0 trước khi bit tiếp theo bắt đầu (khi đi được nửa thời gian của bit đó).
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} đơn giản và hiệu quả (simple and efficient) $\rightarrow$ sử dụng băng thông rất tốt do tần số tín hiệu không phải thay đổi quá nhanh (so với lại Manchester encoding).
+    \item \textbf{Cons:} gặp rắc rối lớn khi truyền dữ liệu có một chuỗi dài các bit giống nhau (như đã nói ở trên) $\Rightarrow$ đường tín hiệu sẽ \textbf{gặp 2 lỗi}: clock recovery (máy sẽ không nhận biết mình đang ở bit thứ mấy) và baseline wander (giữ điện áp quá lâu có thể bị thay đổi mức điện áp trung bình $\Rightarrow$ máy thu sẽ không biết đâu là mức cao, đâu là mức thấp nữa).
+\end{itemize}
+
+\noindent
+\underline{Bonus:} 
+\medskip
+
+\noindent
+$\rightarrow$ Kĩ thuật này được sử dụng trong CAN bus system (Controller Area Network) $\rightarrow$ một hệ thống dùng để kết nối với các bộ điều khiển trong xe hơi do Bosch phát triển từ những năm 1980.
+\medskip
