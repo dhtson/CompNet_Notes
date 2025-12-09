@@ -32,7 +32,7 @@ jobs:
         if: success()
         with:
           tag_name: ${{ env.VERSION_TAG }}
-          name: "Release ${{ env.VERSION_TAG }}"
+          name: "${{ env.VERSION_TAG }}"
           body: |
             Autobuild version: ${{ env.VERSION_TAG }}
             Date: ${{ steps.date.outputs.date }}
