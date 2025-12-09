@@ -1,0 +1,36 @@
+name: Build LaTeX and Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+
+      - name: Rename PDF
+        run: mv main.pdf CompNet_Notes.pdf
+
+      - name: Update Latest Release
+        uses: softprops/action-gh-release@v1
+        if: success()
+        with:
+          tag_name: latest
+          name: "Latest Build"
+          body: "Automated build of CompNet Notes."
+          files: CompNet_Notes.pdf
+          draft: false
+          prerelease: false
