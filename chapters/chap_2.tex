@@ -300,7 +300,7 @@ $\Rightarrow$ Attenuation giới hạn khoảng cách tối đa có thể truy�
 \medskip
 
 \noindent
-\textbf{Quy luật:} Tầng số càng cao, suy hao càng lớn.
+\textbf{Quy luật:} Tần số càng cao, suy hao càng lớn.
 \medskip
 
 \noindent
@@ -653,4 +653,125 @@ $\Rightarrow$ Dữ liệu đã được biến đổi thành tần số mang (ca
 
 \noindent
 $\rightarrow$ \textbf{Modem:} \textbf{Mo}dulation-\textbf{Dem}odulation process (quá trình biến đổi và giải biến đổi).
+\medskip
+
+\subsubsection{Amplitude Shift Keying (ASK)}
+
+\noindent
+ASK: điều chế dịch biên độ (hoặc gọi là điều chế biên độ cũng được).
+\medskip
+
+\noindent
+$\rightarrow$ Là phương pháp điều chế cơ bản được sử dụng trong broadband.
+
+$\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi biên độ} (amplitude) của sóng mang điện từ.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
+\end{figure}
+\medskip
+
+\noindent
+Amplitude Modulation (discrete, Amplitude Shift Keying - ASK) $\rightarrow$ biến đổi biên độ $\Rightarrow$ kí hiệu $A$ từ công thức trên.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/ask_wave.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Bit 1 $\rightarrow$ được mã hóa bằng một sóng có biên độ cao ($A_{high}$).
+    \item Bit 0 $\rightarrow$ được mã hóa bằng một sóng có biên độ thấp ($A_{low}$).
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ máy phát sóng mạnh khi gửi bit 1, và yếu khi gửi bit 0.
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} easy to realize (dễ thực hiện) $\Rightarrow$ chỉ cần thay đổi biên độ của sóng mang; giải mã ở cả 2 đầu máy phát và thu; does not need much bandwidth (không tốn nhiều băng thông) $\rightarrow$ do ASK thay đổi biên độ, tần số được giữ nguyên $\Rightarrow$ nó không tốn nhiều dải tần (so với FSK sẽ nói ở dưới).
+    \item \textbf{Cons:} nhạy cảm với noise; attenuation và noise luôn làm thay đổi biên độ của tín hiệu trong môi trường thực tế $\rightarrow$ nếu gửi bit 1 (biên độ cao) nhưng quá nhiều yếu tố gây nhiễu thì máy sẽ đọc lộn thành bit 0 (biên độ thấp).
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Do đó, ASK không được sử dụng rộng rãi cho truyền dữ liệu tốc độ cao, hay ở khoảng cách xa vì dễ gây ra lỗi bit (BER cao).
+\medskip
+
+\noindent
+Ứng dụng: thường được sử dụng trong truyền dẫn quang (optical transmission) $\rightarrow$ low noise.
+\medskip
+
+\noindent
+\underline{Self-note:} 
+\medskip
+
+$\rightarrow$ Cứ ví ASK như nhìn dãy đèn ở khoảng cách xa $\rightarrow$ đèn sáng (bit 1) và đèn tắt (bit 0) $\Rightarrow$ dễ thao tác, nhưng nếu trời bị sương mù dày đặc (nhiễu cao) $\rightarrow$ nhìn nhầm hoặc không thấy.
+\medskip
+
+\subsubsection{Frequency Shift Keying (FSK)}
+
+\noindent
+FSK: điều chế dịch tần số (hoặc gọi là điều chế tần số cũng được).
+\medskip
+
+\noindent
+$\rightarrow$ Là phương pháp điều chế sử dụng trong broadband.
+
+$\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi tần số} (frequency) của sóng mang điện từ.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
+\end{figure}
+\medskip
+
+\noindent
+Frequency Modulation (discrete, Frequency Shift Keying - FSK) $\rightarrow$ biến đổi tần số $\Rightarrow$ kí hiệu $f$ từ công thức trên.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/fsk_wave.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Bit 1 $\rightarrow$ được mã hóa bằng một sóng có tần số cao ($f_{high}$).
+    \item Bit 0 $\rightarrow$ được mã hóa bằng một sóng có tần số thấp ($f_{low}$).
+\end{itemize}
+
+\noindent
+$\rightarrow$ máy phát sóng nhanh khi gửi bit 1, và chậm khi gửi bit 0.
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} ít nhạy cảm với noise hơi ASK $\Rightarrow$ vì nhiễu thường làm thay đổi biên độ (độ cao) của sóng chứ không phải tần số (độ nhanh/chậm của sóng) $\Rightarrow$ tín hiệu ổn định hơn ASK.
+    \item \textbf{Cons:} lãnh phí tần số (waste of frequencies) $\rightarrow$ cần dành riêng 2 khoảng tần số khác nhau cho bit 0 và bit 1; tốn nhiều băng thông (needs a lot of bandwidth) $\rightarrow$ do phải phân biệt rõ ràng giữa 2 tần số cao thấp $\Rightarrow$ 2 đứa đó nằm cách xa nhau, dẫn đến tốn nhiều tiết diện trên dải băng tần.
+\end{itemize}
+
+\noindent
+$\rightarrow$ Do tốn nhiều băng thông $\Rightarrow$ ít được dùng cho các ứng dụng cần tốc độ cực cao, tuy nhiên độ bền (robustness) của nó uy tín.
+\medskip
+
+\noindent
+Ứng dụng: nguyên lý ban đầu được dùng để truyền dữ liệu qua điện thoại (phone lines).
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ Cứ ví FSK như giọng hát $\rightarrow$ nốt cao (bit 1) và nốt trầm (bit 0) $\Rightarrow$ dù có đang trong phòng ồn ào (bị noise) $\rightarrow$ vẫn phân biệt được nốt cao hay thấp (khó nhầm lẫn hơn so với ASK) $\rightarrow$ tuy nhiên, phải có quãng giọng rộng (được xem như cần nhiều bandwidth) mới có thể hát được cả 2 nốt này rõ ràng.
 \medskip
