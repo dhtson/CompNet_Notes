@@ -480,7 +480,7 @@ $\Rightarrow$ Phải chuyển đổi 30dB thành 1000 lần ($S/N = 10^{30/10} =
 
 \subsection{Line Encoding}
 
-\subsubsection{Baseband and Broadband}
+\subsubsection{Baseband and Broadband (part 1)}
 
 \noindent
 Vấn đề được đặt ra: làm thế nào để có thể đưa các bit (0 và 1) lên đường truyền?
@@ -489,12 +489,10 @@ $\rightarrow$ Data encoding (mã hóa dữ liệu) cần xác định được k
 \medskip
 
 \noindent
-Có 2 cách:
+\underline{Therefore}:
 
-\begin{itemize}
-    \item \textbf{Baseband} (dải cơ sở) $\rightarrow$ truyền tín hiệu nguyên bản (transmitted as is); tín hiệu số (xung vuông) được đẩy trực tiếp lên dây $\Rightarrow$ cần có data encoding để quy định rõ các mức điện áp 0 hay 1 $\rightarrow$ thường dùng cho mạng LAN hoặc kết nối ngắn.
-    \item \textbf{Broadband} (dải rộng) $\rightarrow$ tín hiệu số được biến đổi (modulate) thành analog trước khi truyền đi $\Rightarrow$ cho phép chia đường truyền thành nhiều kênh tần số khác nhau (nhiều luồng dữ liệu có thể truyền cùng một lúc) $\rightarrow$ dùng cho truyền dẫn quãng dài như truyền hình cáp hay 4G chẳng hạn.
-\end{itemize}
+\textbf{$\rightarrow$ Baseband} (dải cơ sở) $\rightarrow$ truyền tín hiệu nguyên bản (transmitted as is); tín hiệu số (xung vuông) được đẩy trực tiếp lên dây $\Rightarrow$ cần có data encoding để quy định rõ các mức điện áp 0 hay 1 $\rightarrow$ thường dùng cho mạng LAN hoặc kết nối ngắn.
+\medskip
 
 \subsubsection{Encoding Schemes}
 
@@ -558,8 +556,101 @@ $\rightarrow$ Khác với mã RZ (Return-to-Zero) $\rightarrow$ nếu là bit 1 
 
 \noindent
 \underline{Bonus:} 
+
+$\rightarrow$ Kĩ thuật này được sử dụng trong CAN bus system (Controller Area Network) $\rightarrow$ một hệ thống dùng để kết nối với các bộ điều khiển trong xe hơi do Bosch phát triển từ những năm 1980.
+\medskip
+
+\subsubsection{Manchester Code}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/man_code.jpg}
+\end{figure}
 \medskip
 
 \noindent
-$\rightarrow$ Kĩ thuật này được sử dụng trong CAN bus system (Controller Area Network) $\rightarrow$ một hệ thống dùng để kết nối với các bộ điều khiển trong xe hơi do Bosch phát triển từ những năm 1980.
+$\rightarrow$ là kĩ thuật giải quyết cho vấn đề đồng bộ hóa.
+
+$\Rightarrow$ Tập trung vào hướng di chuyển (transition) của dòng điện ở giữa khoảng thời gian mỗi bit (khác với NRZ chỉ quan tâm đến điện áp cao hay thấp).
+
+\begin{itemize}
+    \item Logical 1 $\rightarrow$ encoded with a rising edge (sườn lên) $\Rightarrow$ thay đổi từ signal level 1 (mức thấp) sang signal level 2 (mức cao).
+    \item Logical 2 $\rightarrow$ encoded with a falling edge (sườn xuống) $\Rightarrow$ thay đổi từ signal level 2 (mức cao) sang signal level 1 (mức thấp).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Quy tắc đặt biệt:} nếu có 2 bit giống nhau đi liền (ví dụ: \texttt{0} và \texttt{0} ở sát nhau), thì tại cuối bit thứ nhất, tín hiệu sẽ phải đổi trạng thái để phân biệt cho việc đổi trạng thái của bit sau.
+\medskip
+
+\noindent
+\underline{Self-note:}
+
+$\Rightarrow$ Nếu quan sát kĩ trên hình vẽ thì Manschester encoding sẽ luôn có một transition ở giữa bit; nửa trái là để phân biệt giữa 2 bit, nửa phải là để biểu diễn giá trị của bit đó (0 hay 1 thông qua mức thấp hay cao).
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} tự đồng bộ (self-synchronizing) $\rightarrow$ do ở chính giữa của mỗi bit luôn có một transition $\Rightarrow$ máy nhận có thể dùng cái này để đếm xung (clock) $\Rightarrow$ không bao giờ bị nhầm lẫn giữa các bit dù có gửi cả chuỗi bit giống nhau dài cách mấy.
+    \item \textbf{Cons:} hiệu suất thấp, chỉ đạt cỡ 50\% so với NRZ $\Rightarrow$ vì khi 1 bit được gửi $\rightarrow$ tín hiệu phải thay đổi trạng thái tới 2 lần (nửa đầu khác, nửa sau khác) $\Rightarrow$ tốc độ Baud phải gấp đôi so với tốc dộ bit $\rightarrow$ tốn băng thông hơn so với NRZ.
+\end{itemize}
+
+\noindent
+\underline{Bonus:} 
+
+$\rightarrow$ Do tính ổn định và khả năng tự đồng bộ cao, mã này được sử dụng trong mạng Ethernet 10 Mbps (10BASE-T hay 10BASE2).
+\medskip
+
+\subsection{Modulation}
+
+\subsubsection{Baseband and Broadband (part 2)}
+
+\noindent
+Vấn đề được đặt ra: làm thế nào để truyền dữ liệu đi xa hơn và truyền được nhiều luồng dữ liệu cùng một lúc?
+
+$\rightarrow$ Modulation (biến đổi tín hiệu) $\rightarrow$ biến đổi digital signal thành analog signal trước khi truyền $\Rightarrow$ by using different carrier signals (frequencies) $\rightarrow$ several transmissions can happen simultaneously.
+\medskip
+
+\noindent
+\underline{Therefore}:
+
+\textbf{$\rightarrow$ Broadband} (dải rộng) $\rightarrow$ tín hiệu số được biến đổi (modulate) thành analog trước khi truyền $\Rightarrow$ cho phép chia đường truyền thành nhiều kênh tần số khác nhau (nhiều luồng dữ liệu có thể truyền cùng một lúc) $\rightarrow$ dùng cho truyền dẫn quãng dài như truyền hình cáp hay 4G chẳng hạn.
+\medskip
+
+\subsubsection{Principle of Modulation}
+
+\noindent
+\textbf{Công thức electromagnetic signal (tín hiệu điện tử):}
+
+\begin{equation*}
+    s(t) = A * \sin(2 \pi f t + \phi)
+\end{equation*}
+
+\noindent
+Trong đó:
+
+\begin{itemize}
+    \item $A$ $\rightarrow$ amplitude (biên độ).
+    \item $f$ $\rightarrow$ frequency (tần số).
+    \item $\phi$ $\rightarrow$ phase (pha).
+    \item $t$ $\rightarrow$ time (thời gian).
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/electro_mag_wave.png}
+\end{figure}
+\medskip
+
+\noindent
+$\Rightarrow$ Dữ liệu đã được biến đổi thành tần số mang (carrier frequency) $\rightarrow$ có thể truyền đi xa hơn và nhiều luồng dữ liệu có thể truyền cùng lúc.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/modem_illust.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ \textbf{Modem:} \textbf{Mo}dulation-\textbf{Dem}odulation process (quá trình biến đổi và giải biến đổi).
 \medskip
