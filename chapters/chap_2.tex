@@ -662,7 +662,7 @@ ASK: điều chế dịch biên độ (hoặc gọi là điều chế biên đ�
 \medskip
 
 \noindent
-$\rightarrow$ Là phương pháp điều chế cơ bản được sử dụng trong broadband.
+$\rightarrow$ Là phương pháp điều chế cơ bản được sử dụng trong broadband (phương pháp thứ nhất).
 
 $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi biên độ} (amplitude) của sóng mang điện từ.
 \medskip
@@ -692,7 +692,7 @@ Amplitude Modulation (discrete, Amplitude Shift Keying - ASK) $\rightarrow$ bi�
 \medskip
 
 \noindent
-$\rightarrow$ máy phát sóng mạnh khi gửi bit 1, và yếu khi gửi bit 0.
+$\rightarrow$ Máy phát sóng mạnh khi gửi bit 1, và yếu khi gửi bit 0.
 \medskip
 
 \begin{itemize}
@@ -713,7 +713,7 @@ $\Rightarrow$ Do đó, ASK không được sử dụng rộng rãi cho truyền 
 \underline{Self-note:} 
 \medskip
 
-$\rightarrow$ Cứ ví ASK như nhìn dãy đèn ở khoảng cách xa $\rightarrow$ đèn sáng (bit 1) và đèn tắt (bit 0) $\Rightarrow$ dễ thao tác, nhưng nếu trời bị sương mù dày đặc (nhiễu cao) $\rightarrow$ nhìn nhầm hoặc không thấy.
+$\rightarrow$ Cứ xem ASK như nhìn dãy đèn ở khoảng cách xa $\rightarrow$ đèn sáng (bit 1) và đèn tắt (bit 0) $\Rightarrow$ dễ thao tác, nhưng nếu trời bị sương mù dày đặc (nhiễu cao) $\rightarrow$ nhìn nhầm hoặc không thấy.
 \medskip
 
 \subsubsection{Frequency Shift Keying (FSK)}
@@ -723,7 +723,7 @@ FSK: điều chế dịch tần số (hoặc gọi là điều chế tần số 
 \medskip
 
 \noindent
-$\rightarrow$ Là phương pháp điều chế sử dụng trong broadband.
+$\rightarrow$ Là phương pháp điều chế sử dụng trong broadband (phương pháp thứ hai).
 
 $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi tần số} (frequency) của sóng mang điện từ.
 \medskip
@@ -752,7 +752,7 @@ Frequency Modulation (discrete, Frequency Shift Keying - FSK) $\rightarrow$ bi�
 \end{itemize}
 
 \noindent
-$\rightarrow$ máy phát sóng nhanh khi gửi bit 1, và chậm khi gửi bit 0.
+$\rightarrow$ Máy phát sóng nhanh khi gửi bit 1, và chậm khi gửi bit 0.
 \medskip
 
 \begin{itemize}
@@ -773,5 +773,133 @@ $\rightarrow$ Do tốn nhiều băng thông $\Rightarrow$ ít được dùng cho
 \medskip
 
 \noindent
-$\rightarrow$ Cứ ví FSK như giọng hát $\rightarrow$ nốt cao (bit 1) và nốt trầm (bit 0) $\Rightarrow$ dù có đang trong phòng ồn ào (bị noise) $\rightarrow$ vẫn phân biệt được nốt cao hay thấp (khó nhầm lẫn hơn so với ASK) $\rightarrow$ tuy nhiên, phải có quãng giọng rộng (được xem như cần nhiều bandwidth) mới có thể hát được cả 2 nốt này rõ ràng.
+$\rightarrow$ Cứ xem FSK như giọng hát $\rightarrow$ nốt cao (bit 1) và nốt trầm (bit 0) $\Rightarrow$ dù có đang trong phòng ồn ào (bị noise) $\rightarrow$ vẫn phân biệt được nốt cao hay thấp (khó nhầm lẫn hơn so với ASK) $\rightarrow$ tuy nhiên, phải có quãng giọng rộng (được xem như cần nhiều bandwidth) mới có thể hát được cả 2 nốt này rõ ràng.
+\medskip
+
+\subsubsection{Phase Shift Keying (PSK)}
+
+\noindent
+PSK: điều chế dịch pha (hoặc gọi là điều chế pha cũng được).
+\medskip
+
+\noindent
+$\rightarrow$ Là phương pháp điều chế sử dụng trong broadband (phương pháp thứ ba).
+
+$\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi pha} ($\phi$ phase) của sóng mang điện từ.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
+\end{figure}
+\medskip
+
+\noindent
+Phase Modulation (discrete, Phase Shift Keying - PSK) $\rightarrow$ biến đổi pha $\Rightarrow$ kí hiệu $\phi$ từ công thức trên.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/psk_wave.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Bit 1 $\rightarrow$ sóng bắt đầu ở một góc pha nhất định (như 0$^\circ$).
+    \item Bit 0 $\rightarrow$ sóng bắt đầu ở góc pha khác (như 180$^\circ$).
+\end{itemize}
+
+\noindent
+$\rightarrow$ Tín hiệu bị ngắt và đảo ngược trạng thái mỗi khi bit thay đổi (như hình trên, có thể thấy được ngay chỗ sóng bị đảo chiều).
+\medskip
+
+\begin{itemize}
+    \item \textbf{Pros:} chống nhiễu tốt (robust against noise) $\Rightarrow$ vì nhiễu thường tác động vào biên độ, ít khi làm thay đổi pha của sóng $\Rightarrow$ ổn định hơn so với ASK; là giải pháp tổng thể tốt nhất $\rightarrow$ cân bằng giữa hiệu suất và chất lượng.
+    \item \textbf{Cons:} quá trình giải điều chế phức tạp (complex demodulation process) $\Rightarrow$ receiver phải cực kì chính xác để có thể phát hiện ra sự lệch pha (dựa theo góc của sóng) $\rightarrow$ đòi hỏi phần cứng đắt tiền và phức tạp hơn so với việc chỉ cần đo độ cao (như ASK) hay đo tần số (như FSK).
+\end{itemize}
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ Cứ xem như PSK là 2 người chạy tiếp sức:
+
+\begin{itemize}
+    \item Bit 1 $\rightarrow$ người đầu tiên xuất phát ngay vạch xuất phát.
+    \item Bit 0 $\rightarrow$ người thứ hai xuất phát ở vạch đối diện với người đầu tiên (lệch 180$^\circ$).
+\end{itemize}
+
+$\rightarrow$ Dù trời mưa có to đi chăng nữa (noise) $\Rightarrow$ vẫn biết được người đang chạy xuất phát từ đâu, do vị trí xuất phát cách rất xa nhau nên không bị nhầm.
+\medskip
+
+$\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có thể phân biệt được ai với ai (như cách máy phải chuẩn lắm mới phát hiện được, không đơn giản như ASK).
+\medskip
+
+\subsubsection{Overview}
+
+\noindent
+\underline{Finalize:}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.55\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/overview.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.4\textwidth}
+    \begin{enumerate}
+        \renewcommand{\labelenumi}{\alph{enumi}.}
+        \item Binary signal.
+        \item Amplitude modulation.
+        \item Frequency modulation.
+        \item Phase modulation.
+        \end{enumerate}
+\end{minipage}
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent
+\textbf{Binary signal (tín hiệu nhị phân):}
+
+\begin{itemize}
+    \item[$\rightarrow$] Đây là dữ liệu đầu vào (input data).
+    \item[$\rightarrow$] Là các bit 0 và 1.
+    \item[$\rightarrow$] Hình sóng vuông $\Rightarrow$ mức cao là 1, thấp là 0.
+    \item[$\rightarrow$] Là nơi điều kiển sóng mang phải thay đổi như thế nào.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Amplitude modulation (điều chế biên độ) - ASK:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Binary bảo sao thì \textbf{biên độ} của sóng cũng vậy.
+    \item[$\rightarrow$] Bit = 1 $\Rightarrow$ sóng dao động mạnh; bit = 0 $\Rightarrow$ sóng dao động yếu.
+    \item[$\rightarrow$] Tần số và pha giữ nguyên không đổi.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Frequency modulation (điều chế tần số) - FSK:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Binary bảo sao thì \textbf{tần số} của sóng cũng vậy.
+    \item[$\rightarrow$] Bit = 1 $\Rightarrow$ sóng bị ép lại, dao động nhanh (tần số cao); bit = 0 $\Rightarrow$ sóng giãn ra, dao động chậm (tần số thấp).
+    \item[$\rightarrow$] Biên độ và pha giữ nguyên không đổi.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Phase modulation (điều chế pha) - PSK:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Binary thay đổi (từ 0 $\rightarrow$ 1 hoặc 1 $\rightarrow$ 0) thì sóng phải \textbf{đảo chiều} (đổi pha).
+    \item[$\rightarrow$] Mỗi khi bit thay đổi $\rightarrow$ sóng bị gãy và đi xuống (hoặc ngược lại) $\Rightarrow$ tạo sự lệch pha (nhằm để phân biệt giữa 2 bit khác nhau).
+    \item[$\rightarrow$] Biên độ và tần số giữ nguyên không đổi (sóng cao bằng nhau và nhanh như nhau).
+\end{itemize}
 \medskip
