@@ -903,3 +903,116 @@ $\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có th
     \item[$\rightarrow$] Biên độ và tần số giữ nguyên không đổi (sóng cao bằng nhau và nhanh như nhau).
 \end{itemize}
 \medskip
+
+\section{Transmission Media}
+
+\subsection{Classification of Transmission Media}
+
+\noindent
+Mô hình tổng thể:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.78\textwidth]{assets/chap_2/class_trans_med.png}
+\end{figure}
+\medspace
+
+$\rightarrow$ Chia làm 2 loại chính: \textbf{guided media} (phương tiện hữu tuyến) và \textbf{unguided media} (phương tiện vô tuyến).
+\medskip
+
+\subsection{Guided Transmission Media}
+
+\noindent
+Guided transmission media (phương tiện truyền dẫn có hướng) $\rightarrow$ tín hiệu được dẫn đường cụ thể bên trong một vật thể vật lý (như dây dẫn chẳng hạn).
+
+$\Rightarrow$ Tín hiệu không truyền bên ngoài.
+\medskip
+
+\noindent
+Được chia làm \textbf{2 loại}:
+
+\begin{itemize}
+    \item Conductor (dây dẫn) $\rightarrow$ dùng dòng điện để truyền tín hiệu.
+    \item Wave guide (dẫn sóng) $\rightarrow$ dùng sóng ánh sáng (light waves) để truyền tín hiệu.
+\end{itemize}
+
+\subsubsection{Coaxial Cables (Coax Cables)}
+
+\noindent
+Coaxial cable (cáp đồng trục) $\rightarrow$ là loại dây dẫn hữu tuyến phổ biến (dùng cho truyền hình cáp, mạng thế hệ cũ, ...).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/chap_2/coaxial.jpg}
+\end{figure}
+\medspace
+
+\noindent
+$\rightarrow$ Một loại cáp đồng trục dùng để mang tín hiệu bipolar.
+\medskip
+
+\noindent
+\underline{Self-note:} tín hiệu dạng bipolar là tín hiệu điện có 3 mức điện áp: dương (+V), âm (-V) và không (0V) $\rightarrow$ thường dùng nhiều trong viễn thông và một số hệ thống truyền dữ liệu.
+\medskip
+
+\noindent
+\textbf{Cấu tạo:}
+
+\begin{itemize}
+    \item \textbf{Inner conductor} (dây dẫn bên trong) $\rightarrow$ thường làm bằng đồng $\Rightarrow$ có nhiệm vụ mang tín hiệu điện (carries electrical signal) $\rightarrow$ đây là nơi dữ liệu chạy qua.
+    \item \textbf{Insulation} (lớp cách điện) $\rightarrow$ làm bằng nhựa PE $\Rightarrow$ ngăn cách, không cho lõi chạm vào lớp vỏ lưới bên ngoài nhằm tránh chập mạch.
+    \item \textbf{Outer conductor / shield} (lớp vỏ dẫn điện) $\rightarrow$ được làm bằng nhôm hoặc lưới kim loại $\Rightarrow$ có nhiệm vụ giữ mức điện thế đất (ground potential); bao bọc xung quanh lõi hòng ngăn chặn nhiễu điện từ (noise) từ bên ngoài xâm nhập vào lõi.
+    \item \textbf{Plastic jacket} (lớp vỏ nhựa) $\rightarrow$ bảo vệ vật lý cho sợi cáp (chống nước, trầy xước các kiểu).
+\end{itemize}
+\medskip
+
+\subsubsection{Twisted Pair Cables}
+
+\noindent
+Twisted pair cable (cáp xoắn đôi) $\rightarrow$ là loại dây dẫn hữu tuyến phổ biến nhất, rẻ nhất, thường thấy dùng trong mạng LAN (Ethernet) và điện thoại bàn.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.6\textwidth}
+        \centering
+        \includegraphics[width=0.6\textwidth]{assets/chap_2/tp_dia.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{assets/chap_2/tp_cable_1.jpg}
+    \end{minipage}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Dây của cáp xoắn đôi được xoắn cặp (pairwise twisted) với nhau.
+\medskip
+
+\noindent
+\textbf{Cấu tạo cơ bản:} gồm 2 dây dẫn đồng được bọc cách điện.
+\medskip
+
+\noindent
+\textbf{Nguyên tắc "twist":} 2 sợ dây đồng được xoắn lại như buộc tóc đuôi sam $\rightarrow$ để chống nhiễu từ (EMI - Electromagnetic Interference) và crosstalk (xuyên âm) giữa các cặp dây bên trong.
+
+$\Rightarrow$ Twisted pairs are better protected against alternating magnetic fields and electrostatic interference from the outside than parallel signal wires.
+\medskip
+
+\noindent
+\underline{Self-note:}
+
+\begin{itemize}
+    \item Xuyên âm $\rightarrow$ là sự nhiễu loạn lẫn nhau giữa các dây dẫn chạy song song $\Rightarrow$ khi dòng điện chạy trong dây dẫn thứ nhất, nó sẽ tạo ra từ trường xung quanh nó $\rightarrow$ từ trường này gây hiện tượng cảm ứng sang dây kế bên mà nó nằm song song, tạo ra một dòng điện không mong muốn trên dây kia.
+    \item EMI $\rightarrow$ là nhiễu do các nguồn bên ngoài phát ra, tác động vào sợi cáp (như sấm sét, tia lửa điện, vi sóng, thiết bị Bluetooth, ...).
+\end{itemize}
+
+\noindent
+\textbf{Công dụng của việc xoắn:}
+
+\begin{itemize}
+    \item Chống nhiễu (EMI) từ tác động bên ngoài $\rightarrow$ do xoắn, sóng nhiễu sẽ tác động lên mỗi sợi dây trong cặp ngược chiều nhau $\Rightarrow$ khi receiver đọc tín hiệu (bằng cách lấy hiệu giữa 2 sợi dây) thì nhiễu sẽ tự động triệt tiêu.
+    \item Chống xuyên âm (crosstalk) từ trong $\rightarrow$ mỗi cặp dây có tốc độ xoắn khác nhau $\Rightarrow$ giảm thiểu tối đa lượng nhiễu bị truyền từ cặp này sang cặp khác.
+\end{itemize}
