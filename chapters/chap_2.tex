@@ -1026,3 +1026,207 @@ $\rightarrow$ Tất cả các chuẩn Ethernet dùng cáp xoắn đôi đều s�
 \noindent
 $\rightarrow$ Cáp xoắn đôi thường được trang bị thêm lớp vỏ kim loại (medal shield) $\Rightarrow$ ngăn chặn nhiễu điện từ (EMI) từ bên ngoài.
 \medskip
+
+\noindent
+$\rightarrow$ Các cặp dây hoặc toàn bộ sợi cáp có thể được bọc thêm lớp chống nhiễu (bằng lưới kim loại (braided shield) hoặc lá kim loại (foil shield)).
+
+$\Rightarrow$ Lớp chống nhiễu chỉ hiệu quả khi hai đầu cáp được nối đất tại cùng một điện thế (ground potential).
+\medskip
+
+\noindent
+\underline{Self-note:} hai đầu cáp phải nối đất cùng một hiệu điện thế $\rightarrow$ do lớp chống nhiễu chỉ hoạt động đúng khi không có dòng điện chạy qua (đúng nghĩa cái từ "chống nhiễu").
+
+$\rightarrow$ Theo định luật Ohm, nếu có hiệu điện thế chênh lệch thì sẽ có dòng điện chạy qua.
+\medskip
+
+\noindent
+\textbf{UTP:} Unshielded Twisted Pair (cáp xoắn không vỏ bọc) $\rightarrow$ không có lớp vỏ kim loại bảo vệ bên ngoài.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/utp.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.6\textwidth}
+    \begin{itemize}
+        \item[$\rightarrow$] Chỉ có dây đồng xoắn và lớp vỏ nhựa PVC.
+        \item[$\Rightarrow$] Rẻ và phổ biến nhất, nhưng chống nhiễu kém (chỉ dựa theo nguyên lý xoắn dây để chống).
+    \end{itemize}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{FTP / F-UTP:} Foiled Twisted Pair (cáp xoắn đôi có lá bọc) $\rightarrow$ có lớp lá kim loại bọc bên ngoài từng cặp dây.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/ftp.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.6\textwidth}
+    \begin{itemize}
+        \item[$\rightarrow$] Các cặp dây được bao bọc bởi một lớp kim loại mỏng bao quanh toàn bộ bó dây (twisted pairs).
+        \item[$\Rightarrow$] Chống nhiễu tốt hơn UTP một xíu.
+    \end{itemize}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{SFTP:} Shielded Foiled Twisted Pair (cáp xoắn đôi có lá bọc và vỏ bọc) $\rightarrow$ có lớp lá kim loại bọc bên ngoài từng cặp dây, đồng thời có lớp lưới kim loại bọc bên ngoài toàn bộ bó dây.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/sftp.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/sftp-struct.jpg}
+\end{minipage}
+\end{center}
+\medskip
+
+\begin{itemize}
+    \item Shield-foil $\rightarrow$ từng cặp dây hoặc bó dây được bao bọc lá nhôm.
+    \item Shield-braid $\rightarrow$ ngoài cùng có thêm một một lớp lưới kim loại (braided).
+    \item Drain wire $\rightarrow$ dây nối đất (ground wire) để dòng điện nhiễu xuống đất.
+    \item[$\Rightarrow$] Chống nhiễu cực tốt, cáp rất to, chi phí đắt.
+\end{itemize}
+\medskip
+
+\subsubsection{Categories of Twisted Pair Cables}
+
+\noindent
+\textbf{Nguyên tắc:}
+\medskip
+
+\noindent
+Hiệu suất của toàn bộ kết nối được quyết định từ category thấp nhất $\rightarrow$ ví dụ như dùng Cat 7 (xịn nhất) mà đi cắm vào một cái ổ siêu lỗi thời (như Cat 5 chẳng hạn) thì tốc độ nó sẽ ở mức của Cat 5 chứ không phải ngang mức cái dây.
+\medskip
+
+\begin{itemize}
+    \item Cat 1/2/3/4 $\rightarrow$ đã lỗi thời. Nay chỉ dùng cho điện thoại bàn.
+    \item Cat 5/5e $\rightarrow$ phổ biến trong các mạng LAN ngày nay; có tốc độ ổn cho các nhu cầu bình thường (100Mbps - 1Gbps).
+    \item Cat 6/6A $\rightarrow$ có tốc độ cao, hỗ trợ lên đến 10Gbps ở khoảng cách 100m; dùng cho mạng đòi hỏi tốc độ nhanh.
+    \item Cat 7/7A $\rightarrow$ thật ra chả có lợi gì hơn so với Cat 6A.
+    \item Cat 8 $\rightarrow$ được thiết kế cho các data center; hỗ trợ với tốc độ cực cao nhưng chỉ với khoảng cách ngắn ($\approx$30m).
+\end{itemize}
+
+\noindent
+\textbf{Câu hỏi:} tại sao Cat càng lớn càng xịn hơn, nhanh hơn?
+
+$\Rightarrow$ Number of twists (số vòng xoắn) per wire length (cm) and thickness of the jacket (lớp vỏ bọc bên ngoài).
+
+\begin{itemize}
+    \item Càng xoắn nhiều vòng $\Rightarrow$ càng ít nhiễu (more twists $\Rightarrow$ less interference).
+    \item Lớp vỏ bọc càng dày $\Rightarrow$ càng chống nhiễu tốt (thickness of the cladding (lớp bao phủ) $\Rightarrow$ less crosstalk).
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Cat 5/5e có 1-2 vòng xoắn trên mỗi cm. Cat 6 có 2 vòng xoắn trở lên trên mỗi cm.
+\medskip
+
+\noindent
+$\rightarrow$ Crosstalk là hiện tượng tín hiệu bị nhiễu lẫn nhau giữa các đường dây song song.
+\medskip
+
+\pagebreak
+
+\subsubsection{Fiber-optic Cables}
+
+\noindent
+Fiber-optic cable (cáp quang) $\rightarrow$ là loại dây dẫn hữu tuyến dùng sóng ánh sáng để truyền tín hiệu thay vì dây lõi đồng.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/fiber_1.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/chap_2/fiber_2.jpg}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Light source (nguồn sáng) $\rightarrow$ sử dụng đèn LED hoặc laser LED để bắn tín hiệu.
+    \item Use wavelengths (dùng bước sóng) $\rightarrow$ sử dụng các bước sóng 850, 1300, hoặc 1550 nm.
+    \item Môi trường truyền $\rightarrow$ ánh sáng chạy trong sợi thủy tinh với tốc độ gần 200,000 km/s.
+\end{itemize}
+
+\noindent
+\textbf{So sánh với coaxial (cáp đồng trục) và twisted pair (cáp xoắn đôi):}
+\medskip
+
+\noindent
+\textbf{Pros:}
+
+\begin{itemize}
+    \item High data rates and large distances $\rightarrow$ tốc độ cực cao và truyền được rất xa (hàng chục km không cần khuếch đại).
+    \item No electromagnetic emission $\rightarrow$ không phát sóng điện từ ra ngoài $\Rightarrow$ rất khó bị leak (bảo mật cao).
+    \item Insensitive against electromagnetic interference (miễn nhiễm với EMI) $\rightarrow$ do nó là ánh sáng nên không sợ sấm sét hay điện lưới gây nhiễu.
+\end{itemize}
+\medskip
+
+\textbf{Cons:}
+
+\begin{itemize}
+    \item Higher cost $\rightarrow$ chi phí cáp và thiết bị (như các module quang/LED) đắt đỏ hơn so với dây đồng.
+    \item Infrastructure $\rightarrow$ không thể tận dụng được hạ tầng cũ (như dây đồng) $\Rightarrow$ phải xây mới hoàn toàn.
+\end{itemize}
+
+\noindent
+$\rightarrow$ Chỉ dùng khi cáp đồng không thể cung cấp đủ bandwidth hoặc khoảng cách quá xa.
+\medskip
+
+\pagebreak
+
+\subsection{Unguided Transmission Media}
+
+\noindent
+Unguided transmission media (phương tiện truyền dẫn vô tuyến) $\rightarrow$ tín hiệu không chạy trong một vật thể vật lý (như dây cáp) mà truyền tự do trong không gian (như không khí, chân không).
+
+$\Rightarrow$ Tín hiệu truyền tự do ra bên ngoài.
+
+\begin{itemize}
+    \item Directed (có hướng) $\rightarrow$ tín hiệu được tập trung thành một chùm tia hẹp (beam) bắn thẳng từ máy phát đến máy thu $\Rightarrow$ yêu cầu hai thiết bị phải thấy nhau (line-of-sight), không có vật cản ở giữa; ví dụ như điều khiển TV.
+    \item Undirected (vô hướng / đa hướng) $\rightarrow$ sóng được phát mọi hướng $\Rightarrow$ máy thu có thể ở bất kì nơi nào trong vùng phủ sóng là được; ví dụ: truyền hình vệ tinh (satellite TV).
+\end{itemize}
+\medskip
+
+\subsubsection{Wireless Communication}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{assets/chap_2/wireless.png}
+\end{figure}
+
+\noindent
+\textbf{Đặc điểm kĩ thuật:}
+
+\begin{itemize}
+    \item Medium is an electromagnetic wave $\rightarrow$ môi trường truyền là sóng điện từ.
+    \item Data is modulated $\rightarrow$ dữ liệu được điều chế lên sóng mang.
+    \item Range $\rightarrow$ phụ thuộc vào công suất phát (signal power) và môi trường (environment).
+    \item Can be directed or undirected $\rightarrow$ có thể định hướng (như sóng micro) hoặc không định hướng (như sóng radio).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Shared medium} (môi trường truyền dẫn chung) $\rightarrow$ các tần số không thể sử dụng tùy ý muốn (cannot be used arbitrarily) mà phải được phân bổ (must be allocated).
+\medskip
