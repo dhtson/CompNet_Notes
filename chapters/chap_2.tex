@@ -1186,7 +1186,7 @@ Fiber-optic cable (cáp quang) $\rightarrow$ là loại dây dẫn hữu tuyến
 \textbf{Cons:}
 
 \begin{itemize}
-    \item Higher cost $\rightarrow$ chi phí cáp và thiết bị (như các module quang/LED) đắt đỏ hơn so với dây đồng.
+    \item Higher cost $\rightarrow$ chi phí cáp và thiết bị (như các module quang / LED) đắt đỏ hơn so với dây đồng.
     \item Infrastructure $\rightarrow$ không thể tận dụng được hạ tầng cũ (như dây đồng) $\Rightarrow$ phải xây mới hoàn toàn.
 \end{itemize}
 
@@ -1229,4 +1229,62 @@ $\Rightarrow$ Tín hiệu truyền tự do ra bên ngoài.
 
 \noindent
 \textbf{Shared medium} (môi trường truyền dẫn chung) $\rightarrow$ các tần số không thể sử dụng tùy ý muốn (cannot be used arbitrarily) mà phải được phân bổ (must be allocated).
+\medskip
+
+\pagebreak
+
+\subsubsection{Challenges of Wireless Networks}
+
+\noindent
+\textbf{Fading over distance} (suy giảm tín hiệu theo khoảng cách)
+\medskip
+
+\noindent
+$\rightarrow$ Sóng điện từ suy giảm bị yếu dần (gradually weaken) khi truyền trong không gian hoặc gặp vật cản vật lý (chẳng hạn như tường).
+
+$\Rightarrow$ Càng đi xa Wifi hay vào chỗ khuất $\rightarrow$ sóng càng yếu $\Rightarrow$ mạng yếu đi hoặc mất kết nối.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{assets/chap_2/fading.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Exposed terminal problem} (vấn đề "trạm lộ thiên")
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{assets/chap_2/exposed.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Máy B (theo hình trên) muốn gửi dữ liệu cho máy Y; tuy nhiên thì máy B đang nằm trong vùng phủ sóng của máy A, và máy A đang bận gửi tin cho máy X.
+\medskip
+
+\noindent
+A node is prevented from sending packets to other nodes because of being within transmission range of a neighboring transmitter.
+
+$\Rightarrow$ Máy B bị chặn không cho gửi dữ liệu đến máy Y (theo quy tắc CSMA sẽ được mention sau: trước khi muốn truyền dữ liệu thì phải xem môi trường có máy nào đang truyền không) $\rightarrow$ lãng phí băng thông, giảm hiệu suất mạng.
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{Hidden terminal problem} (vấn đề "trạm ẩn"; invisible or hidden terminal devices)
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{assets/chap_2/hidden.jpg}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ 2 thiết bị (như hình trên) nằm ở hai vị trí đối diện của một bức tường (đóng vai trò là vật cản). Cả 2 thiết bị không nhìn thấy nhau, muốn nói chuyện với cục AP (Access Point) ở giữa.
+
+$\Rightarrow$ X nghĩ không có dữ liệu nào đang truyền cho cục AP, và Y cũng nghĩ như thế $\rightarrow$ cả 2 tín hiệu cùng truyền lên AP $\Rightarrow$ bị xung đột (collision), AP không nghe được cái nào cả.
 \medskip
