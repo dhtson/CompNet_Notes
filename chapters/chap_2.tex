@@ -1288,3 +1288,48 @@ $\rightarrow$ 2 thiết bị (như hình trên) nằm ở hai vị trí đối d
 
 $\Rightarrow$ X nghĩ không có dữ liệu nào đang truyền cho cục AP, và Y cũng nghĩ như thế $\rightarrow$ cả 2 tín hiệu cùng truyền lên AP $\Rightarrow$ bị xung đột (collision), AP không nghe được cái nào cả.
 \medskip
+
+\noindent
+\textbf{Multipath propagation} (đa đường truyền)
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{assets/chap_2/multipath.jpg}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Giải thích:} (theo hình trên)
+
+\begin{itemize}
+    \item Một phần sóng đi thẳng đến receiver (đường số 1).
+    \item Các phần sóng khác bị phản xạ từ tường (đường số 2 và 3) rồi mới đến receiver.
+    \item[$\rightarrow$] Do các quãng đường có độ dài khác nhau $\Rightarrow$ chúng sẽ tới receiver vào những thời điểm khác nhau.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Sóng điện từ bị phản xạ (reflected) $\rightarrow$ các đường truyền có độ dài khác nhau từ nơi gửi đến nơi nhận $\Rightarrow$ tín hiệu khó có thể giải mã do phản xạ làm ảnh hưởng đến các tín hiệu tiếp theo.
+
+$\rightarrow$ Nếu các objects di chuyển giữa sender và receiver $\Rightarrow$ đường truyền có thể bị thay đổi.
+\medskip
+
+\noindent
+\textbf{External interference} (nhiễu từ bên ngoài)
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Vấn đề:} môi trường truyền phi vật lý là môi trường truyền dẫn chung (shared medium).
+
+$\Rightarrow$ Các tín hiệu phải cạnh tranh nhau để sử dụng tần số (frequency), hoặc bị nhiễu từ các thiết bị điện tử khác.
+\medskip
+
+\noindent
+\textbf{Ví dụ:}
+
+\begin{itemize}
+    \item WLAN và Bluetooth cùng sử dụng chung tần số (same spectrum); cùng dùng chung 2.4 GHz $\Rightarrow$ gây cạnh tranh đường truyền.
+    \item Electromagnetic noise từ các thiết bị như lò vi sóng, hay motor, khi hoạt động cũng phát ra sóng gây nhiễu.
+\end{itemize}
+\medskip
