@@ -1333,3 +1333,195 @@ $\Rightarrow$ Các tín hiệu phải cạnh tranh nhau để sử dụng tần 
     \item Electromagnetic noise từ các thiết bị như lò vi sóng, hay motor, khi hoạt động cũng phát ra sóng gây nhiễu.
 \end{itemize}
 \medskip
+\noindent
+
+\subsection{The Last Mile}
+
+$\rightarrow$ Là đoạn kết nối cuối cùng từ trạm cung cấp (ISP - Internet Service Provider) đến người dùng (customer premises).
+\medskip
+
+\subsubsection{Bridging the Last Mile}
+
+\noindent
+\textbf{$\rightarrow$ Vấn đề:} làm thế nào để kết nối hàng triệu người dùng vào mạng Internet với chi phí rẻ nhất (cost-efficient)?
+\medskip
+
+\noindent
+\underline{Common solutions:}
+
+\begin{itemize}
+    \item \textbf{DSL (Digital Subscriber Line)} $\rightarrow$ tận dụng đường dây điện thoại (access through phone lines).
+    \item \textbf{Cable} $\rightarrow$ tận dụng tín hiệu truyền hình cáp (access through TV broadcast system).
+    \item \textbf{3G / 4G} $\rightarrow$ tận dụng các trạm phát sóng di động (access through deployed cellular networks).
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Other solutions:}
+
+\begin{itemize}
+    \item \textbf{Powerline} $\rightarrow$ Internet truyền qua đường dây điện trong nhà (AC infrastructure).
+    \item \textbf{Satellite} $\rightarrow$ dùng vệ tinh (chẳng hạn như Starlink của Elon Musk) $\Rightarrow$ có thể phủ sóng vùng sâu vùng xa.
+    \item \textbf{Wireless} $\rightarrow$ như WiMAX, directed WIFI.
+    \item \textbf{Fiber (cáp quang)} $\rightarrow$ có tốc độ cao nhất, nhưng rất tốn kém do phải xây đường đi dây mới hoàn toàn (rerquires infrastructure expansion).
+\end{itemize}
+
+\subsubsection{History: The Classical Modem}
+
+\noindent
+Modem (modulator-demodulator) $\rightarrow$  chuyển đổi dữ liệu số (digital data, bit 0, 1) từ máy tính sáng tín hiệu tương tự (analog) để truyền đi và ngược lại.
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Nguyên lý hoạt động:} sử dụng đường dây điện thoại cố định (POTS - Plain Old Telephone Service) $\rightarrow$ modem truyền dữ liệu giống như cách truyền tín hiệu radio bình thường (normal audio signals) $\Rightarrow$ biến các bit dữ liệu thành các âm thanh.
+
+$\Rightarrow$ Modem chịu trách nhiệm xử lý thông tin tín hiệu (takes care of the signaling information).
+\medskip
+
+\noindent
+\textbf{Đặc điểm kĩ thuật:}
+
+\begin{itemize}
+    \item High error rate (tỉ lệ lỗi cao) $\rightarrow$ do đường dây điện thoại vốn chỉ thiết kế cho giọng nói $\Rightarrow$ rất dễ bị nhiễu và dẫn đến làm sai dữ liệu.
+    \item Speed (tốc độ) $\rightarrow$ rất chậm, tốc độ tối đa chỉ đạt cỡ 56 kbps.
+\end{itemize}
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/class_modem.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Modem cổ điển tựa như việc đọc chính tả cho phía bên kia chép vậy.
+\medskip
+
+\subsubsection{Digital Subscriber Line (DSL)}
+
+\noindent
+DSL (đường dây thuê bao số) $\rightarrow$ là công nghệ tiên tiến của mạng điện thoại cố định (POTS) để truyền tốc độ cao.
+
+$\rightarrow$ Tận dụng được hạ tầng cũ $\Rightarrow$ vẫn dùng sợi cáp đồng của điện thoại bàn.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.55\textwidth}
+    \noindent
+    \textbf{Điểm khác:} (so với modem cổ điển)
+
+    \begin{itemize}
+        \item Modem cũ chỉ dùng một dãy tần số âm thanh rất hẹp, chỉ để vừa đủ nghe tiếng nói.
+        \item DSL khai thác toàn bộ phổ tần (whole spectrum) của sợi cáp đồng để nhồi nhét dữ liệu vào.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/DSL.png}
+\end{minipage}
+\end{center}
+
+\pagebreak
+
+\noindent
+\textbf{Thiết bị:}
+
+\begin{itemize}
+    \item Tại gia $\rightarrow$ dùng DSL Modem để giải mã dữ liệu tải về (downstream).
+    \item Tại nhà mạng $\rightarrow$ dùng DSLAM (DSL Access Multiplexer - thiết bị ghép kênh truy cập DSL) để gom tín hiệu từ nhà dân lại với nhau.
+\end{itemize}
+
+\noindent
+\textbf{Đặc điểm kĩ thuật:}
+
+\begin{itemize}
+    \item Distance dependency (phụ thuộc vào khoảng cách) $\rightarrow$ tốc độ mạng phụ thuộc vào khoảng cách từ nhà đến trạm DSLAM và chất lượng dân cáp truyền dẫn tín hiệu $\Rightarrow$ nhà càng xa trạm $\rightarrow$ mạng càng chậm và chập chờn.
+    \item VDSL2 (Very-high-bit-rate DSL 2) $\rightarrow$ là phiên bản DSL nhanh nhất, có tốc độ lên đến 100 Mbps trong điều kiện khoảng cách ngắn ($<$ 500m) $\rightarrow$ nếu xa hơn sẽ giảm tốc độ đáng kể.
+\end{itemize}
+\medskip
+
+\subsubsection{Data Over Cable Service Interface Specification (DOCSIS)}
+
+\noindent
+DOCSIS (thông số giao diện dịch vụ dữ liệu qua cáp) $\rightarrow$ là chuẩn công nghệ để truyền Internet qua đường dây truyền hình cáp (cable TV).
+
+$\Rightarrow$ Tận dụng hạ tầng $\rightarrow$ sử dụng lại hệ thống cáp đồng trục (coaxial cables) vốn dùng để phát sóng truyền hình cáp.
+\medskip
+
+\noindent
+\textbf{Thiết bị:}
+
+\begin{center}
+\begin{minipage}[c]{0.55\textwidth}
+    \begin{itemize}
+        \item Tại gia $\rightarrow$ dùng cable modem để nhận tín hiệu (downstream).
+        \item Tại nhà mạng $\rightarrow$ dùng hệ thống (CMTS - Cable Modem Termination System) để quản lý tín hiệu gửi lên (upstream).
+    \end{itemize}
+
+    \noindent
+    $\rightarrow$ Sử dụng các kênh tần số vô tuyến thấp (low-end radio spectrum) (6-8 MHz) để truyền dữ liệu.
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_2/DOCSIS.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Đặc điểm kĩ thuật:}
+
+\begin{itemize}
+    \item Tốc độ bất đối xứng $\rightarrow$ tải xuống (downstream) lên đến 160 Mbps; trong khi tải lên (upstream) chỉ khoảng 20 Mbps $\Rightarrow$ ưu tiên cho việc lướt web, xem phim (những công việc cần tải về nhiều hơn gửi đi).
+    \item Kiến trúc HFC (Hybrid Fiber-Coaxial) $\rightarrow$ các mạng hiện tại dùng kiến trúc lai $\rightarrow$ cáp quang kéo đến khu phố; còn từ khu phố về nhà thì dùng cáp đồng trục $\Rightarrow$ giúp tăng tốc độ.
+    \item Shared medium (chia sẻ đường truyền) $\rightarrow$ khác với DSL (đường dây riêng), cáp đồng trục có thể chia sẻ băng thông chung đường truyền.
+\end{itemize}
+
+\subsubsection{3GPP Standards}
+
+\noindent
+3GPP (3rd Generation Partnership Project) $\rightarrow$ là tổ chức quốc tế chịu trách nhiệm ban hành các chuẩn cho mạng di động (mobile networks) mà mình dùng hằng ngày trên điện thoại.
+\medskip
+
+\noindent
+Các thế hệ (evolution):
+
+\begin{itemize}
+    \item GPRS (2.5G) (General Packet Radio Service) $\rightarrow$ tốc độ rất thấp, tối đa 144 kbps $\rightarrow$ thời kì đầu của Interface di động.
+    \item UMTS (3G) (Universal Mobile Telecommunications System) $\rightarrow$ tốc độ nhanh hơn, lên đến 42 Mbps $\rightarrow$ đủ mạnh để có thể lướt web có ảnh, nghe nhạc, bắt đầu gọi video call (nhưng chất lượng thấp, mờ).
+    \item LTE (4G) (Long Term Evolution) $\rightarrow$ tốc độ lên đến 168 Mbps $\rightarrow$ dư sức xem HD video, livestream mượt $\Rightarrow$ là chuẩn phổ biến nhất hiện nay.
+    \item 5G $\rightarrow$ tốc độ siêu nhanh, lên đến 10 Gbps $\rightarrow$ không chỉ để lướt web, mà còn phục vụ cho mục đích liên quan đến IoT và M2M (machine to machine) $\rightarrow$ phổ biến như xe tự lái, thành phố thông minh.
+\end{itemize}
+\medskip
+
+\section{Technologies}
+
+\subsection{Standardization}
+
+\noindent
+\textbf{Vấn đề:} Tại sao phải cần chuẩn hóa (standardization)?
+
+$\Rightarrow$ Để đảm bảo các thiết bị từ các nhà sản xuất khác nhau có thể hoạt động cùng nhau (interoperability).
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Tổ chức quan trọng nhất:} IEEE SA (Institute of Electrical and Electronics Engineers Standards Association) $\rightarrow$ là một cộng đồng trung lập (neutral community), không chịu sự quản lý từ bất kì quốc gia nào.
+
+$\rightarrow$ \textbf{Nhiệm vụ:} ban hành các quy chuẩn kỹ thuật quốc tế.
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Bộ tiêu chuẩn trọng điểm:} IEEE 802.
+\medskip
+
+\noindent
+$\rightarrow$ Là các family of standards dành cho mạng máy tính cục bộ (LAN, PAN, MAN).
+
+\begin{itemize}
+    \item \textbf{IEEE 802.1} $\rightarrow$ chuyên về các giao thức mạng lớp cao (higher layer LAN protocols); chẳng hạn như, các vấn đề về cầu nối (bridging), quản lý mạng.
+    \item \textbf{IEEE 802.3} $\rightarrow$ là chuẩn cho Ethernet $\Rightarrow$ mọi mạng có dây đều phải tuân theo chuẩn này.
+    \item \textbf{IEEE 802.11} $\rightarrow$ là chuẩn mạng cho WLAN (mạng không dây, Wifi) $\Rightarrow$ mọi thiết bị phát Wifi đều phải tuân theo chuẩn này; như 802.11n, 802.11ac, 802.11ax.
+    \item \textbf{IEEE 802.15} $\rightarrow$ là chuẩn cho WPAN; chẳng hạn như Bluetooth.
+\end{itemize}
