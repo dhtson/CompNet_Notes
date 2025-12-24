@@ -1528,6 +1528,8 @@ $\rightarrow$ Là các family of standards dành cho mạng máy tính cục b�
 
 \subsection{Ethernet}
 
+\subsubsection{Ethernet (IEEE 802.3)}
+
 \noindent
 Ethernet $\rightarrow$ là chuẩn công nghệ cho mạng LAN có dây (wired LAN).
 
@@ -1557,3 +1559,152 @@ $\rightarrow$ Với bản vẽ này, Robert Metcalfe đã trình bày nguyên l�
 \noindent
 $\Rightarrow$ Thông số kỹ thuật của Ethernet $\rightarrow$ bao gồm cả lớp vật lý, và các dịch vụ từ lớp liên kết dữ liệu.
 \medskip
+
+\subsubsection{The Evolution of Ethernet}
+
+\noindent
+Ethernet đã trải qua nhiều lần nâng cấp theo thời gian:
+
+\begin{itemize}
+    \item 1973 $\rightarrow$ Ethernet chính thức được phát triển tại Xerox PARC bởi Robert Metcalfe và các cộng sự $\rightarrow$ tốc độ 2.94 Mbps, sử dụng cáp đồng trục.
+    \item 1983 $\rightarrow$ IEEE ban hành thông số kĩ thuật cho 10BASE5 (còn được gọi là thick Ethernet) $\rightarrow$ dùng cáp đồng trục to, tốc độ khoảng 10 Mbps $\Rightarrow$ khó lắp đặt do cáp cứng, phải khoang lỗ (như hình trên mô tả).
+    \item 1988 $\rightarrow$ AT\&T ra mắt StarLAN 10 (the basis của 10BASE-T) $\rightarrow$ chuyển sang dùng cáp xoắn đôi (twisted pair) mềm dẻo, dễ lắp đặt hơn.
+    \item 1990 $\rightarrow$ Ethernet trở thành công nghệ mạng LAN có dây (wired LAN) được sử dụng phổ biến trên thế giới.
+    \item Mạng ngày nay có thể đạt đến 1 Tbps, sử dụng đa dạng phương thức truyền khác nhau như cáp đồng trục, cáp xoắn đôi, cáp quang.
+\end{itemize}
+\medskip
+
+\subsection{Wireless Local Area Network (WLAN)}
+
+\subsubsection{WLAN (IEEE 802.11)}
+
+\noindent
+\textbf{Tổng quan:}
+
+\begin{itemize}
+    \item Tên chuẩn $\rightarrow$ IEEE 802.11.
+    \item Tên thương mại $\rightarrow$ Wifi (Wireless Fidelity) $\Rightarrow$ đây là tên thường gọi chứ không phải là tên kĩ thuật.
+    \item Là công nghệ mạng không dây phổ biến nhất hiện nay.
+    \item Các chuẩn hiện tại có thể đạt tốc độ lên đến 7 Gbps.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Các mô hình kết nối (communication models):}
+
+\begin{itemize}
+    \item \textbf{Infrastructure mode} (chế độ hạ tầng) $\rightarrow$ tất cả các thiết bị (clients) kết nối vào một cục phát sóng trung tâm gọi là access point (AP) $\Rightarrow$ đây là cách dùng phổ biến nhất, muốn vào mạng thì phải có cục Router/AP.
+    \item \textbf{Ad-hoc mode} (chế độ tự phát) $\rightarrow$ các thiết bị kết nối trực tiếp với nhau tạo thành một mạng lưới (mesh network), không cần cục AP trung tâm; chẳng hạn như chuyển file qua AirDrop.
+\end{itemize}
+
+\subsubsection{The Evolution of WLAN standards}
+
+\begin{itemize}
+    \item 1995 $\rightarrow$ US FFC (Federal Communications Commission) giải phóng băng tần ISM (Industrial, Scientific, and Medical) cho công chúng miễn phí, bao gồm dải tần 2.4 GHz.
+    \item 1997 $\rightarrow$ chuẩn 802.11 đầu tiên ban hành.
+    \item 1999 $\rightarrow$ chuẩn 802.11b ban hành với tốc độ lên đến 11 Mbps.
+    \item[$\rightarrow$] Sau đó, các chuẩn như 802.11a hoặc 802.11n được ban hành, mở rộng dải tần 5 GHz $\Rightarrow$ tránh bị tắc nghẽn.
+\end{itemize}
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcc}
+        \hline
+        \textbf{IEEE Standard} & \textbf{Maximum (gross) Data Rate} & \textbf{Realistic (net) Data Rate} \\
+        \hline
+        802.11   & 2 Mbps       & 1 Mbps        \\
+        802.11a  & 54 Mbps      & 20--22 Mbps   \\
+        802.11b  & 11 Mbps      & 5--6 Mbps     \\
+        802.11g  & 54 Mbps      & 20--22 Mbps   \\
+        802.11n  & 600 Mbps     & 200--250 Mbps \\
+        802.11ac & 1.733 Gbps   & 800--850 Mbps \\
+        \hline
+    \end{tabular*}
+\end{table}
+\medskip
+
+\noindent
+\underline{Self-note:}
+
+\begin{itemize}
+    \item Gross data rate (tốc độ tổng) $\rightarrow$ tốc độ truyền dữ liệu theo lý thuyết, không có nhiễu hay các tác nhân ngoại vi ảnh hưởng.
+    \item Net data rate (tốc độ thực) $\rightarrow$ tốc độ thực tế đo được khi có ngoại vi gây ảnh hưởng đến đường truyền.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Do nhiễu, gửi kèm các header, sửa lỗi, ... nên sẽ bị giảm tốc độ so với lý thuyết $\rightarrow$ hiệu suất thực tế chỉ đạt khoảng 30-50\% so với lý thuyết.
+\medskip
+
+\subsubsection{Non-overlapping Channels of IEEE 802.11b}
+
+\noindent
+Các kênh không chồng lấn (non-overlapping channels) $\rightarrow$ là vấn đề nan giải nhất của Wifi băng tần 2.4 GHz.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/non-overlap.jpg}
+\end{figure}
+\medskip
+
+\begin{itemize}
+    \item Tần số (nằm ở trục ngang) $\rightarrow$ dải tần 2.4 GHz được chia thành 11 đến 14 kênh nhỏ, mỗi kênh cách nhau 5 MHz.
+    \item Độ rộng kênh $\rightarrow$ mỗi kênh Wifi cần một khoảng rộng 22 MHz để hoạt động.
+    \item[$\Rightarrow$] Do các kênh được đặt quá sát nhau (cách nhau 5 MHz), trong khi cái độ rộng quá to (22 MHz) $\rightarrow$ kênh 1 sẽ lấn sang chỗ của kênh 2, 3, 4, 5.
+\end{itemize}
+\medskip
+
+\noindent
+Dải tần 2.4 GHz được chia thành các kênh (channels), mỗi kênh rộng 22 MHz nhưng chỉ cách nhau 5 MHz $\rightarrow$ các kênh nằm cạnh sẽ đè lên nhau (overlapping).
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Giải pháp:} chỉ có 3 kênh duy nhất là không bị chồng lên nhau là 1, 6, và 11 $\Rightarrow$ trong một khu vực dày đặc người dùng, nếu người đầu tiên dùng kênh 1, còn người thứ hai dùng kên 2 $\rightarrow$ bị nhiễu $\Rightarrow$ người thứ hai phải bắt buộc đổi sang kênh 6 hoặc 11 để dùng được mạng tốt hơn.
+
+$\Rightarrow$ Quy tắc 1-6-11 $\rightarrow$ để không bị chồng lên nhau, mình phải chọn các kênh cách xa nhau $\rightarrow$ chỉ có bộ ba 1-6-11 là hoàn toàn cách xa nhau, không chồng lấn lên nhau (như hình trên mô tả).
+\medskip
+
+\noindent
+\underline{Fact:} ở Nhật nó có có kênh 14, nghĩa là nó có tới tận 4 kênh không chồng lấn (1, 6, 11, 14).
+\medskip
+
+\subsubsection{WLAN Security: WEP and WPA}
+
+\noindent
+\textbf{WEP (Wired Equivalent Privacy)} $\rightarrow$ là chuẩn bảo mật đời đầu của Wifi.
+
+$\Rightarrow$ Sử dụng khóa tĩnh (static keys) với độ dài 40-bit hoặc 104-bit $\rightarrow$ đã suspended do rất dễ bị hack; phần đầu gói tin (protocol header) có quy luật dễ đoán nên có thể bẻ khóa trong thời gian cực ngắn.
+\medskip
+
+\noindent
+\textbf{WPA (Wi-Fi Protected Access)} $\rightarrow$ là chuẩn bảo mật thay thế WEP; có các phiên bản WPA 1, 2, và 3.
+
+\begin{itemize}
+    \item WPA1 $\rightarrow$ dùng thuật toán mã hóa RC4 (Rivest Cipher 4) $\Rightarrow$ hiện tại không còn an toàn nữa.
+    \item WPA2 (phổ biến ngày nay) $\rightarrow$ dùng thuật toán AES (Advanced Encryption Standard) $\Rightarrow$ rất an toàn nếu đặt mật khẩu đủ dài và khó đoán.
+\end{itemize}
+
+\noindent
+\textbf{Các phương thức xác thực (key distribution)} $\rightarrow$ làm sao để đưa key cho người dùng?
+
+\begin{itemize}
+    \item PSK (Pre-Shared Key) $\rightarrow$ dùng chung một mật khẩu cho tất cả mọi người $\rightarrow$ dùng ở nhà (WPA-Personal).
+    \item WPA-Enterprise $\rightarrow$ sử dụng một máy chủ xác thực riêng (RADIUS server - Remote Authentication Dial-In User Service) $\rightarrow$ mỗi người dùng sẽ có một tài khoản và mật khẩu riêng để đăng nhập (như Eduroam trong FRA-UAS).
+    \item WPS (Wifi-Protected Setup) $\rightarrow$ kết nối nhanh bằng cách bấm nút trên Router hoặc nhập mã PIN, không cần gõ mật khẩu dài dòng.
+\end{itemize}
+
+\pagebreak
+
+\noindent
+\underline{Self-note:} (tổng quan về thuật toán RC4 và AES)
+
+\begin{itemize}
+    \item RC4 $\rightarrow$ tạo ra một dòng các bit ngẫu nhiên vô tận (keystream), sau đó lấy dòng này XOR với các bit dữ liệu để mã hóa $\Rightarrow$ do sử dụng XOR nên nó tính reverse, nghĩa là nếu mà lấy được 2 gói tin được mã hóa bằng cùng một đoạn keystream (do nó lặp lại) $\rightarrow$ có thể dùng XOR để loại bỏ khóa và tìm ra dữ liệu gốc dễ dàng.
+    \item AES $\rightarrow$ nó không mã hóa từng bit, mà cắt dữ liệu thành các khối vuông (ví dụ như 4x4 ô), sau đó thực hiện các phép biến đổi phức tạp: ShiftRows, SubBytes, MixColumns, lặp đi lặp lại nhiều lần. $\Rightarrow$ phá vỡ hoàn toàn cấu trúc của dữ liệu gốc $\rightarrow$ một thay đổi nhỏ ở đầu vào sẽ làm thay đổi toàn bộ khối dữ liệu đầu ra (Avalanche Effect - hiệu ứng tuyết lở).
+\end{itemize}
+
+\noindent
+\textbf{Công thức RC4:} $\text{Ciphertext} = \text{Plaintext} \oplus \text{Keystream}$
+
+\pagebreak
