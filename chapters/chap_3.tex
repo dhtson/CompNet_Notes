@@ -265,3 +265,112 @@ Giả sử sender cần gửi dữ liệu sau (chưa có framing):
     \item \textbf{Receiver:} nhận được \texttt{000 11111 \textbf{0} 110} $\rightarrow$ xóa bit \texttt{0} thừa $\rightarrow$ lấy lại dữ liệu gốc: \texttt{000 11111 110}.
 \end{itemize}
 \medskip
+
+\subsubsection{Line Code Violation}
+
+\noindent
+$\rightarrow$ Thay vì chèn thêm các kí tự vào dữ liệu (để làm tăng dung lượng) $\rightarrow$ phương pháp này tận dụng physical rules của tín hiệu để đánh dấu.
+
+$\Rightarrow$ Cố tình tạo ra các tín hiệu bất hợp lệ (illegal signals) không xuất hiện trong dữ liệu chuẩn $\rightarrow$ làm dấu hiệu bắt đầu/kết thúc frame.
+\medskip
+
+\noindent
+\textbf{Ví dụ:} Token Ring (dùng differential Manchester encoding).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/token_1.png}
+\end{figure}
+\medskip
+
+\begin{itemize}
+    \item Valid Signal $\rightarrow$ trong mã differential Manchester, \textbf{bắt buộc} phải có một sự thay đổi mức điện áp (đảo chiều tín hiệu) ở giữa mỗi chu kì bit $\Rightarrow$ dù là bit 0 hay 1, điện áp cũng phải nhảy (lên hoặc xuống).
+    \item Violation $\rightarrow$ để đánh dấu frame thì sender sẽ cố tình giữ nguyên điện áp (giữ cao hoặc giữ thấp) trong suốt chu kì bit mà không đảo chiều $\Rightarrow$ receiver sẽ phát hiện ra tín hiệu này $\rightarrow$ biết được đây không phải là dữ liệu mà là delimiter (một cái dấu phân cách).
+\end{itemize}
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/chap_3/token_2.png}
+\end{figure}
+\medskip
+
+\noindent
+Trong token ring:
+
+\begin{itemize}
+    \item Các frame bắt đầu và kết thúc bằng một byte đặc biệt gọi là starting/ending delimiter.
+    \item Trong byte này chứa 4 lần trái quy luật (4 line code violations).
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ Cứ bắt đầu nó sẽ vi phạm quy luật 4 lần (là 2 cái đỏ như trên hình), kết thúc nó cũng sẽ vi phạm 4 lần $\rightarrow$ tạo thành 8 lần vi phạm quy luật trong một frame.
+\medskip
+
+\noindent
+$\rightarrow$ Số \texttt{0} đứng ở giữa \texttt{J} và \texttt{K} mà không phải gửi những dải \texttt{J} hay \texttt{K} liên tiếp $\Rightarrow$ giúp receiver lấy lại nhịp clock trước khi nhận bit vi phạm tiếp theo $\rightarrow$ làm như vậy để tránh bị mất tín hiệu do đảo chiều quá lâu.
+
+$\Rightarrow$ Do đó, starting/ending delimiter là \texttt{J K 0 J K 0 0 0} (phải gửi đủ 8 bit = 1 byte).
+\medskip
+
+\subsection{Ethernet (IEEE 802.3) Frames}
+
+\subsubsection{Preamble and SFD}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/preamble.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Là cơ chế giúp receiver đồng bộ xung nhịp (synchronize the clock) và giúp nhận ra điểm bắt đầu của frame.
+\medskip
+
+\noindent
+\textbf{Preamble (dấu báo hiệu):}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 7 bytes.
+    \item \textbf{Cấu trúc bit:} một chuỗi xen kẽ \texttt{1} và \texttt{0} lặp đi lặp lại dưới dạng \texttt{10101010} (lặp 7 lần - 1 byte = 8 bits) ($\rightarrow$ dưới dạng hex, theo LSB first là \texttt{0x55}).
+    \item[$\Rightarrow$] Dùng để báo cho receiver biết rằng sắp có frame đến; giúp clock của receiver khớp nhịp hoàn toàn (clock synchronization) với tốc độ của sender (bit synchronization).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{SFD (Start Frame Delimiter - flag báo bắt đầu frame):}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 1 byte.
+    \item \textbf{Cấu trúc bit:} giống như preamble nhưng thay đổi ở 2 bit cuối cùng, dưới dạng \texttt{10101011} ($\rightarrow$ dưới dạng hex, theo LSB first là \texttt{0xD5}).
+    \item[$\Rightarrow$] Báo hiệu cho receiver biết rằng phần tiếp theo là dữ liệu thật sự của frame (theo hình là MAC address tiếp theo) $\rightarrow$ đánh dấu sự bắt đầu chính thức của Ethernet Frame.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+\textit{Tại sao lại là \texttt{0x55} và \texttt{0xD5} (LSB first)?}
+\medskip
+
+\noindent
+$\rightarrow$ Do Ethernet hoạt động theo nguyên tắc LSB first (gửi từ đuôi lên đầu) $\Rightarrow$ nghĩa là bit nào nằm ở hàng đơn vị (bên phải ngoài cùng) sẽ được bắn đi trước.
+
+$\Rightarrow$ Trong bộ nhớ, máy tính phải lưu là \texttt{0x55} để khi đi ngược lại thì nó sẽ thành \texttt{10101010}.
+\medskip
+
+\noindent
+$\rightarrow$ SFD với preamble chỉ khác nhau ở 2 bit cuối hòng để phân biệt được trước khi bắt đầu frame chính thức.
+\medskip
+
+\noindent
+$\rightarrow$ Preamble có tận 7 bytes để đảm bảo receiver có đủ thời gian đồng bộ xung nhịp với sender $\rightarrow$ tránh bị lệch pha (phase shift) khi truyền dữ liệu tốc độ cao $\Rightarrow$ khi nó đã đồng bộ rồi thì chỉ cần thêm 1 byte SFD nữa để xác nhận bắt đầu frame.
+\medskip
