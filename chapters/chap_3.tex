@@ -187,4 +187,81 @@ $\rightarrow$ Khi dữ liệu người dùng (body/payload) vô tình chứa cá
 
 \noindent
 $\rightarrow$ Cứ nghĩ như trong C++, muốn in \texttt{"Hello World"} thì mình phải viết \texttt{\textbackslash"Hello World\textbackslash"} để thoát kí tự ngoặc kép vậy.
+
+$\Rightarrow$ Nói tóm lại, nếu không muốn bị nhầm với các kí tự đặc biệt trong payload $\rightarrow$ cứ chèn thêm \texttt{DLE} vào trước là xong.
+\medskip
+
+\subsubsection{Bit Stuffing}
+
+\noindent
+$\rightarrow$ Để khắc phục nhược điểm của việc phụ thuộc vào bảng mã trong phương pháp byte/character stuffing.
+
+$\Rightarrow$ Bit stuffing hoạt động ở mức độ bit (bit-oriented - 0 và 1) $\rightarrow$ dùng được cho mọi loại dữ liệu (chẳng hạn như văn bản, video, zip file) mà không cần quan tâm đến bảng mã.
+\medskip
+
+\noindent
+\textbf{Ưu điểm:}
+
+\begin{itemize}
+    \item Đảm bảo được chuỗi bắt đầu/kết thúc không xuất hiện trong payload (sẽ giải thích ở mục dưới).
+    \item Mọi character encoding đều có thể sử dụng được phương pháp này $\rightarrow$ do làm việc ở mức bit (0 và 1) $\Rightarrow$ không quan tâm dữ liệu là văn bảng ASCII, Unicode, hay file ảnh, video, ...
+\end{itemize}
+\medskip
+
+\subsubsection{Example: Bit Stuffing (HDLC)}
+
+\noindent
+\textbf{Giao thức sử dụng:} PPP (Point-to-Point Protocol).
+
+$\rightarrow$ Là giao thức phổ biến trên LLC (Logical Link Control).
+\medskip
+
+\noindent
+$\Rightarrow$ Triển khai HDLC (High-Level Data Link Control) $\rightarrow$ quy định rằng mỗi frame bắt đầu và kết thúc bằng dãy bit \texttt{01111110} (gọi là Flag Sequence).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/hdlc.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item \textbf{Sender:} quét dòng dữ liệu từ Network Layer $\rightarrow$ khi phát hiện 5 bit 1 liên tiếp (5 consecutive 1s) $\Rightarrow$ tự động chèn (stuff) thêm 1 bit 0 vào ngay sau dãy đó $\Rightarrow$ phá vỡ chuỗi để không bao giờ tạo thành 6 số 1 liên tiếp (trùng với flag).
+    \item \textbf{Receiver:} quét dòng bit nhận được từ Physical Layer $\rightarrow$ khi phát hiện 5 bit 1 liên tiếp $\Rightarrow$ kiểm tra bit tiếp: \begin{itemize}
+        \item Theo sau là bit 0 $\rightarrow$ xác định được đây là bit được stuff vào $\Rightarrow$ xóa (destuff/remove) bit 0 đó để lấy lại dữ liệu gốc.
+        \item Theo sau là bit 1 (nghĩa là thành 6 bit 1 - \texttt{01111110}) $\rightarrow$ đây là flag kết thúc/bắt đầu frame.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+Trong payload, nếu có xuất hiện bao nhiêu số \texttt{1} đi chăng nữa, thì sender sẽ luôn chèn thêm \texttt{0} vào sau mỗi dãy 5 số \texttt{1} liên tiếp $\rightarrow$ đảm bảo không bao giờ có 6 số \texttt{1} liên tiếp xuất hiện trong payload.
+
+$\rightarrow$ Nhưng nếu gặp 6 số \texttt{1} liên tiếp $\Rightarrow$ chắc chắn đó là flag kết thúc/bắt đầu frame.
+\medskip
+
+\noindent
+\textbf{Ví dụ minh họa:}
+\medskip
+
+\noindent
+Giả sử sender cần gửi dữ liệu sau (chưa có framing):
+
+\begin{center}
+    \texttt{... 0 \, 0 \, 0 \, 1 \, 1 \, 1 \, 1 \, 1 \, 1 \, 1 \, 0 \, 0 ...}
+\end{center}
+\medskip
+
+\begin{itemize}
+    \item \textbf{Sender:} tách 5 bit \texttt{1} ra thành \texttt{000 11111 110} $\rightarrow$ gửi đi: \texttt{000 11111 \textbf{0} 110}.
+    \item \textbf{Receiver:} nhận được \texttt{000 11111 \textbf{0} 110} $\rightarrow$ xóa bit \texttt{0} thừa $\rightarrow$ lấy lại dữ liệu gốc: \texttt{000 11111 110}.
+\end{itemize}
 \medskip
