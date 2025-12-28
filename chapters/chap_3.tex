@@ -374,3 +374,166 @@ $\rightarrow$ SFD với preamble chỉ khác nhau ở 2 bit cuối hòng để p
 \noindent
 $\rightarrow$ Preamble có tận 7 bytes để đảm bảo receiver có đủ thời gian đồng bộ xung nhịp với sender $\rightarrow$ tránh bị lệch pha (phase shift) khi truyền dữ liệu tốc độ cao $\Rightarrow$ khi nó đã đồng bộ rồi thì chỉ cần thêm 1 byte SFD nữa để xác nhận bắt đầu frame.
 \medskip
+
+\subsubsection{Addresses and VLAN Tag}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/address_vlan.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Sau khi pass SFD $\Rightarrow$ 12 bytes tiếp theo sẽ đọc destination MAC address và source MAC address (mỗi cái 6 bytes).
+\medskip
+
+\noindent
+\textbf{Destination MAC Address:}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 6 bytes.
+    \item \textbf{Vị trí:} đứng trước source MAC address.
+    \item[$\Rightarrow$] Chứa địa chỉ MAC address của \textbf{receiver} (hoặc địa chỉ broadcast \texttt{FF:FF:FF:FF:FF:FF} nếu gửi cho tất cả).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Source MAC Address:}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 6 bytes.
+    \item \textbf{Vị trí:} đứng sau destination MAC address.
+    \item[$\Rightarrow$] Chứa địa chỉ MAC address của \textbf{sender} (để bên nhận biết ai gửi để trả lời hoặc xử lý).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{VLAN Tag (optional):}
+\medskip
+
+\noindent
+$\rightarrow$ VLAN (Virtual Local Area Network) $\rightarrow$ là một mạng LAN ảo được tạo ra bên trong một mạng LAN vật lý để phân đoạn lưu lượng mạng.
+
+$\Rightarrow$ VLAN tag chỉ được giới thiệu trong IEEE 802.1Q hoặc IEEE 802.1ad.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{assets/chap_3/vlan.png}
+\end{figure}
+\medskip
+
+\pagebreak
+
+\noindent
+Cấu trúc VLAN Tag:
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 4 bytes (= 32 bits).
+    \item \textbf{Vị trí:} đứng sau source MAC address.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Trong VLAN tag: \textit{(các thông tin khác có thể xem hình trên)}
+
+\begin{itemize}
+    \item VLAN ID $\rightarrow$ dài 12 bits $\Rightarrow$ có thể xác định được tới 4096 VLANs khác nhau.
+    \item Priority information $\rightarrow$ dài 3 bits $\Rightarrow$ dùng cho độ ưu tiên; ví dụ như voice được ưu tiên đi trước chẳng hạn.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Field \texttt{Type}:}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 2 bytes.
+    \item \textbf{Vị trí:} đứng sau source MAC address (hoặc sau VLAN tag nếu có).
+    \item[$\Rightarrow$] Xác định protocol nào đang được sử dụng ở network layer (chẳng hạn như: \texttt{0x800} cho IPv4, \texttt{0x86DD} cho IPv6, \texttt{0x806} cho ARP).
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Khi máy tính nhận được frame $\rightarrow$ sau khi bỏ lớp Ethernet đi (MAC header) $\Rightarrow$ nó sẽ còn lại phần payload.
+
+$\Rightarrow$ Cần biết phần này là gì (IPv4 hay ARP chẳng hạn) $\rightarrow$ dựa vào đó để xác định cách xử lý gói tin cho đúng.
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ 2 bytes đầu ở VLAN tag là TPID (Tag Protocol Identifier) $\rightarrow$ thường mang giá trị là \texttt{0x8100}.
+
+$\Rightarrow$ Đây là mã báo hiệu cho switch biết gói tin này có chứa VLAN tag.
+\medskip
+
+\subsubsection{Frame Size and Checksum}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/checksum.png}
+\end{figure}
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{Payload:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Là phần dữ liệu thực sự được chuyển từ tầng trên xuống (chẳng hạn như IP packet từ network layer).
+    \item MTU (Maximum Transmission Unit) $\rightarrow$ kích thước tối đa của payload là 1500 bytes $\Rightarrow$ nếu dữ liệu lớn hơn thì sẽ bị cắt nhỏ (fragmentation).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Pad field:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Dùng để tăng độ dài khung lên mức tối thiểu.
+    \item[$\Rightarrow$] Nếu payload quá nhỏ (không đủ tạo thành khung tối thiểu) $\rightarrow$ máy sẽ tự động thêm các bit không có nghĩa (pad) vào sau payload để cho đủ kích thước.
+\end{itemize}
+\medskip
+
+\noindent
+Quy định kích thước:
+
+\begin{itemize}
+    \item Minimum size $\rightarrow$ 72 bytes (8 bytes preamble/SFD + 64 bytes frame tiêu chuẩn).
+    \item Maximum size $\rightarrow$ 1526 bytes (1530 bytes nếu có VLAN tag).
+\end{itemize}
+\medskip
+
+\noindent
+Tại sao phải có kích thước tối thiểu?
+\medskip
+
+\noindent
+$\Rightarrow$ Để đảm bảo cơ chế phát hiện xung đột (CSMA/CD) hoạt động hiệu quả $\rightarrow$ gói tin phải đủ dài để nó tồn tại trên đường truyền đủ lâu cho sender nhận biết được xung đột (nếu có).
+
+$\rightarrow$ Đây là chức năng của tầng kiểm soát truy cập đường truyền (medium access control - MAC).
+\medskip
+
+\noindent
+\textbf{Checksum:}
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 4 bytes.
+    \item[$\rightarrow$] Dùng để kiểm tra xem có bị lỗi trên đường truyền hay không (bằng thuật toán CRC - Cyclic Redundancy Check) $\Rightarrow$ nếu sai dù chỉ 1 bit $\rightarrow$ frame sẽ bị hủy bỏ.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+\textit{CSMA/CA và CSMA/CD sẽ được nói kỹ hơn ở phần sau.}
+
+\begin{itemize}
+    \item CSMA/CD (collision detection) $\rightarrow$ phát hiện xung đột (va chạm rồi mới xử lý) $\Rightarrow$ dùng trong mạng có dây (Ethernet 802.3).
+    \item CSMA/CA (collision avoidance) $\rightarrow$ tránh xung đột (cố gắng để không có collision xảy ra) $\Rightarrow$ dùng trong mạng không dây (Wi-Fi 802.11).
+\end{itemize}
+\medskip
