@@ -767,3 +767,231 @@ Thao tác MAC spoofing:
     \item Access point tưởng hacker là mình $\rightarrow$ cho phép nó kết nối vào mạng.
 \end{itemize}
 \medskip
+
+\noindent
+$\Rightarrow$ MAC address không được thiết kế để làm nhiệm vụ bảo mật $\rightarrow$ không bao giờ dùng nó để xác thực người dùng.
+\medskip
+
+\section{Switching}
+
+\subsection{Devices}
+
+\subsubsection{Devices of the Data Link Layer: Bridges}
+
+\noindent
+\textbf{Remember:} 
+\medskip
+
+\noindent
+$\rightarrow$ Các thiết bị của physical layer (như repeater, switch, hub) làm tăng độ dài của physical network.
+
+$\Rightarrow$ Tín hiệu có thể truyền xa hơn trong mạng mà không bị mất dữ liệu hoặc giảm chất lượng.
+\medskip
+
+\noindent
+\textbf{$\rightarrow$ Vấn đề:} ở physical layer, các thiết bị như repeater hoặc hub chỉ đơn thuần là nối dài dây cáp để có thể truyền đi xa hơn $\rightarrow$ nó không hiểu gói tin là gì $\Rightarrow$ không thể nào xử lý hơn thế được.
+\medskip
+
+$\Rightarrow$ Để kết nối các physical network khác nhau (chẳng hạn như nối dây mạng với dây Wifi, hoặc nối 2 đoạn LAN lại) $\rightarrow$ cần bridge ở data link layer để xử lý.
+\medskip
+
+\noindent
+\textbf{Bridge:}
+
+\begin{center}
+\begin{minipage}[c]{0.65\textwidth}
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} một bridge có ít nhất 2 cổng (ports).
+        \item \textbf{Phân loại:} \begin{itemize}
+            \item Switch $\rightarrow$ là bridge có nhiều hơn 2 cổng ($>$ 2 ports).
+            \item Virtual bridge $\rightarrow$ là bridge ảo được tạo ra từ phần mềm (chẳng hạn như khi dùng virtual machine hoặc nối các mạng ảo trên Linux).
+            \item WLAN bridge $\rightarrow$ nối các máy tính dùng dây (như desktop) với mạng Wifi không dây.
+        \end{itemize}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/bridge.jpg}
+\end{minipage}
+\end{center}
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{Cơ chế hoạt động:}
+
+\begin{itemize}
+    \item Simple bridge $\rightarrow$ forward tất cả các gói tin nhận được (giống như Hub nhưng khác ở chỗ có check lỗi).
+    \item Kiểm tra lỗi $\rightarrow$ bridge sẽ kiểm tra checksum (FCS - Frame Check Sequence) của gói tin $\Rightarrow$ nếu gói tin bị lỗi $\rightarrow$ nó sẽ loại ngay chứ không chuyển tiếp.
+    \item Transparent $\rightarrow$ các máy tính (hosts) không cần biết có bridge tồn tại hay không $\rightarrow$ vẫn forward gói tin như bình thường.
+\end{itemize}
+\medskip
+
+\subsubsection{Example: WLAN Bridge}
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/wlan_1.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_3/wlan_2.jpg}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Chức năng:}
+\medskip
+
+\noindent
+$\rightarrow$ Kết nối một mạng dùng dây (cable-based network) với một mạng không dây (wireless network).
+
+$\Rightarrow$ Tích hợp các thiết bị chỉ có cổng mạng dây (như RJ45 jacks - như network printers, desktops, gaming consoles) vào mạng Wifi (WLAN) mà không cần phải đi dây cáp.
+\medskip
+
+\vspace{0.5cm}
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ WLAN bridge giống như một cái card mạng dành cho các thiết bị cũ.
+\medskip
+
+$\Rightarrow$ Cắm dây mạng từ thiết bị đó vào cục WLAN bridge $\rightarrow$ cục đó sẽ phát sóng Wifi để kết nối vào mạng.
+\medskip
+
+\pagebreak
+
+\subsection{Forwarding}
+
+\subsubsection{Learning Bridges}
+
+\begin{center}
+\begin{minipage}[c]{0.7\textwidth}
+    \centering
+    \includegraphics[width=0.85\textwidth]{assets/chap_3/learning_bridge.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.2\textwidth}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Device} & \textbf{Port} \\
+        \hline
+        A & 1 \\
+        B & 1 \\
+        C & 1 \\
+        X & 2 \\
+        Y & 2 \\
+        Z & 2 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Vấn đề:} khi một bridge/switch mới khởi động, nó hoàn toàn không biết máy nào đang cắm vào cổng nào.
+\medskip
+
+$\Rightarrow$ Thay vì administrator phải làm thủ công để configure $\rightarrow$ bridge có khả năng tự học vị trí của các thiết bị.
+\medskip
+
+\noindent
+$\rightarrow$ Theo như hình trên, nếu một frame từ host B sang host A $\rightarrow$ nó không nhất thiết phải forward qua bridge để sang port 2.
+\medskip
+
+\vspace{0.5cm}
+
+\noindent
+\textbf{Cách bridge học:} 
+\medskip
+
+\noindent
+$\rightarrow$ Nó học bằng cách dựa vào địa chỉ người gửi (sender address) trong frame nó nhận được.
+\medskip
+
+$\Rightarrow$ Nếu host A gửi một frame đến host khác $\rightarrow$ bridge lưu thông tin frame nhận được từ host A là port 1 $\rightarrow$ sau đó ghi thông tin này vào bảng chuyển tiếp (forwarding table).
+\medskip
+
+\vspace{0.5cm}
+
+\noindent
+\textbf{Đặc điểm của forwarding table:}
+
+\begin{itemize}
+    \item Bootup $\rightarrow$ bảng hoàn toàn empty.
+    \item Update $\rightarrow$ bảng được cập nhật dần theo thời gian mỗi khi có dữ liệu gửi qua.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Mỗi entry có thời hạn nhất định ($\rightarrow$ Time To Live - TTL) $\Rightarrow$ nếu một máy không gửi dữ liệu gì trong một khoảng thời gian dài $\rightarrow$ bridge sẽ xóa tên nó ra khỏi bảng để tiết kiệm bộ nhớ (optimization) và cập nhật nếu máy đó đổi vị trí ($\rightarrow$ đây không phải là problem).
+\medskip
+
+$\Rightarrow$ Nếu không tìm thấy address tồn tại trong bảng $\rightarrow$ frame sẽ được gửi ra tất cả các cổng (gọi là flooding).
+\medskip
+
+\pagebreak
+
+\subsubsection{Forwarding Strategies}
+
+\noindent
+\textit{$^*$List strategies trong switch, chứ không phải là step để tạo thành một strategy.}
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Store-and-Forward (lưu và chuyển tiếp):}
+\medskip
+
+\noindent
+$\rightarrow$ Switch sẽ nhận toàn bộ frame và lưu vào bộ nhớ đệm (buffer) $\rightarrow$ tính toán lại checksum (CRC - Cyclic Redundancy Check) để kiểm tra lỗi $\Rightarrow$ nếu gói tin không bị lỗi thì chuyển đi tiếp, còn nếu có thì loại ngay.
+
+$\Rightarrow$ Cách này an toàn nhất do không chuyển gói tin rác $\rightarrow$ tuy nhiên có latency cao nhất do phải chờ nhận hết frame.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Cut-Through (chuyển mạch liền):}
+\medskip
+
+\noindent
+$\rightarrow$ Switch bắt đầu chuyển tiếp frame đi ngay lập tức sau khi nó đọc được destination address $\rightarrow$ vị trí address này nằm ở ngay đầu frame $\Rightarrow$ tốc độ xử lý cực nhanh.
+
+$\Rightarrow$ Cách này có latency thấp $\rightarrow$ nhưng rủi ro cao do có thể chuyển tiếp cả những frame lỗi vì chưa pass cái đuôi có checksum.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Adaptive Cut-Through (chuyển mạch thích ứng):}
+\medskip
+
+\noindent
+$\rightarrow$ Đây là sự kết hợp thông minh giữa 2 phương pháp trên:
+
+\begin{itemize}
+    \item Bình thường $\rightarrow$ nó sẽ chạy ở chế độ Cut-Through cho nhanh.
+    \item[$\Rightarrow$] Nếu nó phát hiện tỉ lệ lỗi trên đường truyền vượt quá một ngưỡng nhất định (certain error threshold) $\rightarrow$ tự động chuyển sang Store-and-Forward để đảm bảo an toàn.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Fragment-Free Cut-Through (chuyển mạch không phân mảnh):}
+\medskip
+
+\noindent
+$\rightarrow$ Switch chờ nhận 64 bytes đầu tiên của frame rồi mới chuyển đi $\Rightarrow$ đây là kích thước tối thiểu của một frame Ethernet để phát hiện collision do hầu hết các lỗi này đều xảy ra trong 64 bytes đầu này.
+
+$\Rightarrow$ Cân bằng giữa tốc độ, nhanh hơn Store-and-Forward; an toàn hơn do lọc được các collision fragments.
+\medskip
