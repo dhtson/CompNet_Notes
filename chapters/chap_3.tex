@@ -537,3 +537,233 @@ $\rightarrow$ Đây là chức năng của tầng kiểm soát truy cập đư�
     \item CSMA/CA (collision avoidance) $\rightarrow$ tránh xung đột (cố gắng để không có collision xảy ra) $\Rightarrow$ dùng trong mạng không dây (Wi-Fi 802.11).
 \end{itemize}
 \medskip
+
+\pagebreak
+
+\subsubsection{Interframe Spacing}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/interframe.png}
+\end{figure}
+\medskip
+
+\noindent
+Interframe Spacing (khoảng cách giữa các frame):
+\medskip
+
+\noindent
+\textbf{Tên gọi khác:} Interframe Gap (IFG).
+
+$\rightarrow$ Là khoảng thời gian nghỉ bắt buộc giữa 2 gói tin liên tiếp.
+\medskip
+
+\noindent
+\textbf{Độ dài:} tương đương với thời gian truyền 96 bit (12 bytes).
+
+\begin{itemize}
+    \item Mạng có tốc độ  10 Mbps $\rightarrow$ IFG là 9.6 microseconds.
+    \item Mạng có tốc độ 100 Mbps $\rightarrow$ IFG là 0.96 microseconds.
+    \item Mạng có tốc độ 1 Gbps $\rightarrow$ IFG là 96 nanoseconds.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Để receiver có thể recovery $\rightarrow$ sau khi nhận xong một gói tin, receiver cần khoảng thời gian ngắn để xử lý (chẳng hạn như chuyển từ bộ nhớ đệm vào bộ nhớ chính, kiểm tra CRC) $\rightarrow$ setup lại để đón nhận gói tin tiếp theo.
+
+$\Rightarrow$ Tránh dính nhau giữa các frame liên tiếp $\rightarrow$ phân tách rõ ràng đâu là frame trước, đâu là frame sau.
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\Rightarrow$ Thời gian nghỉ thực tế nhanh hay chậm phụ thuộc vào tốc độ mạng.
+\medskip
+
+\begin{equation*}
+    \text{IFG time (thời gian nghỉ)} = \frac{96 \text{ bits}}{\text{Link Speed (tốc độ mạng - bps)}}
+\end{equation*}
+\medskip
+
+\noindent
+$\rightarrow$ Nếu giảm IFG thì:
+
+\begin{itemize}
+    \item \textbf{Pros:} tăng data rate $\Rightarrow$ ít thời gian nghỉ $\rightarrow$ có nhiều thời gian truyền dữ liệu hơn.
+    \item \textbf{Cons:} có thể không detect được frame border (may become impossible) $\Rightarrow$ receiver không phân biệt được đâu là hết frame trước, đâu là đầu frame sau $\rightarrow$ the number of errors may rise.
+\end{itemize}
+\medskip
+
+\section{Addresses}
+
+\subsection{MAC Address}
+
+\noindent
+$\rightarrow$ Các giao thức của Data Link Layer quy định cách định dạng (format) của physical network addresses.
+\medskip
+
+\noindent
+$\rightarrow$ Physical network address thường được gọi là MAC address (Media Access Control address).
+\medskip
+
+$\Rightarrow$ MAC address theo chuẩn IEEE 802 có độ dài 48 bít (6 bytes).
+\medskip
+
+\noindent
+\textbf{Định dạng:} Viết dưới dạng hexadecimal, separated bởi dấu \texttt{-} (dash) hoặc dấu \texttt{:} (colon).
+\medskip
+
+\noindent
+\textbf{EUI Addresses:}
+
+\begin{itemize}
+    \item EUI $\rightarrow$ nghĩa là Extended Unique Identifier.
+    \item[$\rightarrow$] Đây là numbering space do IEEE quản lý để tạo ra các địa chỉ MAC.
+    \item \textbf{Phân loại:} có 2 loại EUI phổ biến dựa trên độ dài bit: \begin{itemize}
+        \item \textbf{EUI-48 (48 bits)} $\rightarrow$ như Ethernet, WLAN (Wifi), Bluetooth.
+        \item \textbf{EUI-64 (64 bits)} $\rightarrow$ dài hơn 8 byte; như Firewire, 6LoWPAN, Zigbee.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\subsection{Broadcast and Multicast MAC Address}
+
+\noindent
+\textbf{Individual/Group (I/G) bit:}
+
+\begin{itemize}
+    \item[$\rightarrow$] Là bit thấp nhất (LSB - Least Significant Bit) của byte đầu tiên trong MAC address.
+    \item[$\Rightarrow$] Xác định xem gói tin gửi cho một người (unicast) hay cho nhiều người (multicast/broadcast).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{MAC broadcast address:}
+
+\begin{itemize}
+    \item Trong IEEE 802 networks $\rightarrow$ tất cả 48 bits đều mang giá trị \texttt{1}.
+    \item Hex representation: \texttt{FF-FF-FF-FF-FF-FF} (\texttt{:} hay \texttt{-} đều như nhau, như đã nói trên).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Cơ chế hoạt động:}
+\medskip
+
+\noindent
+$\rightarrow$ Các frame có I/G bit set (nghĩa là bit I/G bằng \texttt{1}) chỉ cần gửi đi một lần $\rightarrow$ nhưng sẽ được Switch chuyển tiếp ra nhiều port (hoặc tất cả các port).
+\medskip
+
+\pagebreak
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+Trong chuyên ngành: "bit set" nghĩa là bit được đặt thành giá trị \texttt{1}, còn "bit cleared" nghĩa là bit được đặt thành giá trị \texttt{0}.
+
+$\Rightarrow$ Theo câu trên, bit có trọng số thấp nhất (LSB) của byte đầu tiên trong MAC address mà bằng \texttt{1} $\rightarrow$ là frame này gửi cho nhiều người (multicast/broadcast); còn nếu bằng \texttt{0} $\rightarrow$ là gửi cho một người (unicast).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/chap_3/ig_bit.jpg}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Ví dụ:}
+
+\begin{itemize}
+    \item \texttt{4A:...} $\rightarrow$ Đầu là \texttt{0100 101\underline{0}} $\rightarrow$ I/G bit = \texttt{0} $\Rightarrow$ unicast.
+    \item \texttt{4B:...} $\rightarrow$ Đầu là \texttt{0100 101\underline{1}} $\rightarrow$ I/G bit = \texttt{1} $\Rightarrow$ multicast.
+    \item[$\Rightarrow$] Chỉ có broadcast là full \texttt{1}s $\rightarrow$ \texttt{FF:FF:FF:FF:FF:FF}.
+\end{itemize}
+\medskip
+
+\subsection{Uniqueness of MAC Addresses}
+
+\noindent
+$\rightarrow$ Mỗi thiết bị mạng phải có một MAC address duy nhất và được gán cứng vĩnh viễn.
+
+$\Rightarrow$ Nhưng trên thực tế thì người ta vẫn có thể thay đổi được MAC address (gọi là spoofing) bằng phần mềm.
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{Cấu trúc:} \textit{(như hình trên mô tả)}
+
+\begin{itemize}
+    \item 24 bit đầu - OUI (Organizationally Unique Identifier) $\rightarrow$ là mã định danh của nhà sản xuất, do IEEE cấp phát.
+    \item 24 bit sau - vendor specific $\rightarrow$ do nhà sản xuất tự đánh số cho từng thiết bị; cho phép tạo ra khoảng 16 triệu ($2^{24}$) địa chỉ cho mỗi mã OUI.
+\end{itemize}
+\medskip
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llll}
+        \hline
+        \textbf{MAC addresses} & \textbf{Manufacturer} & \textbf{MAC addresses} & \textbf{Manufacturer} \\
+        \hline
+        \texttt{00-20-AF-xx-xx-xx} & 3COM & \texttt{00-0C-6E-xx-xx-xx} & Asus \\
+        \texttt{00-00-0C-xx-xx-xx} & Cisco & \texttt{08-00-2B-xx-xx-xx} & DEC \\
+        \texttt{00-01-E6-xx-xx-xx} & Hewlett-Packard & \texttt{00-02-B3-xx-xx-xx} & Intel \\
+        \texttt{00-04-5A-xx-xx-xx} & Linksys & \texttt{00-04-E2-xx-xx-xx} & SMC \\
+        \texttt{00-03-93-xx-xx-xx} & Apple & \texttt{00-50-8B-xx-xx-xx} & Compaq \\
+        \texttt{00-02-55-xx-xx-xx} & IBM & \texttt{00-09-5B-xx-xx-xx} & Netgear \\
+        \hline
+    \end{tabular*}
+\end{table}
+\medskip
+
+\subsection{Security Aspects of MAC Addresses}
+
+\noindent
+\textbf{MAC filters:}
+\medskip
+
+\noindent
+$\rightarrow$ Thường được sử dụng trong mạng Wifi (WLAN) để bảo vệ AP (Access Point).
+
+$\Rightarrow$ Administrator sẽ tạo ra một dánh sách các MAC address được phép truy cập vào mạng (whitelist) $\rightarrow$ chỉ những thiết bị có MAC address trong danh sách này mới được phép kết nối.
+\medskip
+
+\noindent
+\textbf{Vấn đề:}
+\medskip
+
+\noindent
+$\rightarrow$ Mức độ an toàn thấp.
+
+$\Rightarrow$ Mặc dù MAC là physical address $\rightarrow$ vẫn có thể hoàn toàn bị thay đổi bằng phần mềm (gọi là MAC spoofing như nãy nói trên).
+\medskip
+
+\noindent
+\textbf{Cách đổi MAC trong môi trường Linux:}
+
+\begin{itemize}
+    \item Đọc MAC hiện tại của mình: \texttt{ip link} hoặc \texttt{ifconfig}.
+    \item Đọc MAC thiết bị khác (chủ yếu là Routers): \texttt{ip neigh}.
+    \item Set MAC address mới: \texttt{ip link set dev <Interface> address <MAC Add\\ress>}.
+\end{itemize}
+\medskip
+
+\pagebreak
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+Thao tác MAC spoofing:
+
+\begin{itemize}
+    \item Hacker nghe lén (sniff) mạng Wifi và bắt được MAC address hợp lệ đang kết nối (chẳng hạn như của mình).
+    \item Hacker dùng phần mềm thay đổi MAC address của máy nó sang địa chỉ máy mình.
+    \item Access point tưởng hacker là mình $\rightarrow$ cho phép nó kết nối vào mạng.
+\end{itemize}
+\medskip
