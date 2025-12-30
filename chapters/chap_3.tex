@@ -995,3 +995,158 @@ $\rightarrow$ Switch chờ nhận 64 bytes đầu tiên của frame rồi mới 
 
 $\Rightarrow$ Cân bằng giữa tốc độ, nhanh hơn Store-and-Forward; an toàn hơn do lọc được các collision fragments.
 \medskip
+
+\pagebreak
+
+\subsection{Loops}
+
+\subsubsection{Loops on the Data Link Layer}
+
+\noindent
+\textbf{Nguyên nhân:}
+\medskip
+
+\noindent
+Khi thiết kế mạng $\rightarrow$ người ta đôi khi cố tình tạo ra các đường kết nối dự phòng (redundant connections) $\Rightarrow$ nếu một dây cáp bị đứt thì vẫn còn đường khác để truyền đi.
+
+$\Rightarrow$ Chính đường dự phòng này tạo ra các loops về mặt vật lý.
+\medskip
+
+$\rightarrow$ Khác với gói tin IP (có TTL để tự hủy khi quá lâu) $\rightarrow$ gói tin Ethernet không có cơ chết TTL $\Rightarrow$ một khi gói tin đã rơi vào vòng lặp $\rightarrow$ nó sẽ loop vĩnh viễn.
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.65\textwidth}
+    \noindent
+    \textbf{Vấn đề:} tại một thời điểm $\rightarrow$ chỉ được tồn tại một đường truyền duy nhất đến mỗi thiết bị trong mạng $\Rightarrow$ loops sẽ làm phá vỡ nguyên tắc này.
+    \medskip
+
+    \noindent
+    \textbf{Hậu quả:}
+
+    \begin{itemize}
+        \item Làm nhân bản frame (frames get duplicated) $\rightarrow$ các gói tin bị sao chép và đến đích nhiều lần.
+        \item Giảm hiệu năng (reduce the performance) hoặc sập mạng (network failure) $\rightarrow$ loops có thể làm giảm tốc độ mạng, hoặc tệ hơn là dẫn đến sập toàn bộ hệ thống.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/loops.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\subsubsection{Example of Loops in a LAN}
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item Mạng LAN có 3 switch (S1, S2, S3) được kết nối với nhau tạo thành loop ở data link layer.
+        \item Forwarding table của mỗi switch đang trống do chưa học được gì.
+        \item Máy A (đang nối với S1) muốn gửi tin cho máy B (đang nối với S2).
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_1.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item Frame đi qua S1 $\rightarrow$ S1 ghi nhớ địa chỉ của A vào forwarding table.
+        \item Do S1 chưa biết B ở đâu $\rightarrow$ nó flood gói tin ra các cổng còn lại (trừ cổng S1) $\Rightarrow$ gói tin đi tới S2 và S3.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_2.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item S2 và S3 đều nhận được frame từ S1 sang $\rightarrow$ cả hai đều lưu địa chỉ của A vào bảng "A ở port 1".
+        \item Cả S2 và S3 đều vẫn chưa biết máy B ở đâu $\rightarrow$ tụi nó lại tiếp tục flood tiếp các gói tin ra các cổng khác ngoại trừ cổng nhận từ S1.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_3.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item Các copies của frame lại tiếp tục đi qua S2 và S3.
+        \item[$\rightarrow$] S2 và S3 cập nhật lại forwarding table của chính nó.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_4.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\pagebreak
+
+\noindent
+$\rightarrow$ Do S2 đã biết port 3, và S3 đã biết port 2 $\Rightarrow$ 2 tụi nó sẽ không gửi cho port đã biết và chính nó.
+
+$\Rightarrow$ Tụi nó gửi lại cho S1.
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item 2 copies của frame truyền tới S1 $\Rightarrow$ xảy ra loop.
+        \item S1 gửi các copies của frame nhận được: \begin{itemize}
+            \item Từ port 2 ra port 1 và 3.
+            \item Từ port 3 ra port 1 và 2.
+        \end{itemize}
+        \item S1 cập nhật forwarding table 2 lần $\rightarrow$ không thể dự đoán được thứ tự mà các frame đến S1.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_5.png}
+\end{minipage}
+\end{center}
+\medskip
+
+
+\begin{center}
+\begin{minipage}[c]{0.45\textwidth}
+    \begin{itemize}
+        \item Mỗi frame do A gửi tạo thành 2 copies $\rightarrow$ các copies này loop vô tận trong mạng.
+        \item Nếu A tiếp tục gửi thêm frames $\rightarrow$ mạng sẽ bị flooded $\Rightarrow$ đến một thời điểm thì nó sẽ collapsed.
+        \item Các copies của frame tiếp tục đi qua S2 và S3 $\rightarrow$ S2 và S3 liên tục cập nhật bảng.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/lanloop_6.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+$\rightarrow$ Ethernet không có TTL hay HopLimit $\Rightarrow$ vì thế loop sẽ không bao giờ kết thúc cho đến khi forwarding table của các switch có entry cho B.
+\medskip
+
+\noindent
+$\Rightarrow$ \textbf{Ví dụ này chứng minh:} nếu cắm dây mạng thành vòng tròn mà không có cấu hình gì thêm (chẳng hạn như STP - Spanning Tree Protocol, sẽ nói ở mục dưới) $\rightarrow$ switch sẽ tự hủy network do cơ chế flooding dùng để tìm destination address.
+\medskip
