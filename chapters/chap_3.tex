@@ -939,8 +939,6 @@ $\rightarrow$ Mỗi entry có thời hạn nhất định ($\rightarrow$ Time To
 $\Rightarrow$ Nếu không tìm thấy address tồn tại trong bảng $\rightarrow$ frame sẽ được gửi ra tất cả các cổng (gọi là flooding).
 \medskip
 
-\pagebreak
-
 \subsubsection{Forwarding Strategies}
 
 \noindent
@@ -995,8 +993,6 @@ $\rightarrow$ Switch chờ nhận 64 bytes đầu tiên của frame rồi mới 
 
 $\Rightarrow$ Cân bằng giữa tốc độ, nhanh hơn Store-and-Forward; an toàn hơn do lọc được các collision fragments.
 \medskip
-
-\pagebreak
 
 \subsection{Loops}
 
@@ -1149,4 +1145,223 @@ $\rightarrow$ Ethernet không có TTL hay HopLimit $\Rightarrow$ vì thế loop 
 
 \noindent
 $\Rightarrow$ \textbf{Ví dụ này chứng minh:} nếu cắm dây mạng thành vòng tròn mà không có cấu hình gì thêm (chẳng hạn như STP - Spanning Tree Protocol, sẽ nói ở mục dưới) $\rightarrow$ switch sẽ tự hủy network do cơ chế flooding dùng để tìm destination address.
+\medskip
+
+\subsubsection{Handle Loops in the LAN}
+
+\noindent
+Bridge cần phải handle loops để tránh các vấn đề như trên xảy ra.
+
+$\Rightarrow$ \textbf{Giải pháp:} tạo cấu trúc phân cấp logic (create logical hierarchy).
+\medskip
+
+\noindent
+Mạng máy tính gồm nhiều physical network $\rightarrow$ được biểu diễn bằng graph mà có thể có loops.
+\medskip
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/chap_3/graph.png}
+\end{figure}
+\medskip
+
+\begin{itemize}
+    \item Về vật lý $\rightarrow$ các dây cáp vẫn được cắm nối vòng tròn để dự phòng.
+    \item Về logic $\rightarrow$ các bridge/switch sẽ được configure để vô hiệu hóa (block) một số cổng nhất định.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Tạo ra một subgraph bao phủ tất cả các nút nhưng không có vòng lặp (cycle-free) $\rightarrow$ gọi là Spanning Tree Protocol (STP).
+\medskip
+
+\subsubsection{Spanning Tree Protocol}
+
+\begin{center}
+\begin{minipage}[c]{0.65\textwidth}
+    \textbf{Thông tin tổng quát:}
+    \begin{itemize}
+        \item \textbf{Chuẩn:} IEEE 802.1D.
+        \item \textbf{Chức năng:} biến một physical network có loops (mesh/cyclic) thành một mạng logic hình cây (tree) không có loops.
+        \item \textbf{Nguyên lý hoạt động:} các bridge trao đổi thông tin để vote root bridge $\rightarrow$ các cổng dẫn đến đường đi ngắn nhất sẽ được mở, còn lại sẽ bị khóa (blocked).
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/spanning_tree.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+$\rightarrow$ Thông qua STP $\rightarrow$ một nhóm các bridges có thể thỏa thuận với nhau để tạo thành spanning tree.
+
+$\Rightarrow$ Bằng phương pháp vô hiệu hóa một số cổng trên bridge (removing single ports) $\rightarrow$ network sẽ chuyển thành cycle-free tree.
+\medskip
+
+\noindent
+$\rightarrow$ Thuật toán hoạt động linh hoạt (dynamic way) $\Rightarrow$ nếu một bridge lỗi $\rightarrow$ mạng sẽ tự tạo một spanning tree mới.
+\medskip
+
+\subsubsection{Spanning Tree Protocol - Bridge ID}
+
+\noindent
+Để STP hoạt động $\rightarrow$ mỗi bridge cần có một mã định danh duy nhất (gọi là bridge ID).
+
+\begin{itemize}
+    \item \textbf{Độ dài:} 8 bytes.
+    \item \textbf{Chức năng:} mỗi bridge cần một mã định danh duy nhất (unique identifier) để vote làm root bridge.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Có 2 cách triển khai:}
+
+\begin{itemize}
+    \item Kiểu cổ điển (traditional/legacy 802.1D) $\rightarrow$ gồm 2 bytes priority + 6 bytes MAC address $\Rightarrow$ chỉ dùng cho 1 mạng LAN duy nhất, không hỗ trợ tốt cho VLAN.
+    \item Kiểu mở rộng (extended System ID - 802.1t) $\rightarrow$ khi chia nhiều mạng con ảo (VLAN), mỗi VLAN cần một spanning tree riêng $\Rightarrow$ giúp cho mỗi VLAN có 1 ID riêng biệt dù chạy trên cùng một physical switch. \begin{itemize}
+        \item[$\Rightarrow$] Người ta lấy 2 bytes priority đem chia thành 4 bit đầu là priority, 12 bit sau là VLAN ID, 6 bytes cuối vẫn là MAC address.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\begin{center}
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0.56cm}
+    \centering
+    \includegraphics[width=\textwidth]{assets/chap_3/bridgeid.png}
+    \textit{Bridge ID kiểu legacy}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\textwidth]{assets/chap_3/bridgeid_cisco.png}
+    \textit{Bridge ID extended System ID (Cisco)}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Cấu trúc:} bridge ID gồm 2 phần ghép lại:
+
+\begin{itemize}
+    \item Phần đầu (16 bits = 2 bytes) $\rightarrow$ bridge priority (độ ưu tiên của bridge) $\Rightarrow$ giá trị mặc định thường là 32768; administrator có thể chỉnh số này với bất kì giá trị nào trong khoảng 0 đến 65535.
+    \item Phần sau (48 bits = 6 bytes) $\rightarrow$ MAC address $\Rightarrow$ đây là địa chỉ cứng của thiết bị, không đổi được (như đã nói ở phần trước).
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:}
+\medskip
+
+\noindent
+$\rightarrow$ Người ta chọn 32768 làm giá trị mặc định $\rightarrow$ là bit thứ 16 (bit cao nhất trong 16 bit, nếu tính từ 1) $\Rightarrow$ đại diện cho vị trí trung bình để dễ dàng thay đổi lên xuống.
+\medskip
+
+\subsubsection{Spanning Tree Protocol - Cisco Bridge IDs}
+
+\noindent
+\textbf{Mục đích:}
+\medskip
+
+\noindent
+$\rightarrow$ Cisco hỗ trợ các bridge mà mỗi VLAN sẽ có một spanning tree riêng $\Rightarrow$ để làm được điều này thì cấu trúc bridge ID cần thay đổi để chứa được thông tin VLAN.
+\medskip
+
+\noindent
+\textbf{Cấu trúc mới của phần priority:} \textit{(nhắc lại ở trên)}
+\medskip
+
+\noindent
+Phần 2 bytes (16 bits) đầu của bridge ID được chia thành 2 phần:
+
+\begin{itemize}
+    \item Bridge priority (4 bits đầu - theo hình phải) $\rightarrow$ còn 4 bit để biểu diễn độ ưu tiên $\Rightarrow$ chỉ có thể tạo ra 16 giá trị khác nhau ($2^4 = 16$). \begin{itemize}
+        \item Quy tắc: giá trị priority phải là 0 hoặc bội số của 4096; ví dụ như: \texttt{0000} = 0, \texttt{0001} = 4096, \texttt{0010} = 8192, ..., \texttt{1111} = 61440.
+    \end{itemize}
+    \item Extended System ID (12 bits sau) $\rightarrow$ dùng để mã hóa VLAN ID $\Rightarrow$ giá trị này khớp với VLAN tag trong Ethernet frame $\rightarrow$ với 12 bit, nó có thể đánh địa chỉ cho 4096 VLAN khác nhau.
+\end{itemize}
+\medskip
+
+\subsubsection{Spanning Tree Protocol - Functioning}
+
+\begin{center}
+\begin{minipage}[c]{0.65\textwidth}
+    \noindent
+    Các bridge trong mạng trao đổi thông tin với nhau về ID của bridge và path cost thông qua các frames đặc biệt $\rightarrow$ gọi là BPDU (Bridge Protocol Data Units).
+    \medskip
+
+    \vspace{0.5cm}
+
+    $\Rightarrow$ Nó được gửi trong payload field của Ethernet frame thông qua broadcast tới các bridge lân cận.
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/spanning_tree.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_3/function_1.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Chọn root bridge:}
+
+\begin{itemize}
+    \item Khi mạng khởi động $\rightarrow$ tất cả các bridge đều tự coi mình là root bridge và gửi thông tin BPDU cho nhau để so sánh ID.
+    \item Quy tắc: so sánh bridge ID của tất cả các thiết bị $\Rightarrow$ bridge có ID nhỏ nhất sẽ được chọn làm root bridge (chỉ có \textbf{1 root bridge} trong mạng). \begin{itemize}
+        \item[$\Rightarrow$] Nếu có nhiều bridge có cùng priority $\rightarrow$ bridge có MAC address nhỏ nhất sẽ được chọn.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Xác định đường đi ngắn nhất (root ports):}
+\medskip
+
+\noindent
+$\rightarrow$ Đối với mỗi physical network $\rightarrow$ cần chọn ra 1 bridge duy nhất trong số các bridge được kết nối để chuyển tiếp các frame theo hướng về root bridge.
+
+$\Rightarrow$ Đây được gọi là designated bridge (bridge được chỉ định) cho mạng đó.
+
+\begin{itemize}
+    \item Mọi bridge còn lại (non-root bridge) phải tìm đường nhanh nhất để về root bridge.
+    \item Các bridge tính toán path cost trên các port của mình $\Rightarrow$ trên mỗi bridge, port nào có đường về root ngắn nhất (lowest path cost) sẽ được chọn làm root port $\rightarrow$ port này sẽ luôn mở để chuyển dữ liệu. \begin{itemize}
+        \item[$\Rightarrow$] Path cost tới root bridge là tổng các path cost của các physical network khác nhau trên đường từ bridge đó đến root bridge.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\begin{center}
+\begin{minipage}[c]{0.4\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/spanning_tree.png}
+\end{minipage}
+\hfill
+\begin{tikzpicture}
+    \draw[->, line width=2pt] (0,0) -- (1,0);
+\end{tikzpicture}
+\hfill
+\begin{minipage}[c]{0.4\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_3/function_2.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Khóa các đường thừa (blocking):}
+
+\begin{itemize}
+    \item \textbf{Vấn đề:} sau khi chọn xong đường về root $\rightarrow$ vẫn còn dư các đường nối giữa switch với nhau do các dây cáp dự phòng.
+    \item[$\rightarrow$] STP sẽ tính toán để giữ lại một đường duy nhất trên mỗi đoạn (designated port) $\rightarrow$ sau đó block tất cả các port còn lại.
+    \item[$\Rightarrow$] Các port bị block sẽ không chuyển tiếp dữ liệu nhưng vẫn ở đó để phòng khi đường chính bị sự cố thì mở lại.
+\end{itemize}
 \medskip
