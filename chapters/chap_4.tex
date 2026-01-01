@@ -26,7 +26,7 @@ $\rightarrow$ Có 2 nhóm phương pháp điều phối.
         \item Non-deterministic (không xác định trước được) $\rightarrow$ không thể biết trước ai sẽ gửi.
     \end{itemize}
     \item \textbf{Hiệu suất:} hoạt động tốt khi lưu lượng mạng thấp đến trung bình, và lưu lượng có tính chất đột biến (bursty).
-    \item \textbf{Ví dụ:} ALOHA, CSMA/CA (tránh xung đột bằng cách nghe trước khi gửi - Carrier Sense Multiple Access with Collision Avoidance), MACA.
+    \item \textbf{Ví dụ:} ALOHA, CSMA/CA (tránh xung đột bằng cách nghe trước khi gửi - Carrier Sense Multiple Access with Collision Avoidance), MACA (Multiple Access with Collision Avoidance).
 \end{itemize}
 \medskip
 
@@ -78,4 +78,207 @@ ALOHA $\rightarrow$ \textbf{A}dditive \textbf{L}inks \textbf{O}n-line \textbf{H}
 
 \noindent
 $\Rightarrow$ Phương pháp rất đơn giản, không yêu cầu thêm gì.
+\medskip
+
+\subsubsection{Slotted ALOHA}
+
+\noindent
+Slotted ALOHA $\rightarrow$ ALOHA phân khe $\Rightarrow$ đây là phiên bản cải tiến của pure ALOHA để giảm thiểu collision.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/chap_4/slotted_aloha.png}
+\end{figure}
+\medskip
+
+\begin{itemize}
+    \item \textbf{Nguyên lý hoạt động:} thời gian được chia thành các khe (slots) có độ dài cố định ngang với thời gian truyền một gói tin (packet). \begin{itemize}
+        \item Các trạm chỉ được phép bắt đầu gửi tại thời điểm bắt đầu của một slot.
+        \item[$\Rightarrow$] Yêu cầu phải đồng bộ hóa thời gian chung (common time-base for synchronization).
+    \end{itemize}
+    \item \textbf{Ưu điểm (so với pure ALOHA):} collision chi xảy ra hoàn toàn (complete collision - trùng khít cả slot) chứ không bị chồng lên một phần $\rightarrow$ giảm xác suất lỗi; thông lượng (throughput) được cải thiện.
+    \item \textbf{Nhược điểm:} chưa đảm bảo được fairness; delay tăng do phải chờ đến đầu slot tiếp theo thì mới được gửi.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Được dùng trong GSM network (Global System for Mobile Communications - mạng di động thế hệ đầu tiên).
+\medskip
+
+\subsubsection{Performance of ALOHA}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_4/performance_aloha.png}
+\end{figure}
+\medskip
+
+\noindent
+Để đánh giá hiệu suất của ALOHA, người ta sử dụng 2 thông số chính:
+
+\begin{itemize}
+    \item $S$ (throughput) $\rightarrow$ lượng dữ liệu truyền được thành công trên đơn vị thời gian.
+    \item $G$ (load) $\rightarrow$ tổng lượng dữ liệu mà các trạm cố gắng gửi gói tin (bao gồm cả các gói tin bị collision) trên đơn vị thời gian.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Pure ALOHA:} $\rightarrow$ protocol có hiệu suất thấp nhất.
+
+\begin{itemize}
+    \item \textbf{Công thức:} $S = G \cdot e^{-2G}$.
+    \item \textbf{Hiệu suất tối đa:} đạt chỉ $\approx$18.4\% ($1/(2e)$) dung lượng kênh truyền (channel's capacity) $\Rightarrow$ đạt được khi $G = 0.5$ (nghĩa là trung bình cứ 2 khoảng thời gian truyền thì có 1 gói tin được gửi thành công).
+    \item[$\Rightarrow$] \textbf{Lý do:} vì các trạm gửi tự do bất cứ lúc nào $\rightarrow$ kể cả một cái collision nhỏ cũng làm hỏng gói tin.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Slotted ALOHA:} $\rightarrow$ cải tiến hiệu suất bằng cách ép buộc các trạm chỉ gửi ở đầu mỗi slot (do phải sync thời gian).
+
+\begin{itemize}
+    \item \textbf{Công thức:} $S = G \cdot e^{-G}$.
+    \item \textbf{Hiệu suất tối đa:} đạt chỉ $\approx$37\% ($1/e$) dung lượng kênh truyền $\Rightarrow$ đạt được khi $G = 1$ (nghĩa là trung bình cứ 1 khoảng thời gian truyền thì có 1 gói tin được gửi thành công).
+    \item[$\Rightarrow$] Slotted ALOHA cho throughput cao gấp đôi so với pure ALOHA $\Rightarrow$ nó phải đánh đổi bằng delay cao $\rightarrow$ phải chờ đến đầu slot tiếp theo mới được gửi.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:} cái hiệu suất nó mang tính "trong tổng số G attempt gửi đi thì có bao nhiêu phần trăm là may mắn không bị collision".
+
+$\rightarrow$ Dùng Poisson để tính xác suất lần thử thành công: $S = G \cdot P$ (vì mô hình này giả định số lượng trạm tham gia rất lớn).
+
+\begin{itemize}
+    \item[$\rightarrow$] Với pure ALOHA: xác suất để không có trạm nào gửi tin trong khoảng thời gian $2t$ (tương ứng $2G$) $\rightarrow$ $P = e^{-2G}$.
+    \item[$\rightarrow$] Với slotted ALOHA: xác suất để không có trạm nào gửi tin trong khoảng thời gian $t$ (tương ứng $G$) $\rightarrow$ $P = e^{-G}$.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Từ đây có thể thấy được slotted ALOHA giảm phân nửa khoảng thời gian collision.
+\medskip
+
+\subsection{CSMA}
+
+\subsubsection{CSMA}
+
+\noindent
+CSMA $\rightarrow$ \textbf{C}arrier \textbf{S}ense \textbf{M}ultiple \textbf{A}ccess $\rightarrow$ hooạt động dựa trên nguyên tắc "nghe trước khi nói" (listen before talk).
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:} trạm phát phải lắng nghe (sense) đường truyền.
+
+\begin{itemize}
+    \item Nếu đường truyền bận (busy) $\rightarrow$ trạm phải đợi.
+    \item Nếu đường truyền rảnh (idle) $\rightarrow$ trạm mới xem xét gửi dữ liệu.
+\end{itemize}
+\medskip
+
+\noindent
+Có 2 phương pháp chính để thực hiện CSMA.
+\medskip
+
+\noindent
+\textbf{p-persistent CSMA (kiên trì xác suất p):}
+
+\begin{itemize}
+    \item Khi đường truyền bận $\rightarrow$ trạm tiếp tục đợi cho đến khi rảnh.
+    \item Khi đường truyền rảnh $\rightarrow$ trạm gửi gói tin với xác suất $p$, hoặc phải chờ đến slot tiếp theo với xác suất $1-p$.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:} gửi $p$ xác suất ở đây như trò tung đồng xu $\rightarrow$ thấy đường dây rảnh thì bắt đầu random $\Rightarrow$ nếu rơi vào mặt ngửa ($p$) thì gửi, còn rơi vào mặt sấp ($1-p$) thì đợi đến slot tiếp theo rồi random lại $\rightarrow$ nếu đang tung mà thấy đường dây có đứa khác gửi thì chờ đến slot tiếp theo rồi random tiếp.
+\medskip
+
+$\Rightarrow$ Sẽ có lúc bị collision do dính xác suất cả 2 cùng chọn gửi trong cùng 1 slot, hoặc có thể bị delay do cả 2 đứa đều chờ mà nguyên đường dây không đứa nào gửi.
+\medskip
+
+\noindent
+\textbf{Non-persistent CSMA (không kiên trì):}
+
+\begin{itemize}
+    \item Khi đường truyền bận $\rightarrow$ trạm không ngồi nghe liên tục mà sẽ đợi một khoảng thời gian ngẫu nghiên $\rightarrow$ sau đó quay lại nghe tiếp.
+    \item Khi đường truyền rảnh $\rightarrow$ gửi gói tin ngay lập tức.
+\end{itemize}
+\medskip
+
+\subsubsection{Performance of CSMA}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_4/performance_csma.png}
+\end{figure}
+\medskip
+
+\noindent
+Theo đồ thị biểu diễn hiệu suất của các phương pháp $\rightarrow$ cơ chế carrier sense giúp giảm xung đột đáng kể $\Rightarrow$ tăng dữ liệu truyền thành công cao hơn so với việc giử tự do như ALOHA.
+\medskip
+
+\noindent
+\textbf{Với CSMA:}
+
+\begin{itemize}
+    \item \textbf{Hiệu suất cao} $\rightarrow$ $p$ càng nhỏ càng giúp tránh collision tốt hơn vì các trạm nhường nhau.
+    \item \textbf{Delay cao} $\rightarrow$ do $p$ nhỏ $\rightarrow$ xác suất gửi đi thấp $\Rightarrow$ gói tin phải chờ rất lâu mới được gửi đi dù đường truyền trống.
+\end{itemize}
+\medskip
+
+\pagebreak
+
+\noindent
+\underline{Self-note:} non-persistent khác với 1-persistent:
+
+\begin{itemize}
+    \item \textbf{Non-persistent:} đường truyền đợi một khoảng thời gian random rồi mới nghe lại $\rightarrow$ nếu đường truyền rảnh thì gửi ngay.
+    \item \textbf{1-persistent:} đường truyền cứ nghe liên tục đến khi rảnh thì gửi ngay.
+\end{itemize}
+\medskip
+
+\subsection{CSMA/CA and MACA}
+
+\subsubsection{CSMA/CA}
+
+\noindent
+$\rightarrow$ Tránh xung đột (collision avoidance) thay vì phát hiện xung đột (collision detection).
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Tại sao không dùng CSMA/CD (collision detection)?}
+
+\begin{itemize}
+    \item Trong mạng không dây $\rightarrow$ việc vừa gửi vừa nghe để bắt xung đột là rất khó $\Rightarrow$ vì trạm phát ra một tín hiệu rất mạnh $\rightarrow$ át hoàn toàn các tín hiệu yếu hơn từ xa tới $\rightarrow$ máy không thể biết gói tin có bị collision không.
+    \item Có vấn đề trạm ẩn (hidden terminal) $\rightarrow$ các trạm không nghe thấy nhau dẫn đến việc gửi cùng lúc với nhau $\rightarrow$ gây ra xung đột.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Chính vì không thể phát hiện xung đột $\rightarrow$ chọn cách tránh xung đột ngay từ đầu là hợp lý nhất.
+\medskip
+
+\noindent
+\textbf{Ở sender:}
+
+\begin{itemize}
+    \item Nếu thấy đường truyền rảnh $\rightarrow$ nó không gửi ngay mà chờ thêm một khoảng thời gian (time slots/DIFS - Distributed Interframe Space) để chắc chắn rồi mới gửi.
+    \item Dựa vào ACK (acknowledgment) để biết $\rightarrow$ do sender không tự biết có lỗi hay không $\rightarrow$ phụ thuộc hoàn toàn vào response của receiver. \begin{itemize}
+        \item[$\Rightarrow$] Nếu gửi xong mà không nhận được ACK $\rightarrow$ sender tự hiểu là bị mất hoặc collision $\rightarrow$ nó sẽ gửi lại (retransmit).
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Ở receiver:}
+
+\begin{itemize}
+    \item Khi nhận được gói tin $\rightarrow$ kiểm tra xem có lỗi không (dùng checksum/CRC).
+    \item Nếu gói tin error-free $\rightarrow$ receiver sẽ đợi một khoảng thời gian ngắn (short time delay/SIFS - Short Interframe Space) $\rightarrow$ gửi ACK trở lại cho sender.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Mạng không dây không thấy được trạm ẩn khi phát sóng, và không thấy được collision $\rightarrow$ nó không thể tự bắt lỗi được $\rightarrow$ phải dựa vào ACK từ receiver để biết có lỗi hay không.
 \medskip
