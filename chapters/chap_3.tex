@@ -144,6 +144,8 @@ $\Rightarrow$ Cách này cho phép sử dụng mọi kiểu mã hóa ký tự (a
 \end{figure}
 \medskip
 
+\pagebreak
+
 \noindent
 \textbf{Tổng quan:}
 
@@ -153,8 +155,6 @@ $\Rightarrow$ Cách này cho phép sử dụng mọi kiểu mã hóa ký tự (a
     \item[$\rightarrow$] Là giao thức byte (character) oriented.
 \end{itemize}
 \medskip
-
-\pagebreak
 
 \noindent
 \textbf{Các kí tự đặt biệt (special characters) cần nhớ:}
@@ -296,6 +296,8 @@ $\Rightarrow$ Cố tình tạo ra các tín hiệu bất hợp lệ (illegal sig
 \end{figure}
 \medskip
 
+\pagebreak
+
 \noindent
 Trong token ring:
 
@@ -423,8 +425,6 @@ $\Rightarrow$ VLAN tag chỉ được giới thiệu trong IEEE 802.1Q hoặc IE
 \end{figure}
 \medskip
 
-\pagebreak
-
 \noindent
 Cấu trúc VLAN Tag:
 
@@ -442,6 +442,8 @@ $\rightarrow$ Trong VLAN tag: \textit{(các thông tin khác có thể xem hình
     \item Priority information $\rightarrow$ dài 3 bits $\Rightarrow$ dùng cho độ ưu tiên; ví dụ như voice được ưu tiên đi trước chẳng hạn.
 \end{itemize}
 \medskip
+
+\pagebreak
 
 \noindent
 \textbf{Field \texttt{Type}:}
@@ -476,8 +478,6 @@ $\Rightarrow$ Đây là mã báo hiệu cho switch biết gói tin này có ch�
     \includegraphics[width=1\textwidth]{assets/chap_3/checksum.png}
 \end{figure}
 \medskip
-
-\pagebreak
 
 \noindent
 \textbf{Payload:}
@@ -537,8 +537,6 @@ $\rightarrow$ Đây là chức năng của tầng kiểm soát truy cập đư�
     \item CSMA/CA (collision avoidance) $\rightarrow$ tránh xung đột (cố gắng để không có collision xảy ra) $\Rightarrow$ dùng trong mạng không dây (Wi-Fi 802.11).
 \end{itemize}
 \medskip
-
-\pagebreak
 
 \subsubsection{Interframe Spacing}
 
@@ -656,8 +654,6 @@ $\Rightarrow$ MAC address theo chuẩn IEEE 802 có độ dài 48 bít (6 bytes)
 $\rightarrow$ Các frame có I/G bit set (nghĩa là bit I/G bằng \texttt{1}) chỉ cần gửi đi một lần $\rightarrow$ nhưng sẽ được Switch chuyển tiếp ra nhiều port (hoặc tất cả các port).
 \medskip
 
-\pagebreak
-
 \noindent
 \underline{Self-note:}
 \medskip
@@ -666,12 +662,6 @@ $\rightarrow$ Các frame có I/G bit set (nghĩa là bit I/G bằng \texttt{1}) 
 Trong chuyên ngành: "bit set" nghĩa là bit được đặt thành giá trị \texttt{1}, còn "bit cleared" nghĩa là bit được đặt thành giá trị \texttt{0}.
 
 $\Rightarrow$ Theo câu trên, bit có trọng số thấp nhất (LSB) của byte đầu tiên trong MAC address mà bằng \texttt{1} $\rightarrow$ là frame này gửi cho nhiều người (multicast/broadcast); còn nếu bằng \texttt{0} $\rightarrow$ là gửi cho một người (unicast).
-\medskip
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{assets/chap_3/ig_bit.jpg}
-\end{figure}
 \medskip
 
 \noindent
@@ -693,6 +683,12 @@ $\Rightarrow$ Nhưng trên thực tế thì người ta vẫn có thể thay đ�
 \medskip
 
 \pagebreak
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/chap_3/ig_bit.jpg}
+\end{figure}
+\medskip
 
 \noindent
 \textbf{Cấu trúc:} \textit{(như hình trên mô tả)}
@@ -751,8 +747,6 @@ $\Rightarrow$ Mặc dù MAC là physical address $\rightarrow$ vẫn có thể h
     \item Set MAC address mới: \texttt{ip link set dev <Interface> address <MAC Add\\ress>}.
 \end{itemize}
 \medskip
-
-\pagebreak
 
 \noindent
 \underline{Self-note:}
@@ -817,8 +811,6 @@ $\Rightarrow$ Để kết nối các physical network khác nhau (chẳng hạn 
 \end{center}
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Cơ chế hoạt động:}
 
@@ -866,8 +858,6 @@ $\rightarrow$ WLAN bridge giống như một cái card mạng dành cho các thi
 
 $\Rightarrow$ Cắm dây mạng từ thiết bị đó vào cục WLAN bridge $\rightarrow$ cục đó sẽ phát sóng Wifi để kết nối vào mạng.
 \medskip
-
-\pagebreak
 
 \subsection{Forwarding}
 
@@ -921,7 +911,7 @@ $\rightarrow$ Nó học bằng cách dựa vào địa chỉ người gửi (sen
 $\Rightarrow$ Nếu host A gửi một frame đến host khác $\rightarrow$ bridge lưu thông tin frame nhận được từ host A là port 1 $\rightarrow$ sau đó ghi thông tin này vào bảng chuyển tiếp (forwarding table).
 \medskip
 
-\vspace{0.5cm}
+\pagebreak
 
 \noindent
 \textbf{Đặc điểm của forwarding table:}
@@ -983,6 +973,8 @@ $\rightarrow$ Đây là sự kết hợp thông minh giữa 2 phương pháp tr�
     \item[$\Rightarrow$] Nếu nó phát hiện tỉ lệ lỗi trên đường truyền vượt quá một ngưỡng nhất định (certain error threshold) $\rightarrow$ tự động chuyển sang Store-and-Forward để đảm bảo an toàn.
 \end{itemize}
 \medskip
+
+\pagebreak
 
 \noindent
 \textbf{Fragment-Free Cut-Through (chuyển mạch không phân mảnh):}
@@ -1096,8 +1088,6 @@ $\rightarrow$ Khác với gói tin IP (có TTL để tự hủy khi quá lâu) $
 \end{center}
 \medskip
 
-\pagebreak
-
 \noindent
 $\rightarrow$ Do S2 đã biết port 3, và S3 đã biết port 2 $\Rightarrow$ 2 tụi nó sẽ không gửi cho port đã biết và chính nó.
 
@@ -1159,7 +1149,7 @@ $\Rightarrow$ \textbf{Giải pháp:} tạo cấu trúc phân cấp logic (create
 Mạng máy tính gồm nhiều physical network $\rightarrow$ được biểu diễn bằng graph mà có thể có loops.
 \medskip
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{assets/chap_3/graph.png}
 \end{figure}
