@@ -282,3 +282,81 @@ $\Rightarrow$ Chính vì không thể phát hiện xung đột $\rightarrow$ ch�
 \noindent
 $\Rightarrow$ Mạng không dây không thấy được trạm ẩn khi phát sóng, và không thấy được collision $\rightarrow$ nó không thể tự bắt lỗi được $\rightarrow$ phải dựa vào ACK từ receiver để biết có lỗi hay không.
 \medskip
+
+\pagebreak
+
+\subsubsection{Functioning of CSMA/CA}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/chap_4/csma_functioning.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Ở sender:}
+\medskip
+
+\noindent
+Đầu tiên, sender lắng nghe kênh truyền ($\rightarrow$ carrier sense) $\rightarrow$ kênh truyền cẩn phải không có tín hiệu trong một khoảng thời gian ngắn.
+
+$\Rightarrow$ Khoảng thời gian này được gọi là DIFS (Distributed Interframe Space) $\approx$50$\mu$s.
+\medskip
+
+\noindent
+$\rightarrow$ Nếu kênh truyền không có tín hiệu trong suốt 1 DIFS $\rightarrow$ trạm có thể bắt đầu gửi frame.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Ở receiver:}
+\medskip
+
+\noindent
+Nếu trạm nhận được success frame (đã pass CRC check) $\rightarrow$ nó sẽ đợi một khoảng thời gian ngắn.
+
+$\Rightarrow$ Khoảng thời gian này được gọi là SIFS (Short Interframe Space) $\approx$10$\mu$s.
+\medskip
+
+\noindent
+Sau đó, receiver gửi một acknowledgment frame (ACK).
+\medskip
+
+\noindent
+$\Rightarrow$ DIFS và SIFS đảm bảo được khoảng cách tối thiểu cho CSMA/CA khi một chuỗi frame sẽ được gửi.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Random backoff (tranh chấp ngẫu nhiên):}
+\medskip
+
+\noindent
+$\rightarrow$ Nếu sau khi chờ DIFS mà có nhiều trạm cùng muốn gửi, hoặc đường truyền đang bận $\rightarrow$ cơ chế random backoff sẽ được kích hoạt để tránh va chạm.
+\medskip
+
+\noindent
+Backoff calculation $\rightarrow$ sender sẽ chọn một giá trị ngẫu nhiên (nằm trong khoảng min và max của contention window - CW) $\rightarrow$ đem nhân với thời gian của một slot $\Rightarrow$ sender bắt đầu đếm ngược thời gian này.
+
+$\Rightarrow$ Nếu backoff time kết thúc $\rightarrow$ sender được phép gửi frame.
+\medskip
+
+\noindent
+Nếu trong thời gian backoff mà có một trạm khác nhảy vào chiếm đường truyền $\rightarrow$ sender sẽ dừng đếm (the counter variable is stopped).
+
+$\rightarrow$ Đợi cho đến khi đường truyền rảnh trở lại trong ít nhất 1 DIFS $\rightarrow$ tiếp tục đếm ngược giá trị backoff còn lại.
+\medskip
+
+\pagebreak
+
+\noindent
+\underline{Self-note:} \textit{(Tóm tắt)}
+
+\begin{itemize}
+    \item Muốn gửi data $\rightarrow$ phải chờ DIFS $\Rightarrow$ tốn thời gian hơn.
+    \item Muốn gửi ACK $\rightarrow$ chỉ cần chờ SIFS $\Rightarrow$ nhanh hơn vì ACK được ưu tiên chạy trước.
+    \item Nếu đường bận $\rightarrow$ chọn random backoff time để xếp hàng chờ gửi $\Rightarrow$ nếu có đứa nào chen vào thì dừng đếm, chờ DIFS, rồi đếm tiếp.
+\end{itemize}
+\medskip
