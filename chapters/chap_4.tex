@@ -360,3 +360,199 @@ $\rightarrow$ Đợi cho đến khi đường truyền rảnh trở lại trong 
     \item Nếu đường bận $\rightarrow$ chọn random backoff time để xếp hàng chờ gửi $\Rightarrow$ nếu có đứa nào chen vào thì dừng đếm, chờ DIFS, rồi đếm tiếp.
 \end{itemize}
 \medskip
+
+\subsubsection{MACA (Multiple Access with Collision Avoidance)}
+
+\noindent
+CSMA/CA giảm thiểu collision $\rightarrow$ nhưng không thể loại bỏ hoàn toàn.
+
+$\Rightarrow$ MACA/MACAW là phiên bản nâng cấp của CSMA/CA $\rightarrow$ được thiết kế đặc biệt để giải quyết bài toán trạm ẩn (hidden terminal problem) mà CSMA/CA không xử lý triệt để được.
+\medskip
+
+\noindent
+MACAW $\rightarrow$ \textbf{M}ultiple \textbf{A}ccess with \textbf{C}ollision \textbf{A}voidance for \textbf{W}ireless $\Rightarrow$ là phiên bản mở rộng của MACA $\rightarrow$ bổ sung thêm một số tính năng để cải thiện hiệu suất và độ tin cậy.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+\medskip
+
+\noindent
+Thay vì chỉ nghe và gửi như CSMA/CA $\rightarrow$ MACA yêu cầu sender và receiver phải trao các frame điều khiển (control frames) trước khi gửi dữ liệu.
+
+$\Rightarrow$ Nhờ cách này mà tất cả các trạm trong mạng đều biết rằng sắp có một phiên truyền (transmission) bắt đầu $\rightarrow$ tránh được việc truy cập đồng thời.
+\medskip
+
+\noindent
+Các frame điểu khiển bao gồm \textbf{RTS} (Request to Send - yêu cầu gửi) và \textbf{CTS} (Clear to Send - cho phép gửi).
+
+$\Rightarrow$ Những khung này chứa thông tin về khoảng thời gian kênh truyền sẽ bị sử dụng (occupation time of the channel).
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/chap_4/maca_dia.png}
+\end{figure}
+\medskip
+
+$\Rightarrow$ Theo hình trên: trạm Y không nhận được RTS frame do trạm X gửi $\rightarrow$ nhưng vẫn nhận được tín hiệu cho phép gửi (CTS) phát ra từ access point (AP).
+\medskip
+
+\noindent
+$\rightarrow$ Collision chỉ có thể xảy ra trong quá trình truyền các frame RTS và CTS $\rightarrow$ do ảnh hưởng của hidden terminal.
+\medskip
+
+\subsubsection{Functioning of MACA}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/chap_4/maca_functioning.png}
+\end{figure}
+\medskip
+
+\noindent
+\textbf{Ở sender:}
+\medskip
+
+\noindent
+Đầu tiên, sender lắng nghe kênh truyền $\rightarrow$ sau khoảng thời gian DIFS, sender gửi một RTS frame đến receiver.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Ở receiver:}
+\medskip
+
+\noindent
+$\rightarrow$ Xác nhận yêu cầu sử dụng kênh (reservation request) $\rightarrow$ chờ một khoảng thời gian SIFS $\rightarrow$ gửi lại (transmit) một CTS frame chứa khoảng thời gian mà sender muốn dành riêng để sử dụng transmission medium.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+$\Rightarrow$ Sau khi receiver nhận thành công dữ data frame $\rightarrow$ nó sẽ chờ một khoảng thời gian SIFS $\rightarrow$ gửi ACK trở lại cho sender.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+Khi transmission medium bận (occupied) $\rightarrow$ các trạm khác sẽ không cố để truyền data frame mới cho đến khi NAV (Network Allocation Vector - bộ đếm thời gian dành riêng cho kênh) kết thúc.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Cơ chế NAV:}
+
+\begin{itemize}
+    \item NAV $\rightarrow$ là một biến đếm mà mỗi trạm tự quản lý.
+    \item \textbf{Chức năng:} chứa thông tin về thời gian dự kiến mà đường truyền sẽ bị sử dụng.
+    \item \textbf{Nguyên lý hoạt động:} \begin{itemize}
+        \item Khi các trạm khác nghe thấy RTS hoặc CTS (có chứa thông tin thời gian) $\rightarrow$ chúng sẽ cập nhật vào NAV của chính mình.
+        \item Biến NAV sẽ tự động giảm dần cho đến khi về 0.
+        \item Trong khoảng thời gian NAV chưa về 0 $\rightarrow$ các trạm sẽ không tiếp tục gửi bất cứ thứ gì (no further attempts to transmit).
+    \end{itemize}
+    \item[$\Rightarrow$] Giảm thiểu được số lượng xung đột.
+\end{itemize}
+\medskip
+
+\noindent
+\begin{itemize}
+    \item \textbf{Pros:} \begin{itemize}
+        \item Ít bị xung đột hơn $\rightarrow$ giải quyết triệt để vấn đề trạm ẩn ($\rightarrow$ xung đột chỉ có thể xảy ra ở bước RTS/CTS rất ngắn).
+        \item Tiết kiệm năng lượng hơn $\rightarrow$ các trạm khác không cần tốn năng lượng để gửi tin trong thời gian NAV.
+    \end{itemize}
+    \item \textbf{Cons:} \begin{itemize}
+        \item Gây delay cao $\rightarrow$ việc phải xin phép RTS/CTS gây tốn thời gian.
+        \item Tốn băng thông (overhead) $\rightarrow$ các gói tin RTS và CTS tuy nhỏ nhưng vẫn sử dụng đường truyền đáng kể.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:} \textit{(Tóm gọn MACA functioning)}
+\medskip
+
+\noindent
+Xin (RTS) $\rightarrow$ cho phép (CTS) $\rightarrow$ các bên khác im lặng (chờ NAV) $\rightarrow$ gửi data $\rightarrow$ gửi ACK.
+\medskip
+
+\section{Contention-free}
+
+\subsection{Token Passing}
+
+\begin{center}
+\begin{minipage}[c]{0.6\textwidth}
+    \textbf{Nguyên lý hoạt động:}
+    \begin{itemize}
+        \item Token frame $\rightarrow$ có một gói tin đặc biệt gọi là token $\rightarrow$ được truyền đi vòng quanh mạng (thường là cấu trúc dạng vòng - ring).
+        \item[$\rightarrow$] Token này có tác dụng xác định thứ tự ai được phép gửi data (defining the sending order).
+        \item \textbf{Quy luật:} chỉ có trạm nào đang giữ token thì mới có quyền gửi data. \begin{itemize}
+            \item Nếu trạm đó có dữ liệu cần gửi $\rightarrow$ nó giữ token, gửi data, rồi mới chuyển token cho trạm kế tiếp.
+            \item Nếu trạm đó không có dữ liệu cần gửi $\rightarrow$ nó chuyển token ngay cho trạm kế tiếp.
+        \end{itemize}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.35\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_4/token.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{Cấu trúc mạng (topology):} thường được hình dung trong cấu trúc mạng dạng vòng (ring) $\rightarrow$ nơi token đi từ trạm này sang trạm liền kề theo một chiều cố định.
+
+$\Rightarrow$ Tuy nhiên, ý tưởng này cũng có thể áp dụng cho các cấu trúc khác; chẳng hạn như token bus.
+\medskip
+
+\subsection{TDMA}
+
+\noindent
+TDMA $\rightarrow$ \textbf{T}ime \textbf{D}ivision \textbf{M}ultiple \textbf{A}ccess $\rightarrow$ phân chia theo thời gian.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/chap_4/tdma.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Theo hình trên, tại một thời điểm, chỉ có 1 người dùng toàn bộ tần số $\rightarrow$ nhưng họ thay phiên nhau theo thời gian.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Chia slot thời gian (time slots) $\rightarrow$ thời gian được chia nhỏ thành các slots.
+    \item Phân quyền $\rightarrow$ mỗi time slot được gán cố định cho một máy chủ (host) cụ thể.
+    \item[$\rightarrow$] Trong suốt thời gian của slot đó $\rightarrow$ máy chủ được quyền sử dụng toàn bộ dung lượng đường truyền (full channel capacity) $\Rightarrow$ không một máy nào được cắt ngang.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Cách lên lịch (scheduling):} có thể thực hiện bằng 2 cách:
+
+\begin{itemize}
+    \item Static (tĩnh) $\rightarrow$ lịch cố định; ví dụ như A luôn gửi ở slot 1, B luôn gửi ở slot 2.
+    \item Dynamic (động) $\rightarrow$ lịch thay đổi tùy theo nhu cầu thực tế.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ \underline{Note:} một số time slot có thể được dành riêng cho broadcast traffic.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\underline{Self-note:} TDMA giống kiểu như chia nhau theo giờ, đến giờ của ai thì người đó dùng, dùng xong thì nhường cho người tiếp theo $\rightarrow$ tuy nhiên thì trong lúc dùng, mình được phép dùng hết công suất.
+\medskip
