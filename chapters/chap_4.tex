@@ -523,7 +523,7 @@ TDMA $\rightarrow$ \textbf{T}ime \textbf{D}ivision \textbf{M}ultiple \textbf{A}c
 \medskip
 
 \noindent
-$\rightarrow$ Theo hình trên, tại một thời điểm, chỉ có 1 người dùng toàn bộ tần số $\rightarrow$ nhưng họ thay phiên nhau theo thời gian.
+$\rightarrow$ Tại một thời điểm, chỉ có 1 người dùng toàn bộ tần số $\rightarrow$ nhưng họ thay phiên nhau theo thời gian \textit{(hình minh họa trên)}.
 \medskip
 
 \vspace{0.3cm}
@@ -555,4 +555,79 @@ $\Rightarrow$ \underline{Note:} một số time slot có thể được dành ri
 
 \noindent
 \underline{Self-note:} TDMA giống kiểu như chia nhau theo giờ, đến giờ của ai thì người đó dùng, dùng xong thì nhường cho người tiếp theo $\rightarrow$ tuy nhiên thì trong lúc dùng, mình được phép dùng hết công suất.
+\medskip
+
+\subsection{FDMA}
+
+\subsubsection{Frequency Division Multiple Access (FDMA)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/chap_4/fdma.png}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Chia thành các kênh con (sub-channels) riêng biệt $\rightarrow$ có thể hoạt động song song cùng một lúc với nhau \textit{(hình minh họa trên)}.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item Chia nhỏ phổ tần (subdivide spectrum) $\rightarrow$ thay vì dùng toàn bộ băng thông $\rightarrow$ FDMA chia nhỏ dải tần số thành các kênh con (sub-channels) riêng biệt.
+    \item Phân quyền $\rightarrow$ mỗi máy chủ (host) hoặc mỗi liên kết (link) được gán cho một kênh tần số riêng.
+    \item[$\Rightarrow$] Mọi máy có thể truyền dữ liệu song song cùng một lúc (liên tục theo thời gian) $\rightarrow$ nhưng không lấn nhau do mỗi bên truyền ở mỗi tần số khác nhau.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Quản lý kênh:}
+
+\begin{itemize}
+    \item Control traffic (kênh điều khiển) $\rightarrow$ thường được gửi trên các kênh cố định để đảm bảo kết nối.
+    \item \textbf{Cách gán kênh:} \begin{itemize}
+        \item Static (tĩnh) $\rightarrow$ gán kênh cố định; ví dụ như đài A luôn phát ở 100MHz, đài B luôn phát ở 105MHz.
+        \item Dynamic (động) $\rightarrow$ kênh thay đổi theo nhu cầu sử dụng $\Rightarrow$ việc phân bổ này dẫn đến một vấn đề là "graph coloring problem" $\rightarrow$ làm sao để gán màu (tần số) cho các trạm cạnh nhau mà không bị trùng nhau.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\pagebreak
+
+\noindent
+\underline{Self-note:} \textit{(tổng kết lại)}
+\medskip
+
+\begin{itemize}
+    \item TDMA $\rightarrow$ chia thời gian thành các time slots $\rightarrow$ mỗi time slot chỉ được 1 host sử dụng, và máy đó được dùng toàn bộ băng thông.
+    \item FDMA $\rightarrow$ chia băng thông thành các sub-channels $\rightarrow$ tất cả các host đều hoạt động song song nhưng chỉ trong một dải băng tần nhất định, không lấn nhau.
+\end{itemize}
+\medskip
+
+\subsubsection{Example: IEEE 802.15.4e}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/chap_4/ieee.jpg}
+\end{figure}
+\medskip
+
+\noindent
+$\rightarrow$ Là một tiêu chuẩn (specification) cho mạng cá nhân không dây (PAN); chẳng hạn như Zigbee.
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+Là một bản chỉnh sửa (amendment) của tầng MAC $\Rightarrow$ hỗ trợ cơ chế time-slotted channel hopping (TiSCH) dựa trên TDMA và FDMA \textit{(theo hình)}:
+
+\begin{itemize}
+    \item \textbf{Time-slotted (TDMA)} $\rightarrow$ trục hoành là thời gian \textit{(slotOffset)} $\rightarrow$ thời gian được chia thành các slot. \begin{itemize}
+        \item[$\rightarrow$] Trong 1 slot, thiết bị sẽ làm trọn vẹn quy trình: gửi \texttt{DATA} $\rightarrow$ chờ $\rightarrow$ nhận \texttt{ACK}.
+    \end{itemize}
+    \item \textbf{Channel-Hopping (FDMA)} $\rightarrow$ trục tung là tần số \textit{(channelOffset)} $\rightarrow$ thay vì gửi mãi ở mỗi kênh ($\rightarrow$ dễ bị nhiễu) $\rightarrow$ các cặp thiết bị sẽ chuyển sang kênh tần số khác nhau ở mỗi slot thời gian.
+\end{itemize}
 \medskip
