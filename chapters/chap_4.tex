@@ -631,3 +631,94 @@ Là một bản chỉnh sửa (amendment) của tầng MAC $\Rightarrow$ hỗ tr
     \item \textbf{Channel-Hopping (FDMA)} $\rightarrow$ trục tung là tần số \textit{(channelOffset)} $\rightarrow$ thay vì gửi mãi ở mỗi kênh ($\rightarrow$ dễ bị nhiễu) $\rightarrow$ các cặp thiết bị sẽ chuyển sang kênh tần số khác nhau ở mỗi slot thời gian.
 \end{itemize}
 \medskip
+
+\noindent
+\textbf{Cách hoạt động:}
+
+\begin{itemize}
+    \item Ở slot đầu tiên: $D \rightarrow B$ truyền tin ở một kênh tần số thấp.
+    \item Ở slot tiếp theo: $B \rightarrow A$ nhưng chuyển qua một kênh có tần số khác.
+    \item Tương tự vậy như $D \rightarrow C$ và $C \rightarrow A$.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Vì sao phải phức tạp vậy?} 
+
+\begin{itemize}
+    \item Chống nhiễu cực tốt $\rightarrow$ giả sử kênh 1 bị nhiễu $\rightarrow$ slot sau nó chuyển qua kênh 5 $\Rightarrow$ đảm bảo liên lạc không bị gián đoạn. \begin{itemize}
+        \item[$\Rightarrow$] Đây là ưu điểm của channel hoping.
+    \end{itemize}
+    \item Tiết kiệm năng lượng $\rightarrow$ nhờ có cơ chế chia slot (TDMA) $\rightarrow$ thiết bị biết chính xác khi nào cần dậy để chuyển kênh và truyền, thời gian còn lại thì ngủ.
+\end{itemize}
+\medskip
+
+\subsection{CDMA}
+
+\noindent
+CDMA $\rightarrow$ \textbf{C}ode \textbf{D}ivision \textbf{M}ultiple \textbf{A}ccess $\rightarrow$ phân chia theo mã.
+\medskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_4/cdma.png}
+\end{figure}
+\medskip
+
+\noindent
+Nếu FDMA chia tần số, TDMA chia thời gian $\rightarrow$ thì CDMA cho phép tất cả mọi người cùng dùng một thời điểm trên cùng một tần số.
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:}
+
+\begin{itemize}
+    \item \textbf{Truy cập đồng thời} $\rightarrow$ các trạm (host) có thể truy cập môi trường truyền dẫn cùng một lúc và trên cùng một tần số.
+    \item \textbf{Mã hóa riêng biệt} $\rightarrow$ mỗi trạm sử dụng một coding schemes (lược đồ mã hóa) khác nhau $\Rightarrow$ tránh bị lẫn lộn tín hiệu của nhau.
+    \item \textbf{Orthogonal (tính trực giao)} $\rightarrow$ nghĩa là các mã này hoàn toàn độc lập nhau $\rightarrow$ khi cộng gộp lại, chúng không làm hỏng nhau, và người nhận có thể tách riêng từng mã được (giống kiểu trong phòng ồn ào mà có giọng bạn mình nói thì mình vẫn lọc được).
+\end{itemize}
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{Cách tạo tín hiệu:}
+
+\noindent
+Tín hiệu CDMA được tạo ra bằng phép XOR \textit{(như hình minh họa mô tả)}:
+
+\begin{enumerate}
+    \item Data signal $\rightarrow$ tín hiệu dữ liệu gốc (tốc độ chậm).
+    \item Pseudorandom code (mã giả ngẫu nhiên) $\rightarrow$ một chuỗi mã ngẫu nhiên giả (tốc độ nhanh) được gán riêng cho người dùng.
+    \item Transmitted signal (tín hiệu truyền đi) $\rightarrow$ là kết quả của phép XOR giữa data signal và pseudorandom code.
+\end{enumerate}
+\medskip
+
+\noindent
+$\Rightarrow$ Tín hiệu truyền đi trông giống như một chuỗi ngẫu nhiên (noise) $\rightarrow$ nhưng thật chất nó chứa dữ liệu đã được mã hóa.
+\medskip
+
+\noindent
+$\rightarrow$ CDMA thường kết hợp với FEC (Forward Error Correction - sửa lỗi tiến) để khôi phục các frame bị lỗi mà không cần gửi lại.
+\medskip
+
+\section{Error Control}
+
+\subsection{Failure Causes}
+
+\noindent
+Các nguyên nhân gây nên:
+
+\begin{itemize}
+    \item \textbf{Signal deformation} (biến dạng tín hiệu) $\rightarrow$ do sự suy hao (attenuation) của môi trường truyền dẫn $\Rightarrow$ tín hiệu càng đi xa thì càng yếu đi $\rightarrow$ nếu quá yếu, máy thu sẽ không phân biệt được đâu là bit 1, đâu là bit 0.
+    \item \textbf{Noise} $\rightarrow$ do nhiễu nhiệt hoặc nhiễu điện tử (thermal or electronic noise) $\Rightarrow$ đây là nhiễu sinh ra từ chính các linh kiện điện tử nóng lên, hoặc chuyển động của các electron trong dây dẫn $\rightarrow$ tạo ra các tín hiệu ngẫu nhiên chèn vào dữ liệu thật.
+    \item \textbf{Crosstalk (nhiễu xuyên kênh)} $\rightarrow$ do sự can nhiễu từ các kênh lân cận (inference by neighboring channels) $\Rightarrow$ thường do hiện tượng ghép tụ (capacity coupling), đặc biệt tăng mạnh khi tần số tăng cao.
+    \item \textbf{Short-time disturbances (nhiễu ngắn hạn)} $\rightarrow$ do các tác động bất ngờ từ bên ngoài; chẳng hạn như bức xạ vũ trụ (cosmic radiation), lớp cách điện bị hỏng hoặc không đủ tốt (defective or insufficient insulation).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Lưu ý:} (burst error - lỗi chùm) $\Rightarrow$ lỗi thường không đi lẻ tẻ từng bit (single bit errors) mà thường xảy ra them chùm (burst errors).
+
+$\rightarrow$ Nếu nó đã bị nhiễu $\rightarrow$ sẽ hỏng cả một dây liên tiếp nhiều bit $\rightarrow$ ảnh hưởng đến việc chọn thuật toán sửa lỗi sau này.
+\medskip
