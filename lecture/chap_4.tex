@@ -722,3 +722,75 @@ Các nguyên nhân gây nên:
 
 $\rightarrow$ Nếu nó đã bị nhiễu $\rightarrow$ sẽ hỏng cả một dây liên tiếp nhiều bit $\rightarrow$ ảnh hưởng đến việc chọn thuật toán sửa lỗi sau này.
 \medskip
+
+\noindent
+$\Rightarrow$ Data link layer đảm bảo phát hiện và xử lý lỗi truyền trong quá trình gửi/nhận frame.
+\medskip
+
+\subsection{Error Detection}
+
+\subsubsection{Checksum}
+
+\noindent
+$\rightarrow$ Là một giá trị được tính toán dựa trên nội dung của khối dữ liệu (block of data) bằng một thuật toán định trước (pre-defined algorithm).
+
+$\Rightarrow$ \textbf{Mục đích:} xác minh tính toàn vẹn của dữ liệu (data integrity).
+\medskip
+
+\vspace{0.3cm}
+
+\noindent
+\textbf{Quy trình:}
+
+\begin{itemize}
+    \item \textbf{Sender} $\rightarrow$ tính toán checksum và gắn bó vào cuối mỗi frame.
+    \item \textbf{Receiver} $\rightarrow$ khi nhận được frame $\rightarrow$ tính toán lại checksum dựa trên dữ liệu nhận được $\Rightarrow$ nếu kết quả không khớp với checksum $\rightarrow$ frame bị lỗi và sẽ bị loại bỏ (discarded).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Possible checksum:}
+
+\begin{itemize}
+    \item Parity-check codes $\rightarrow$ kiểm tra tính chẵn lẻ ($\rightarrow$ đơn giản).
+    \item Cyclic Redundancy Check (CRC) $\rightarrow$ kiểm tra dư thừa theo chu kỳ ($\rightarrow$ phức tạp và hiệu quả hơn).
+\end{itemize}
+\medskip
+
+\subsubsection{Hamming Distance}
+
+\noindent
+\textbf{Cấu trúc mã (codeword):} một message $n$ bao gồm:
+
+\begin{itemize}
+    \item $m$ bit dữ liệu (payload).
+    \item $r$ bit checksum.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Công thức:} $n = m + r$.
+\medskip
+
+\noindent
+$\rightarrow$ Trong tổng số $2^n$ chuỗi bit có thể tạo ra $\rightarrow$ chỉ có một số ít là valid codewords (mã hợp lệ) $2^m$.
+\medskip
+
+\noindent
+\textbf{Hamming distance} $\rightarrow$ là số lượng bit khác nhau nhỏ nhất giữa 2 valid codewords bất kỳ.
+
+$\rightarrow$ Ví dụ: nếu codeword A là \texttt{000} và codeword B là \texttt{011} $\rightarrow$ Hamming distance sẽ là 2 (do khác nhau 2 bit).
+\medskip
+
+\noindent
+\textbf{Quy tắc để phát hiện lỗi:}
+
+\begin{itemize}
+    \item Để phát hiện $k$ lỗi $\rightarrow$ yêu cầu khoảng cách Hamming $d \geq k + 1$. \begin{itemize}
+        \item[$\Rightarrow$] Nếu sai $k$ bit $\rightarrow$ nó biến thành một chuỗi vô nghĩa (không trùng với bất kì valid codeword nào) $\rightarrow$ xác định được đây là lỗi.
+    \end{itemize}
+    \item Để sửa $k$ lỗi $\rightarrow$ yêu cầu khoảng cách Hamming $d \geq 2k + 1$. \begin{itemize}
+        \item[$\Rightarrow$] Nếu sai $k$ bit $\rightarrow$ chuỗi bị lỗi vẫn gần với codeword gốc hơn là các codeword khác $\rightarrow$ mình có thể đoán ngược lại để sửa.
+    \end{itemize}
+\end{itemize}
+\medskip
