@@ -878,3 +878,27 @@ $\Rightarrow$ Đối với 2D, nếu 2 bit trong cùng 1 hàng bị sai $\righta
 
 \textbf{$\rightarrow$ Phạm vi phát hiện:} tất cả các lỗi 1 bit, 2 bit, và 3 bit, và hầu hết các lỗi 4 bit đều được phát hiện.
 \medskip
+
+\subsubsection{Cyclic Redundancy Check (CRC)}
+
+\noindent
+$\rightarrow$ Là phương pháp phát hiện lỗi mạnh mẽ hơn nhiều so với parity check $\rightarrow$ được sử dụng rộng rãi (như trong Ethernet, Wifi).
+\medskip
+
+\noindent
+\textbf{Polynomials (đa thức):}
+
+\begin{itemize}
+    \item Mọi chuỗi bit đều có thể được viết dưới dạng một đa thức với hệ số là 0 hoặc 1.
+    \item Bậc (degree) đa thức $\rightarrow$ phụ thuộc vào độ dài chuỗi bit.
+\end{itemize}
+\medskip
+
+\noindent
+Ví dụ, chuỗi \texttt{10011010} tương ứng với đa thức:
+
+\begin{flalign*}
+M(x) &= 1 \cdot x^7 + 0 \cdot x^6 + 0 \cdot x^5 + 1 \cdot x^4 + 1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0 &&\\
+    &= x^7 + x^4 + x^3 + x^1 &&
+\end{flalign*}
+\medskip
