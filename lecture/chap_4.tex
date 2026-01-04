@@ -885,17 +885,14 @@ $\Rightarrow$ Đối với 2D, nếu 2 bit trong cùng 1 hàng bị sai $\righta
 $\rightarrow$ Là phương pháp phát hiện lỗi mạnh mẽ hơn nhiều so với parity check $\rightarrow$ được sử dụng rộng rãi (như trong Ethernet, Wifi).
 \medskip
 
-\noindent
-\textbf{Polynomials (đa thức):}
-
 \begin{itemize}
     \item Mọi chuỗi bit đều có thể được viết dưới dạng một đa thức với hệ số là 0 hoặc 1.
-    \item Bậc (degree) đa thức $\rightarrow$ phụ thuộc vào độ dài chuỗi bit.
+    \item Một frame có $k$ bit được xem như một đa thức bậc $k-1$.
 \end{itemize}
 \medskip
 
 \noindent
-Ví dụ, chuỗi \texttt{10011010} tương ứng với đa thức:
+\textbf{Ví dụ:} chuỗi \texttt{10011010} tương ứng với đa thức:
 
 \[
 \begin{aligned}
@@ -904,3 +901,222 @@ M(x) &= 1x^7 + 0x^6 + 0x^5 + 1x^4 + 1x^3 + 0x^2 + 1x + 0 \\
 \end{aligned}
 \]
 \medskip
+
+\subsubsection{CRC Generator Polynomial}
+
+\noindent
+Để sender và receiver hiểu nhau $\rightarrow$ phải thống nhất trước một công thức toán học cụ thể $\rightarrow$ là đa thức sinh $C(x)$ (generator polynomial).
+\medskip
+
+\noindent
+\textbf{Cách biểu diễn:} máy tính không hiểu $x^5$ hoặc $x^2$ $\rightarrow$ đa thức được chuyển đổi thành chuỗi bit dựa trên các hệ số.
+
+\begin{itemize}
+    \item Nếu có $x^n$ $\rightarrow$ bit tại vị trí $n$ là 1.
+    \item Nếu thiếu $x^n$ $\rightarrow$ bit tại vị trí $n$ là 0.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Ví dụ:} đa thức $C(x) = x^3 + x^2 + x^0 = 1 \cdot x^3 + 1 \cdot x^2 + 0 \cdot x^1 + 1 \cdot x^0$.
+
+$\rightarrow$ Chuỗi bit tương ứng là \texttt{1101}.
+\medskip
+
+\noindent
+\textbf{Bậc của đa thức (degree - $k$):}
+
+\begin{itemize}
+    \item Bậc $k$ là số mũ cao nhất trong đa thức $\rightarrow$ số lượng bit của chuỗi nhị phân luôn nhiều hơn bậc $k$ một đơn vị (độ dài chuỗi là $k+1$).
+    \item \textbf{Ví dụ:} \texttt{1101} có 4 bit $\rightarrow$ bậc $k = 3$.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Nếu dùng đa thức bậc $k$ $\rightarrow$ phần dư (checksum) tạo ra sẽ luôn có $k$ bit (được thêm vào sau dữ liệu).
+\medskip
+
+\noindent
+\textbf{Representation:} với đa thức sinh bậc $k$ $\rightarrow$ người ta thường lấy $k-1$ để biểu diễn; ví dụ, đa thức trên (\texttt{1101}) người ta sẽ lấy $k-1$ (tương ứng \texttt{101}) để biểu diễn $\rightarrow$ thành \texttt{0x05}.
+\medskip
+
+\subsubsection{Selection of common Generator Polynomials}
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llll}
+        \hline
+        \textbf{Tên chuẩn} & \textbf{Đa thức} & \textbf{Chuỗi bit (Hex/Bin)} & \textbf{Ứng dụng} \\
+        \hline
+        CRC-5 & $x^5 + x^2 + x^0$ & \texttt{0x05} & USB \\
+        CRC-8 & $x^8 + x^7 + x^5 + x^2 + x^1 + x^0$ & \texttt{0xA7} & Bluetooth \\
+        CRC-16-CCITT & $x^{16} + x^{12} + x^5 + x^0$ & \texttt{0x1021} & HDLC \\
+        CRC-32 & $x^{32} + ... + x^0$ & \texttt{0x04C11DBB7} & Ethernet \\
+        \hline
+    \end{tabular*}
+\end{table}
+\medskip
+
+\subsubsection{CRC Example}
+
+\noindent
+(Tự đọc)
+\medskip
+
+\subsubsection{Properties of CRCs}
+
+\noindent
+\textbf{Single bit errors (phát hiện tất cả các lỗi đơn):}
+
+\begin{itemize}
+    \item \textbf{Điều kiện:} nếu đa thức sinh $G(x)$ có nhiều hơn một số hạng (nghĩa là có ít nhất 2 bit 1; chẳng hạn như $x^5 + x^0$), và hệ số của $x^0$ là 1 (bit cuối là 1 chứ không phải là 0).
+    \item[$\Rightarrow$] Bất kì lỗi nào chỉ sai 1 bit duy nhất đều bắt được.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Double bit errors (phát hiện tất cả các lỗi kép):}
+
+\begin{itemize}
+    \item \textbf{Điều kiện:} đa thức sinh không chia hết cho $x^k + 1$ $\forall k$ nhỏ hơn độ dài của khung tin tối đa.
+    \item[$\Rightarrow$] Nếu có 2 bit bị sai nằm cách nhau một khoảng (trong giới hạn cho phép) $\rightarrow$ CRC vẫn phát hiện được.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Odd number of errors (phát hiện bất kì số lượng lỗi lẻ nào):}
+
+\begin{itemize}
+    \item \textbf{Điều kiện:} nếu đa thức sinh $G(x)$ có chứa thừa số $(x+1)$.
+    \item[$\Rightarrow$] Dù có sai 3 bit, 5 bit, ... (miễn là số lượng bit sai là số lẻ) $\rightarrow$ CRC đều phát hiện được.
+\end{itemize}
+\medskip
+
+\noindent
+\underline{Self-note:} đây là lý do tại sao nhiều chuẩn CRC (như CRC-16 hay CRC-32) đều có thừa số $(x+1)$ trong đa thức sinh của chúng.
+\medskip
+
+\vspace{0.2cm}
+
+\noindent
+\textbf{Burst error (phát hiện lỗi chùm):}
+\medskip
+
+\noindent
+$\rightarrow$ Nhiễu làm hỏng cả một dây liên tiếp các bit.
+\medskip
+
+\noindent
+Gọi $r$ là bậc của đa thức sinh (chẳng hạn như CRC-16 thì $r = 16$).
+
+\begin{itemize}
+    \item \textbf{Chiều dài chùm lỗi là $L \leq r$} $\rightarrow$ CRC phát hiện được tất cả lỗi; ví dụ như dùng CRC-16, nếu bị nhiễu nguyên một đoạn 16 bit liên tiếp hoặc ít hơn thì nó vẫn bắt lỗi được hết.
+    \item \textbf{Chiều dài chùm lỗi là $L = r+1$} $\rightarrow$ xác suất phát hiện là $1-2^{-(r-1)}$ \textit{(để cho biết chứ không cần nhớ)}; như CRC-16 có tỉ lệ phát hiện lỗi lên đến $\approx$99.997\%.
+    \item \textbf{Chiều dài chùm lỗi là $L > r+1$} $\rightarrow$ xác suất phát hiện là $1-2^{-r}$ \textit{(để cho biết chứ không cần nhớ)}; như CRC-16 có tỉ lệ phát hiện lỗi lên đến $\approx$99.998\% với độ dài lên đến $\geq 18$.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ CRC có thể được tính toán thông qua kỹ thuật dịch bit (shift register).
+\medskip
+
+\pagebreak
+
+\subsection{Error Correction}
+
+\subsubsection{Forward Error Correction (FEC)}
+
+\begin{itemize}
+    \item \textbf{Cách cũ:} error detection + retransmission $\rightarrow$ thấy lỗi, báo hỏng, rồi xin gửi lại $\Rightarrow$ tốn thời gian, và độ trễ cao.
+    \item \textbf{Với FEC:} khi thấy lỗi $\rightarrow$ dùng dữ liệu dư thừa (redundant information) để tính toán và khôi phục lại bit gốc.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Điều kiện (dựa theo quy tắc Hamming):}
+\medskip
+
+\noindent
+Codewords phải theo khoảng cách Hamming $d \geq 2k + 1$.
+
+\textbf{Trong đó:} $k$ $\rightarrow$ số lượng bit lỗi tối đa mà mình muốn sửa được.
+\medskip
+
+\noindent
+$\Rightarrow$ Nếu muốn sửa 1 bit lỗi ($k=1$) $\rightarrow$ khoảng cách giữa các valid codewords phải là: $2 \cdot (1) + 1 = 3$.
+\medskip
+
+\noindent
+\textbf{Nguyên lý hoạt động:} người gửi sẽ chèn thêm rất nhiều redundancy information vào dữ liệu.
+
+\begin{itemize}
+    \item Dữ liệu gốc ($m$ bits) được mã hóa thành chuỗi dài hơn ($n$ bits); tỉ lệ mã hóa (code rate) $R = m/n$ nhỏ hơn 1.
+    \item \textbf{Ví dụ:} muốn gửi 1 bit dữ liệu $\rightarrow$ có khi phải gửi kèm 2 bit sửa lỗi $\Rightarrow$ gửi tổng cộng 3 bit $\rightarrow$ tốn băng thông nhưng an toàn.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Khi nào dùng FEC?}
+
+\begin{itemize}
+    \item High delay (độ trễ cao) $\rightarrow$ chẳng hạn như truyền vệ tin với khoảng cách xa $\rightarrow$ nếu chờ gửi lại thì tốn rất nhiều thời gian $\Rightarrow$ tự sửa lỗi sẽ nhanh hơn.
+    \item High error rates (tỉ lệ lỗi cao) $\rightarrow$ như mạng không dây $\rightarrow$ nếu cứ một xíu là xin gửi lại thì sẽ gây ngẽn mạng.
+    \item Không có kênh phản hồi (no backward channel) $\rightarrow$ như truyền hình hay đài phát thanh, người nghe chỉ nhận chứ không feedback lại cho nhà đài liền được.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Nhược điểm:}
+
+\begin{itemize}
+    \item Overhead (tốn băng thông) $\rightarrow$ phải gửi nhiều bit dư thừa hơn mức cần thiết.
+    \item Phức tạp $\rightarrow$ thuật toán giải mã (decoding algorithm) để tìm và sửa lỗi thường phức tạp hơn nhiều so với việc chỉ kiểm tra (detection).
+\end{itemize}
+\medskip
+
+\subsubsection{Simple Example of Error Correction}
+
+\noindent
+Giả sử một code chỉ có 4 valid codewords:
+
+\begin{itemize}
+    \item $w_1 = $ \texttt{00000 00000}.
+    \item $w_2 = $ \texttt{00000 11111}.
+    \item $w_3 = $ \texttt{11111 00000}.
+    \item $w_4 = $ \texttt{11111 11111}.
+\end{itemize}
+\medskip
+
+\noindent
+Ta có:
+
+\begin{itemize}
+    \item $w_1 \not= w_2$ $\rightarrow$ 5 bit cuối.
+    \item $w_1 \not= w_3$ $\rightarrow$ 5 bit đầu.
+    \item $w_1 \not= w_4$ $\rightarrow$ tất cả 10 bit.
+\end{itemize}
+\medskip
+
+\noindent
+$\Rightarrow$ Khoảng cách nhỏ nhất là 5 $\rightarrow$ $d = 5$.
+
+\begin{itemize}
+    \item \textbf{Để detection:} $d \geq k + 1$ $\rightarrow$ $k \leq 4$ $\Rightarrow$ có thể phát hiện tối đa 4 bit lỗi.
+    \item \textbf{Để correction:} $d \geq 2k + 1$ $\rightarrow$ $k \leq 2$ $\Rightarrow$ có thể sửa tối đa 2 bit lỗi.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Ví dụ:}
+
+\begin{itemize}
+    \item Nếu máy nhận được \texttt{00000 00111} $\rightarrow$ nó sẽ đem so với $w_1$ (sai 3 bit) và $w_2$ (sai 2 bit) $\Rightarrow$ chọn $w_2$ làm codeword gốc $\rightarrow$ sửa lại thành \texttt{00000 11111}.
+    \item[$\Rightarrow$] Tuy nhiên, nếu sender gửi đi \texttt{00000 00000} nhưng bị nhiễu thành \texttt{00000 00111} $\rightarrow$ máy thấy gần với $w_2$ hơn $\Rightarrow$ sửa thành \texttt{00000 11111} $\rightarrow$ sai hoàn toàn với dữ liệu gốc.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Với $d = 5$: hệ thống chỉ đảm bảo sửa đúng nếu lỗi $\leq 2$ bit $\Rightarrow$ nếu lỗi 3 bit trở lên, hệ thống sẽ bị lầm và sửa sai thành frame khác.
+\medskip
+
+\pagebreak
