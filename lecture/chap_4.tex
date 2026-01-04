@@ -490,7 +490,7 @@ Xin (RTS) $\rightarrow$ cho phép (CTS) $\rightarrow$ các bên khác im lặng 
     \begin{itemize}
         \item Token frame $\rightarrow$ có một gói tin đặc biệt gọi là token $\rightarrow$ được truyền đi vòng quanh mạng (thường là cấu trúc dạng vòng - ring).
         \item[$\rightarrow$] Token này có tác dụng xác định thứ tự ai được phép gửi data (defining the sending order).
-        \item \textbf{Quy luật:} chỉ có trạm nào đang giữ token thì mới có quyền gửi data. \begin{itemize}
+        \item \textbf{Quy luật:} chỉ có trạm nào đang giữ token thì mới có quyền gửi data ($\rightarrow$ eliminates collisions). \begin{itemize}
             \item Nếu trạm đó có dữ liệu cần gửi $\rightarrow$ nó giữ token, gửi data, rồi mới chuyển token cho trạm kế tiếp.
             \item Nếu trạm đó không có dữ liệu cần gửi $\rightarrow$ nó chuyển token ngay cho trạm kế tiếp.
         \end{itemize}
@@ -793,4 +793,88 @@ $\rightarrow$ Ví dụ: nếu codeword A là \texttt{000} và codeword B là \te
         \item[$\Rightarrow$] Nếu sai $k$ bit $\rightarrow$ chuỗi bị lỗi vẫn gần với codeword gốc hơn là các codeword khác $\rightarrow$ mình có thể đoán ngược lại để sửa.
     \end{itemize}
 \end{itemize}
+\medskip
+
+\subsubsection{One-dimensional Parity-check Code}
+
+\begin{center}
+\begin{minipage}[c]{0.7\textwidth}
+    $\rightarrow$ Nó thêm 1 bit cuối vào dữ liệu $\Rightarrow$ đảm bảo tổng số bit 1 luôn tuân theo quy tắc đã cho.
+    \begin{itemize}
+        \item \textbf{Cơ chế:} với mỗi khối dữ liệu (chẳng hạn như 1 byte hay 1 kí tự ASCII 7-bit) $\rightarrow$ người ta tính toán và thêm vào 1 bit parity. \begin{itemize}
+            \item Protocol defines even parity (chẵn) $\rightarrow$ bit parity được thêm vào sao cho tổng số bit 1 trong cả chuỗi (payload + parity) là một số chẵn.
+            \item Protocol defines odd parity (lẻ) $\rightarrow$ bit parity được thêm vào sao cho tổng số bit 1 trong cả chuỗi là một số lẻ.
+        \end{itemize}
+        \item \textbf{Ví dụ cụ thể:} \textit{(theo hình bên phải)} \begin{itemize}
+            \item Với \texttt{0101001} $\rightarrow$ có 3 bit 1 (lẻ) $\rightarrow$ thêm bit parity là 1 để tổng thành 4 (chẵn) $\Rightarrow$ mã cuối cùng là \texttt{0101001 1}.
+            \item Với \texttt{1010110} $\rightarrow$ có 4 bit 1 (chẵn) $\rightarrow$ thêm bit parity là 0 để tổng vẫn là 4 (chẵn) $\Rightarrow$ mã cuối cùng là \texttt{1010110 0}.
+        \end{itemize}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.27\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_4/one-dim.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+\textbf{What is the Hamming Distance here?}
+
+\begin{itemize}
+    \item Cấu trúc: với $m = 7$ bit dữ liệu và $r = 1$ bit parity $\rightarrow$ có codewords dài $n = 8$ bit.
+    \item Khoảng cách Hamming $d = 2$ $\Rightarrow$ bất kì 2 valid codewords nào cũng khác nhau ít nhất 2 bit (nếu chỉ thay đổi 1 bit dữ liệu $\rightarrow$ bit parity cũng sẽ buộc phải thay đổi theo $\Rightarrow$ tổng cộng khác 2 bit).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Khả năng phát hiện lỗi:} do $d = 2$, theo công thức $d \geq k + 1$ $\rightarrow$ mã này chỉ phát hiện được $k = 1$ lỗi (single-bit error).
+
+$\Rightarrow$ Nếu có 1 bit bị lật $\rightarrow$ tính chẵn lẻ bị sai $\Rightarrow$ phát hiện được error.
+\medskip
+
+\noindent
+\textbf{Limitation:} nếu có 2 bit cùng bị lật ($1 \rightarrow 0$ và $0 \rightarrow 1$) $\Rightarrow$ không phát hiện được lỗi.
+\medskip
+
+\noindent
+$\Rightarrow$ Phương pháp này đơn giản $\rightarrow$ phù hợp cho các khối dữ liệu ngắn (short blocks of data); chẳng hạn như 7-bit ASCII characters.
+
+$\rightarrow$ Không đáng tin cậy nếu đường truyền quá nhiễu (gây nhiều lỗi bit cùng lúc).
+\medskip
+
+\subsubsection{Two-dimensional Parity-check Code}
+
+\begin{center}
+\begin{minipage}[c]{0.7\textwidth}
+    $\rightarrow$ 2D parity-check code sẽ scan dữ liệu theo cả hàng lẫn cột, khác với 1D chỉ scan theo hàng $\Rightarrow$ tạo thành matrix để bắt lỗi tốt hơn.
+    \begin{itemize}
+        \item \textbf{Cơ chế:} dữ liệu được sắp xếp thành một bảng (matrix). \begin{itemize}
+            \item Rows $\rightarrow$ với mỗi byte dữ liệu $\rightarrow$ mình tính 1 bit parity gắn vào cuối (giống y như phương pháp 1D).
+            \item Columns $\rightarrow$ tính cho tất cả các bit ở cột 1, 2, ... $\rightarrow$ kết quả tạo thành 1 byte đặc biệt nằm dưới cùng $\Rightarrow$ gọi là parity byte.
+        \end{itemize}
+        \item \textbf{Ví dụ cụ thể:} \textit{(theo hình bên phải)} \begin{itemize}
+            \item Tính hàng ngang \textit{(như 1D ở trên)}.
+            \item Tính hàng dọc: tương tự như cách tính ở hàng ngang; ví dụ như cột đầu tiên ở mỗi hàng là \texttt{0}, \texttt{1}, \texttt{0}, \texttt{1}, \texttt{0}, \texttt{0}, \texttt{0} $\rightarrow$ tổng bit 1 là chẵn $\rightarrow$ bit parity cột là \texttt{0}.
+        \end{itemize}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.27\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_4/two-dim.png}
+\end{minipage}
+\end{center}
+\medskip
+
+\noindent
+Ở loại 1D, nếu 2 bit trong cùng 1 hàng bị lỗi $\rightarrow$ tổng số bit 1 vẫn không đổi (chẵn/lẻ) $\Rightarrow$ không phát hiện được lỗi.
+
+$\Rightarrow$ Đối với 2D, nếu 2 bit trong cùng 1 hàng bị sai $\rightarrow$ parity hàng ngang không báo lỗi $\Rightarrow$ nhưng parity hàng dọc của 2 cột chứa 2 bit sai đó sẽ bị lệch $\rightarrow$ phát hiện được lỗi.
+\medskip
+
+\vspace{0.1cm}
+
+\textbf{$\rightarrow$ Phạm vi phát hiện:} tất cả các lỗi 1 bit, 2 bit, và 3 bit, và hầu hết các lỗi 4 bit đều được phát hiện.
 \medskip
