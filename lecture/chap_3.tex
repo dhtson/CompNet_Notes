@@ -1,4 +1,5 @@
 \chapter{Data Link Layer - Framing and Switching}
+\chapterminitoc
 
 \section{Framing}
 
@@ -12,17 +13,14 @@ $\rightarrow$ Là quá trình đóng gói và mở gói dữ liệu ở hai đ�
 \medskip
 
 \noindent
-\underline{Self-note:} 
-\medskip
-
-\noindent
+\sidebox[-2cm]{Self-note:}{
 Tại sao cần phải framing?
 
 \begin{itemize}
     \item[$\rightarrow$] Tầng vật lý chỉ biết truyền các tín hiệu điện/quang liên tục (bit 0 và 1) từ nơi gửi đến nơi nhận.
     \item[$\Rightarrow$] Không hề biết đâu là bắt đầu, đâu là kết thúc $\rightarrow$ chỉ là một dòng bit stream liên tục.
 \end{itemize}
-\medskip
+}
 
 \subsection{Frame Detection}
 
@@ -56,7 +54,7 @@ $\Rightarrow$ Receiver đọc con số này $\rightarrow$ đếm đủ số lư�
 \textbf{Ví dụ:} giao thức DDCMP (Digital Data Communications Message Protocol) của hãng DEC (Digital Equipment Corporation) ra đời năm 1974 sử dụng phương pháp này.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_3/char_count.png}
 \end{figure}
@@ -85,13 +83,9 @@ $\Rightarrow$ Receiver sẽ đếm sai điểm cuối của khung hiện tại (
 $\Rightarrow$ Mất đồng bộ dây chuyền (desynchronization) $\rightarrow$ receiver không thể xác định đâu là điểm bắt đầu hay kết thúc của những khung sau đó nữa $\rightarrow$ error recovery sẽ rất phức tạp.
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-4cm]{Self-note:}{
 Cứ tưởng tượng như mình là chủ kho và có ông giao hàng đến đưa mình tờ giấy ghi số lượng thùng hàng được lấy $\rightarrow$ nếu tờ giấy bị nhiễu thì mình sẽ không xác định rõ số lượng thùng hàng được lấy.
-\medskip
+}
 
 \subsubsection{Control Sequences}
 
@@ -102,8 +96,10 @@ $\Rightarrow$ Thay vì điểm số lượng (như character count) $\rightarrow
 \medskip
 
 \textbf{$\rightarrow$ Rủi ro:} nếu trong phần dữ liệu (data field) có xuất hiện các kí tự đặc biệt đó $\rightarrow$ receiver sẽ bị nhầm lẫn và tưởng đó là điểm kết thúc/bắt đầu của frame.
+\medskip
 
-$\Rightarrow$ Giải pháp là sử dụng kĩ thuật nhồi byte/kí tự để phân biệt được.
+\noindent
+$\Rightarrow$ \textbf{Giải pháp:} sử dụng kĩ thuật nhồi byte/kí tự để phân biệt được.
 \medskip
 
 \subsubsection{Byte/Character stuffing}
@@ -144,8 +140,6 @@ $\Rightarrow$ Cách này cho phép sử dụng mọi kiểu mã hóa ký tự (a
 \end{figure}
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Tổng quan:}
 
@@ -181,15 +175,15 @@ $\rightarrow$ Khi dữ liệu người dùng (body/payload) vô tình chứa cá
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-9cm]{Self-note:}{
 $\rightarrow$ Cứ nghĩ như trong C++, muốn in \texttt{"Hello World"} thì mình phải viết \texttt{\textbackslash"Hello World\textbackslash"} để thoát kí tự ngoặc kép vậy.
-
-$\Rightarrow$ Nói tóm lại, nếu không muốn bị nhầm với các kí tự đặc biệt trong payload $\rightarrow$ cứ chèn thêm \texttt{DLE} vào trước là xong.
 \medskip
+
+\noindent
+$\Rightarrow$ Nói tóm lại, nếu không muốn bị nhầm với các kí tự đặc biệt trong payload $\rightarrow$ cứ chèn thêm \texttt{DLE} vào trước là xong.
+}
+
+\sidebox[-3cm]{Lưu ý:}{Chỉ áp dụng cho \textbf{payload} thôi, còn lại thì vẫn giữ nguyên các kí tự đặc biệt.}
 
 \subsubsection{Bit Stuffing}
 
@@ -238,15 +232,13 @@ $\Rightarrow$ Triển khai HDLC (High-Level Data Link Control) $\rightarrow$ quy
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-5cm]{Self-note:}{
 Trong payload, nếu có xuất hiện bao nhiêu số \texttt{1} đi chăng nữa, thì sender sẽ luôn chèn thêm \texttt{0} vào sau mỗi dãy 5 số \texttt{1} liên tiếp $\rightarrow$ đảm bảo không bao giờ có 6 số \texttt{1} liên tiếp xuất hiện trong payload.
-
-$\rightarrow$ Nhưng nếu gặp 6 số \texttt{1} liên tiếp $\Rightarrow$ chắc chắn đó là flag kết thúc/bắt đầu frame.
 \medskip
+
+\noindent
+$\rightarrow$ Nhưng nếu gặp 6 số \texttt{1} liên tiếp $\Rightarrow$ chắc chắn đó là flag kết thúc/bắt đầu frame.
+}
 
 \noindent
 \textbf{Ví dụ minh họa:}
@@ -278,7 +270,7 @@ $\Rightarrow$ Cố tình tạo ra các tín hiệu bất hợp lệ (illegal sig
 \textbf{Ví dụ:} Token Ring (dùng differential Manchester encoding).
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_3/token_1.png}
 \end{figure}
@@ -290,13 +282,11 @@ $\Rightarrow$ Cố tình tạo ra các tín hiệu bất hợp lệ (illegal sig
 \end{itemize}
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{assets/chap_3/token_2.png}
 \end{figure}
 \medskip
-
-\pagebreak
 
 \noindent
 Trong token ring:
@@ -308,16 +298,14 @@ Trong token ring:
 \medskip
 
 \noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
 $\rightarrow$ Cứ bắt đầu nó sẽ vi phạm quy luật 4 lần (là 2 cái đỏ như trên hình), kết thúc nó cũng sẽ vi phạm 4 lần $\rightarrow$ tạo thành 8 lần vi phạm quy luật trong một frame.
 \medskip
 
 \noindent
 $\rightarrow$ Số \texttt{0} đứng ở giữa \texttt{J} và \texttt{K} mà không phải gửi những dải \texttt{J} hay \texttt{K} liên tiếp $\Rightarrow$ giúp receiver lấy lại nhịp clock trước khi nhận bit vi phạm tiếp theo $\rightarrow$ làm như vậy để tránh bị mất tín hiệu do đảo chiều quá lâu.
+\medskip
 
+\noindent
 $\Rightarrow$ Do đó, starting/ending delimiter là \texttt{J K 0 J K 0 0 0} (phải gửi đủ 8 bit = 1 byte).
 \medskip
 
@@ -345,6 +333,8 @@ $\rightarrow$ Là cơ chế giúp receiver đồng bộ xung nhịp (synchronize
 \end{itemize}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{SFD (Start Frame Delimiter - flag báo bắt đầu frame):}
 
@@ -356,26 +346,25 @@ $\rightarrow$ Là cơ chế giúp receiver đồng bộ xung nhịp (synchronize
 \medskip
 
 \noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
-\textit{Tại sao lại là \texttt{0x55} và \texttt{0xD5} (LSB first)?}
+\textbf{Tại sao lại là \texttt{0x55} và \texttt{0xD5} (LSB first)?}
 \medskip
 
 \noindent
 $\rightarrow$ Do Ethernet hoạt động theo nguyên tắc LSB first (gửi từ đuôi lên đầu) $\Rightarrow$ nghĩa là bit nào nằm ở hàng đơn vị (bên phải ngoài cùng) sẽ được bắn đi trước.
-
-$\Rightarrow$ Trong bộ nhớ, máy tính phải lưu là \texttt{0x55} để khi đi ngược lại thì nó sẽ thành \texttt{10101010}.
 \medskip
 
 \noindent
+$\Rightarrow$ Trong bộ nhớ, máy tính phải lưu là \texttt{0x55} để khi đi ngược lại thì nó sẽ thành \texttt{10101010}.
+\medskip
+
+\sidebox[-6cm]{Self-note:}{
 $\rightarrow$ SFD với preamble chỉ khác nhau ở 2 bit cuối hòng để phân biệt được trước khi bắt đầu frame chính thức.
 \medskip
 
 \noindent
 $\rightarrow$ Preamble có tận 7 bytes để đảm bảo receiver có đủ thời gian đồng bộ xung nhịp với sender $\rightarrow$ tránh bị lệch pha (phase shift) khi truyền dữ liệu tốc độ cao $\Rightarrow$ khi nó đã đồng bộ rồi thì chỉ cần thêm 1 byte SFD nữa để xác nhận bắt đầu frame.
 \medskip
+}
 
 \subsubsection{Addresses and VLAN Tag}
 
@@ -419,7 +408,7 @@ $\rightarrow$ VLAN (Virtual Local Area Network) $\rightarrow$ là một mạng L
 $\Rightarrow$ VLAN tag chỉ được giới thiệu trong IEEE 802.1Q hoặc IEEE 802.1ad.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{assets/chap_3/vlan.png}
 \end{figure}
@@ -443,8 +432,6 @@ $\rightarrow$ Trong VLAN tag: \textit{(các thông tin khác có thể xem hình
 \end{itemize}
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Field \texttt{Type}:}
 
@@ -461,15 +448,13 @@ $\rightarrow$ Khi máy tính nhận được frame $\rightarrow$ sau khi bỏ l�
 $\Rightarrow$ Cần biết phần này là gì (IPv4 hay ARP chẳng hạn) $\rightarrow$ dựa vào đó để xác định cách xử lý gói tin cho đúng.
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-4cm]{Self-note:}{
 $\rightarrow$ 2 bytes đầu ở VLAN tag là TPID (Tag Protocol Identifier) $\rightarrow$ thường mang giá trị là \texttt{0x8100}.
-
-$\Rightarrow$ Đây là mã báo hiệu cho switch biết gói tin này có chứa VLAN tag.
 \medskip
+
+\noindent
+$\Rightarrow$ Đây là mã báo hiệu cho switch biết gói tin này có chứa VLAN tag.
+}
 
 \subsubsection{Frame Size and Checksum}
 
@@ -525,18 +510,14 @@ $\rightarrow$ Đây là chức năng của tầng kiểm soát truy cập đư�
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-6cm]{Self-note:}{
 \textit{CSMA/CA và CSMA/CD sẽ được nói kỹ hơn ở phần sau.}
 
 \begin{itemize}
     \item CSMA/CD (collision detection) $\rightarrow$ phát hiện xung đột (va chạm rồi mới xử lý) $\Rightarrow$ dùng trong mạng có dây (Ethernet 802.3).
     \item CSMA/CA (collision avoidance) $\rightarrow$ tránh xung đột (cố gắng để không có collision xảy ra) $\Rightarrow$ dùng trong mạng không dây (Wi-Fi 802.11).
 \end{itemize}
-\medskip
+}
 
 \subsubsection{Interframe Spacing}
 
@@ -568,25 +549,23 @@ $\rightarrow$ Là khoảng thời gian nghỉ bắt buộc giữa 2 gói tin li�
 
 \noindent
 $\rightarrow$ Để receiver có thể recovery $\rightarrow$ sau khi nhận xong một gói tin, receiver cần khoảng thời gian ngắn để xử lý (chẳng hạn như chuyển từ bộ nhớ đệm vào bộ nhớ chính, kiểm tra CRC) $\rightarrow$ setup lại để đón nhận gói tin tiếp theo.
+\medskip
 
 $\Rightarrow$ Tránh dính nhau giữa các frame liên tiếp $\rightarrow$ phân tách rõ ràng đâu là frame trước, đâu là frame sau.
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox{Self-note:}{
 $\Rightarrow$ Thời gian nghỉ thực tế nhanh hay chậm phụ thuộc vào tốc độ mạng.
-\medskip
+}
 
+\begin{mybox}{IFG time}
 \begin{equation*}
     \text{IFG time (thời gian nghỉ)} = \frac{96 \text{ bits}}{\text{Link Speed (tốc độ mạng - bps)}}
 \end{equation*}
-\medskip
+\end{mybox}
 
 \noindent
-$\rightarrow$ Nếu giảm IFG thì:
+Nếu giảm IFG thì:
 
 \begin{itemize}
     \item \textbf{Pros:} tăng data rate $\Rightarrow$ ít thời gian nghỉ $\rightarrow$ có nhiều thời gian truyền dữ liệu hơn.
@@ -654,15 +633,13 @@ $\Rightarrow$ MAC address theo chuẩn IEEE 802 có độ dài 48 bít (6 bytes)
 $\rightarrow$ Các frame có I/G bit set (nghĩa là bit I/G bằng \texttt{1}) chỉ cần gửi đi một lần $\rightarrow$ nhưng sẽ được Switch chuyển tiếp ra nhiều port (hoặc tất cả các port).
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-1cm]{Self-note:}{
 Trong chuyên ngành: "bit set" nghĩa là bit được đặt thành giá trị \texttt{1}, còn "bit cleared" nghĩa là bit được đặt thành giá trị \texttt{0}.
-
-$\Rightarrow$ Theo câu trên, bit có trọng số thấp nhất (LSB) của byte đầu tiên trong MAC address mà bằng \texttt{1} $\rightarrow$ là frame này gửi cho nhiều người (multicast/broadcast); còn nếu bằng \texttt{0} $\rightarrow$ là gửi cho một người (unicast).
 \medskip
+
+\noindent
+$\Rightarrow$ Theo câu trên, bit có trọng số thấp nhất (LSB) của byte đầu tiên trong MAC address mà bằng \texttt{1} $\rightarrow$ là frame này gửi cho nhiều người (multicast/broadcast); còn nếu bằng \texttt{0} $\rightarrow$ là gửi cho một người (unicast).
+}
 
 \noindent
 \textbf{Ví dụ:}
@@ -682,9 +659,7 @@ $\rightarrow$ Mỗi thiết bị mạng phải có một MAC address duy nhất 
 $\Rightarrow$ Nhưng trên thực tế thì người ta vẫn có thể thay đổi được MAC address (gọi là spoofing) bằng phần mềm.
 \medskip
 
-\pagebreak
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{assets/chap_3/ig_bit.jpg}
 \end{figure}
@@ -699,7 +674,7 @@ $\Rightarrow$ Nhưng trên thực tế thì người ta vẫn có thể thay đ�
 \end{itemize}
 \medskip
 
-\begin{table}[h]
+\begin{table}[H]
     \renewcommand{\arraystretch}{1.2}
     \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llll}
         \hline
@@ -748,11 +723,7 @@ $\Rightarrow$ Mặc dù MAC là physical address $\rightarrow$ vẫn có thể h
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-5cm]{Self-note:}{
 Thao tác MAC spoofing:
 
 \begin{itemize}
@@ -760,7 +731,7 @@ Thao tác MAC spoofing:
     \item Hacker dùng phần mềm thay đổi MAC address của máy nó sang địa chỉ máy mình.
     \item Access point tưởng hacker là mình $\rightarrow$ cho phép nó kết nối vào mạng.
 \end{itemize}
-\medskip
+}
 
 \noindent
 $\Rightarrow$ MAC address không được thiết kế để làm nhiệm vụ bảo mật $\rightarrow$ không bao giờ dùng nó để xác thực người dùng.
@@ -788,6 +759,8 @@ $\Rightarrow$ Tín hiệu có thể truyền xa hơn trong mạng mà không b�
 
 $\Rightarrow$ Để kết nối các physical network khác nhau (chẳng hạn như nối dây mạng với dây Wifi, hoặc nối 2 đoạn LAN lại) $\rightarrow$ cần bridge ở data link layer để xử lý.
 \medskip
+
+\clearpage
 
 \noindent
 \textbf{Bridge:}
@@ -846,18 +819,13 @@ $\rightarrow$ Kết nối một mạng dùng dây (cable-based network) với m�
 $\Rightarrow$ Tích hợp các thiết bị chỉ có cổng mạng dây (như RJ45 jacks - như network printers, desktops, gaming consoles) vào mạng Wifi (WLAN) mà không cần phải đi dây cáp.
 \medskip
 
-\vspace{0.5cm}
-
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-3cm]{Self-note:}{
 $\rightarrow$ WLAN bridge giống như một cái card mạng dành cho các thiết bị cũ.
 \medskip
 
+\noindent
 $\Rightarrow$ Cắm dây mạng từ thiết bị đó vào cục WLAN bridge $\rightarrow$ cục đó sẽ phát sóng Wifi để kết nối vào mạng.
-\medskip
+}
 
 \subsection{Forwarding}
 
@@ -911,8 +879,6 @@ $\rightarrow$ Nó học bằng cách dựa vào địa chỉ người gửi (sen
 $\Rightarrow$ Nếu host A gửi một frame đến host khác $\rightarrow$ bridge lưu thông tin frame nhận được từ host A là port 1 $\rightarrow$ sau đó ghi thông tin này vào bảng chuyển tiếp (forwarding table).
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Đặc điểm của forwarding table:}
 
@@ -931,11 +897,9 @@ $\Rightarrow$ Nếu không tìm thấy address tồn tại trong bảng $\righta
 
 \subsubsection{Forwarding Strategies}
 
-\noindent
+\sidebox{}{
 \textit{$^*$List strategies trong switch, chứ không phải là step để tạo thành một strategy.}
-\medskip
-
-\vspace{0.3cm}
+}
 
 \noindent
 \textbf{Store-and-Forward (lưu và chuyển tiếp):}
@@ -947,8 +911,6 @@ $\rightarrow$ Switch sẽ nhận toàn bộ frame và lưu vào bộ nhớ đệ
 $\Rightarrow$ Cách này an toàn nhất do không chuyển gói tin rác $\rightarrow$ tuy nhiên có latency cao nhất do phải chờ nhận hết frame.
 \medskip
 
-\vspace{0.3cm}
-
 \noindent
 \textbf{Cut-Through (chuyển mạch liền):}
 \medskip
@@ -958,8 +920,6 @@ $\rightarrow$ Switch bắt đầu chuyển tiếp frame đi ngay lập tức sau
 
 $\Rightarrow$ Cách này có latency thấp $\rightarrow$ nhưng rủi ro cao do có thể chuyển tiếp cả những frame lỗi vì chưa pass cái đuôi có checksum.
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 \textbf{Adaptive Cut-Through (chuyển mạch thích ứng):}
@@ -973,8 +933,6 @@ $\rightarrow$ Đây là sự kết hợp thông minh giữa 2 phương pháp tr�
     \item[$\Rightarrow$] Nếu nó phát hiện tỉ lệ lỗi trên đường truyền vượt quá một ngưỡng nhất định (certain error threshold) $\rightarrow$ tự động chuyển sang Store-and-Forward để đảm bảo an toàn.
 \end{itemize}
 \medskip
-
-\pagebreak
 
 \noindent
 \textbf{Fragment-Free Cut-Through (chuyển mạch không phân mảnh):}
@@ -1242,13 +1200,9 @@ $\rightarrow$ Thuật toán hoạt động linh hoạt (dynamic way) $\Rightarro
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-3cm]{Self-note:}{
 $\rightarrow$ Người ta chọn 32768 làm giá trị mặc định $\rightarrow$ là bit thứ 16 (bit cao nhất trong 16 bit, nếu tính từ 1) $\Rightarrow$ đại diện cho vị trí trung bình để dễ dàng thay đổi lên xuống.
-\medskip
+}
 
 \subsubsection{Spanning Tree Protocol - Cisco Bridge IDs}
 
@@ -1346,8 +1300,6 @@ $\Rightarrow$ Đây được gọi là designated bridge (bridge được chỉ 
 \end{center}
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Khóa các đường thừa (blocking):}
 
@@ -1357,5 +1309,3 @@ $\Rightarrow$ Đây được gọi là designated bridge (bridge được chỉ 
     \item[$\Rightarrow$] Các port bị block sẽ không chuyển tiếp dữ liệu nhưng vẫn ở đó để phòng khi đường chính bị sự cố thì mở lại.
 \end{itemize}
 \medskip
-
-\pagebreak

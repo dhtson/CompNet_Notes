@@ -1,4 +1,5 @@
 \chapter{Physical Layer}
+\chapterminitoc
 
 \section{Fundamentals of Data Signals}
 
@@ -13,9 +14,9 @@ Signal $\rightarrow$ a physical representation of data.
 \end{itemize}
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.62\textwidth]{assets/chap_2/cont_dis.png}
+    \includegraphics[width=0.8\textwidth]{assets/chap_2/cont_dis.png}
 \end{figure}
 \medskip
 
@@ -25,7 +26,7 @@ The translator $\Rightarrow$ NIC (Network Interface Card, nghĩa là card mạng
 
 \subsection{The Telephone Example}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{assets/chap_2/telephone_ex.png}
 \end{figure}
@@ -46,7 +47,7 @@ The translator $\Rightarrow$ NIC (Network Interface Card, nghĩa là card mạng
 Periodic signal (tín hiệu tuần hoàn) $\rightarrow$ simplest signals.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.4\textwidth]{assets/chap_2/wave.jpg}
 \end{figure}
@@ -79,8 +80,6 @@ Periodic signal (tín hiệu tuần hoàn) $\rightarrow$ simplest signals.
 \end{minipage}
 \end{center}
 
-\vspace{0.5cm}
-
 \subsection{Quantization and Sampling}
 
 \noindent
@@ -91,18 +90,15 @@ Periodic signal (tín hiệu tuần hoàn) $\rightarrow$ simplest signals.
     \item measured ($\rightarrow$ sampling (lấy mẫu)) $\Rightarrow$ đo tín hiệu tại các thời điểm khác nhau $\Rightarrow$ discrete time (thời gian rời rạc) $\rightarrow$ cần sampling.
 \end{itemize}
 
-\noindent
-\underline{Self-note:}
-
 \begin{itemize}
-    \item Máy tính lưu dữ liệu bằng các bit (0 và 1); nó cần một danh sách các con số cố định để lựa chọn $\Rightarrow$ cần quantization để chuyển tín hiệu liên tục thành tín hiệu rời rạc để lựa chọn (ví dụ: cân đồ nhưng kim nằm giữa 1kg và 1.1kg, nhưng mình không thể đọc được cái con số siêu lẻ $\rightarrow$ đọc 1kg luôn).
-    \item Máy tính không thể lưu trữ vô hạn trong một khoảng khắc nào đó, nếu nó làm thế thì sẽ dễ bị đầy bộ nhớ $\Rightarrow$ cần sampling để đo tín hiệu tại các thời điểm khác nhau $\rightarrow$ biến thời gian liên tục thành thời gian rời rạc để xử lý (ví dụ: quay video ở 30fps thay vì vô hạn fps).
+    \item[$\Rightarrow$] Máy tính lưu dữ liệu bằng các bit (0 và 1); nó cần một danh sách các con số cố định để lựa chọn $\Rightarrow$ cần quantization để chuyển tín hiệu liên tục thành tín hiệu rời rạc để lựa chọn (ví dụ: cân đồ nhưng kim nằm giữa 1kg và 1.1kg, nhưng mình không thể đọc được cái con số siêu lẻ $\rightarrow$ đọc 1kg luôn).
+    \item[$\Rightarrow$] Máy tính không thể lưu trữ vô hạn trong một khoảng khắc nào đó, nếu nó làm thế thì sẽ dễ bị đầy bộ nhớ $\Rightarrow$ cần sampling để đo tín hiệu tại các thời điểm khác nhau $\rightarrow$ biến thời gian liên tục thành thời gian rời rạc để xử lý (ví dụ: quay video ở 30fps thay vì vô hạn fps).
 \end{itemize}
 
 \subsection{Sampling, Quantization, and Coding}
 
 \noindent
-Target: chuyển tín hiệu analog sang digital representation.
+\underline{Target:} chuyển tín hiệu analog sang digital representation.
 \medskip
 
 \noindent
@@ -122,13 +118,14 @@ Coding (mã hóa):
 $\rightarrow$ Focus on translating to binary $\Rightarrow$ gán một mã nhị phân (binary code) cho từng khoảng lượng tử hóa (quantization intervals).
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{assets/chap_2/sampling_coding.jpg}
 \end{figure}
 \medskip
 
-\textbf{$\rightarrow$ Giải thích hình:}
+\noindent
+\textbf{Giải thích hình:}
 
 \begin{itemize}
     \item Đường cong analog $\rightarrow$ tín hiệu thực tế; giá trị liên tục (continuous values).
@@ -142,7 +139,7 @@ $\rightarrow$ Focus on translating to binary $\Rightarrow$ gán một mã nhị 
 \underline{Self-note:} symbol rate nghĩa là tốc độ kí hiệu (định nghĩa ở mục tiếp theo).
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.55\textwidth]{assets/chap_2/sym_rate.png}
 \end{figure}
@@ -156,11 +153,7 @@ $\rightarrow$ Biểu đồ minh họa quaternary (hệ tứ phân; nghĩa là c�
     \item Time $\rightarrow$ mỗi vạch là một khoảng thời gian cho một symbol.
 \end{itemize}
 
-\noindent
-\underline{Bonus:}
-\medskip
-
-\noindent
+\sidebox[-4.8cm]{Bonus:}{
 $n$ (number of discrete values) $\rightarrow$ số lượng mức giá trị khác nhau mà tín hiệu có thể nhận được.
 
 \begin{itemize}
@@ -170,6 +163,7 @@ $n$ (number of discrete values) $\rightarrow$ số lượng mức giá trị kh�
     \item $n = 8 \rightarrow$ octonary $\Rightarrow$ tín hiệu có 8 mức $\rightarrow$ chỉ được gửi 3 bit mỗi lần ($\log_2 8 = 3$).
     \item $n = 10 \rightarrow$ denary $\Rightarrow$ tín hiệu có 10 mức.
 \end{itemize}
+}
 
 \subsection{Bit Rate and Symbol Rate}
 
@@ -189,27 +183,17 @@ $\Rightarrow$ Đây là tốc độ làm việc của phần cứng (chẳng h�
 The ratio between bit rate and symbol rate $\rightarrow$ phụ thuộc vào công nghệ mã hóa đường truyền (line encoding scheme) được sử dụng.
 \medskip
 
-\noindent
-\underline{Self-note:} 
-\medskip
-
-\noindent
-Line code $\rightarrow$ là quy tắt để máy tính truyền tín hiệu lên dây dẫn sao cho bên nhận có thể hiểu được.
+\sidebox[-4cm]{Self-note:}{Line code $\rightarrow$ là quy tắt để máy tính truyền tín hiệu lên dây dẫn sao cho bên nhận có thể hiểu được.}
 
 $\Rightarrow$ Quy định: số lượng tín hiệu tối đa có thể truyền qua transmission media được sử dụng (số 1 thì điện áp như nào, số 0 thì điện áp như nào); xác định bởi layer protocol được sử dụng.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/line_code_ex.png}
 \end{figure}
 
-\pagebreak
-
-\noindent
-\underline{Bonus:} (sẽ được nói kĩ hơn ở mục dưới)
-\medskip
-
+\sidebox[-6cm]{Bonus:}{
 \noindent
 NRZ (Non-Return to Zero) encoding $\rightarrow$ gặp số 0 thì giữ điện áp mức thấp, còn gặp 1 thì giữ ở mức cao.
 \medskip
@@ -222,6 +206,7 @@ Manchester Encoding $\rightarrow$ không quan tâm mức cao hay thấp, chỉ q
     \item Số 1 $\rightarrow$ đang thấp nhảy lên cao (rising edge).
 \end{itemize}
 \medskip
+}
 
 \subsection{Data Rate}
 
@@ -232,19 +217,18 @@ $\Rightarrow$ Nó trả lời cho câu "trong 1s thì gửi được bao nhiêu 
 \medskip
 
 \noindent
-\textbf{$\rightarrow$ Hai yếu tố ảnh hưởng data rate}:
+\textbf{$\rightarrow$ Hai yếu tố ảnh hưởng:}
 
 \begin{enumerate}
     \item Bandwidth (băng thông), kí hiệu: $H$ $\rightarrow$ độ rộng của đường vận chuyển. Đường càng rộng (Hertz càng cao) $\Rightarrow$ bit chạy càng nhiều.
     \item Levels (mức tín hiệu) (hoặc độ nhiễu (noise)), kí hiệu: $V$ $\rightarrow$ nếu không có nhiễu $\Rightarrow$ dùng càng nhiều mức tín hiệu ($V$ càng cao; như 4 mức, 8 mức), tốc độ càng nhanh.
 \end{enumerate}
 
-\noindent
-\textbf{Định luật Hartley (Hartley's law):}
-
+\begin{mybox}{Định luật Hartley}
 \begin{equation*}
     \text{Maximum data rate [bit/s]} = 2 * H * \log_2(V)
 \end{equation*}
+\end{mybox}
 
 \noindent
 Trong đó:
@@ -255,15 +239,11 @@ Trong đó:
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Note:} Định luật của Hartley là \textbf{điều kiện lý tưởng} $\rightarrow$ đường truyền hoàn hảo, không có nhiễu (noiseless) $\Rightarrow$ tốc độ tối đa phụ thuộc vào việc mình tạo ra được bao nhiêu tín hiệu.
-\medspace
-
-\pagebreak
+\sidebox[-5.5cm]{Note:}{Định luật của Hartley là \textbf{điều kiện lý tưởng} $\rightarrow$ đường truyền hoàn hảo, không có nhiễu (noiseless) $\Rightarrow$ tốc độ tối đa phụ thuộc vào việc mình tạo ra được bao nhiêu tín hiệu.}
 
 \subsection{Ideal vs. Real Transmission}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\textwidth]{assets/chap_2/ideal_vs_real.png}
 \end{figure}
@@ -303,9 +283,7 @@ $\Rightarrow$ Attenuation giới hạn khoảng cách tối đa có thể truy�
 \textbf{Quy luật:} Tần số càng cao, suy hao càng lớn.
 \medskip
 
-\noindent
-\underline{Idea:} người ta có thể khắc phục điều này bằng việc sử dụng repeater (bộ lặp) hoặc amplifier (bộ khuếch đại) để tăng cường tín hiệu, để tín hiệu có thể truyền đi tiếp.
-\medskip
+\sidebox[-3.7cm]{Idea:}{Người ta có thể khắc phục điều này bằng việc sử dụng repeater (bộ lặp) hoặc amplifier (bộ khuếch đại) để tăng cường tín hiệu, để tín hiệu có thể truyền đi tiếp.}
 
 \subsection{Noise and Distortion}
 
@@ -337,7 +315,7 @@ $\rightarrow$ Plus attenuation, refraction (làm lệch hướng), reflection (p
 \begin{center}
 \begin{minipage}[c]{0.4\textwidth}
     \centering
-    \includegraphics[width=0.75\textwidth]{assets/chap_2/gauss.png}
+    \includegraphics[width=0.7\textwidth]{assets/chap_2/gauss.png}
 \end{minipage}
 \hfill
 \begin{minipage}[c]{0.55\textwidth}
@@ -345,10 +323,8 @@ $\rightarrow$ Plus attenuation, refraction (làm lệch hướng), reflection (p
 \end{minipage}
 \end{center}
 
-\vspace{0.5cm}
-
 \noindent
-Giải thích:
+\textbf{Giải thích:}
 
 \begin{itemize}
     \item Additive (cộng tính) $\rightarrow$ nhiễu được thêm vào tín hiệu gốc.
@@ -373,16 +349,14 @@ $\Rightarrow$ Nhiễu có thể làm suy giảm chất lượng đường truy�
 $\Rightarrow$ BER được tính theo tỉ lệ phần trăm các bit bị sai so với tổng số bit đã được truyền đi.
 \medskip
 
-\noindent
-\textbf{Công thức:}
-
+\begin{mybox}{Bit Error Rate}
 \begin{equation*}
     \text{BER} = \frac{\text{Number of erroneous bits (số bit bị lỗi)}}{\text{Number of transmitted bits (tổng số bit đã truyền)}}
 \end{equation*}
-\medskip
+\end{mybox}
 
 \noindent
-$\rightarrow$ Ví dụ: gửi 1.000 bit và có 1 bit bị sai $\Rightarrow$ BER = $\frac{1}{1000} = 0.001$ (hay $10^{-3}$).
+\textbf{Ví dụ:} gửi 1.000 bit và có 1 bit bị sai $\Rightarrow$ BER = $\frac{1}{1000} = 0.001$ (hay $10^{-3}$).
 
 \vspace{0.5cm}
 
@@ -397,23 +371,20 @@ Typical BER values for different link types:
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-10cm]{Self-note:}{
 $\rightarrow$ Mạng radio có BER tệ nhất $\Rightarrow$ do chịu nhiều tác động từ môi trường xung quanh như thời tiết, vật cản, ... $\Rightarrow$ dễ bị nhiễu hơn so với mạng dây (như Ethernet hay fiber).
 \medskip
 
 \noindent
 BER \textbf{càng nhỏ} (số có mũ càng âm lớn) $\Rightarrow$ đường truyền \textbf{càng tốt}.
+}
+
+\sidebox[-4cm]{Bonus:}{Giảm BER $\rightarrow$ tăng cường độ tín hiệu để át nhiễu.
 \medskip
 
 \noindent
-\underline{Bonus:} Giảm BER $\rightarrow$ tăng cường độ tín hiệu để át nhiễu. 
-
 $\Rightarrow$ Việc này có thể gây tốn kém (như tốn điện do phải tăng biên độ $\rightarrow$ tăng mức tiêu thụ năng lượng), và gây nhiễu cho các thiết bị xung quanh.
-\medskip
+}
 
 \subsection{Data Rate on a Noisy Channel}
 
@@ -427,26 +398,25 @@ $\rightarrow$ Tốc độ truyền không chỉ phụ thuộc vào số mức t�
 $\Rightarrow$ Signal-to-Noise Ratio (SNR) $\rightarrow$ tỉ lệ công suất tín hiệu ($S$) và công suất nhiễu ($N$).
 \medskip
 
+\begin{mybox}{Signal-to-Noise Ratio}
 \begin{equation*}
     \text{SNR} = \frac{\text{Signal Power }(S)}{\text{Noise Power }(N)}
 \end{equation*}
-\medskip
+\end{mybox}
 
 \noindent
 $\Rightarrow$ SNR càng cao $\Rightarrow$ tín hiệu càng mạnh hơn nhiễu.
 \medskip
 
 \noindent
-Ví dụ: nói chuyện trong một quán karaoke, giọng mình ($S$) so với tiếng nhạc ồn ($N$), nếu $S < N$, người ta sẽ không nghe được mình nói gì cả $\rightarrow$ tốc độ truyền tin $= 0$.
+\textbf{Ví dụ:} nói chuyện trong một quán karaoke, giọng mình ($S$) so với tiếng nhạc ồn ($N$), nếu $S < N$, người ta sẽ không nghe được mình nói gì cả $\rightarrow$ tốc độ truyền tin $= 0$.
 \medskip
 
-\noindent
-\textbf{Định luật Shannon-Hartley (Shannon-Hartley theorem):}
-
+\begin{mybox}{Shannon-Hartley theorem}
 \begin{equation*}
     \text{Maximum data rate [bit/s]} = H * \log_2(1 + \frac{S}{N})
 \end{equation*}
-\medskip
+\end{mybox}
 
 \noindent
 Trong đó:
@@ -467,14 +437,16 @@ The SNR is commonly expressed in decibel (dB):
 \medskip
 
 \noindent
-\underline{Self-note:} công thức Shannon ở trên dùng tỷ số thường ($S/N$) $\rightarrow$ nếu đề bài cho SNR là 30dB, mình \textbf{không được} thay số 30 vào công thức Shannon 
+\textbf{Finalize:} định lý Shannon-Hartley cho ta biết giới hạn lý thuyết về tốc độ truyền dữ liệu tối đa trên một kênh truyền có nhiễu.
+\medskip
 
-$\Rightarrow$ Phải chuyển đổi 30dB thành 1000 lần ($S/N = 10^{30/10} = 10^3 = 1000$) rồi mới thay vào công thức Shannon.
+\sidebox[-6cm]{Self-note:}{
+Công thức Shannon ở trên dùng tỷ số thường ($S/N$) $\rightarrow$ nếu đề bài cho SNR là 30dB, mình \textbf{không được} thay số 30 vào công thức Shannon
 \medskip
 
 \noindent
-\underline{Finalize:} định lý Shannon-Hartley cho ta biết giới hạn lý thuyết về tốc độ truyền dữ liệu tối đa trên một kênh truyền có nhiễu.
-\medskip
+$\Rightarrow$ Phải chuyển đổi 30dB thành 1000 lần ($S/N = 10^{30/10} = 10^3 = 1000$) rồi mới thay vào công thức Shannon.
+}
 
 \section{Data Encoding}
 
@@ -509,6 +481,8 @@ Cơ chế mã hóa (encoding schemes) $\rightarrow$ tập hợp các quy tắc �
     \item Synchronous (đồng bộ) $\rightarrow$ máy gửi và máy nhận phải cùng "nhịp" với nhau thì mới biết được khi nào một bit bắt đầu và kết thúc.
 \end{itemize}
 
+\clearpage
+
 \noindent
 Cách cách để đồng bộ hóa:
 
@@ -524,7 +498,7 @@ $\rightarrow$ There are many ways to encode binary data onto a line; many differ
 
 \subsubsection{Non-Return-to-Zero (NRZ)}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/nrz.jpg}
 \end{figure}
@@ -554,15 +528,13 @@ $\rightarrow$ Khác với mã RZ (Return-to-Zero) $\rightarrow$ nếu là bit 1 
     \item \textbf{Cons:} gặp rắc rối lớn khi truyền dữ liệu có một chuỗi dài các bit giống nhau (như đã nói ở trên) $\Rightarrow$ đường tín hiệu sẽ \textbf{gặp 2 lỗi}: clock recovery (máy sẽ không nhận biết mình đang ở bit thứ mấy) và baseline wander (giữ điện áp quá lâu có thể bị thay đổi mức điện áp trung bình $\Rightarrow$ máy thu sẽ không biết đâu là mức cao, đâu là mức thấp nữa).
 \end{itemize}
 
-\noindent
-\underline{Bonus:} 
-
+\sidebox[-5cm]{Bonus:}{
 $\rightarrow$ Kĩ thuật này được sử dụng trong CAN bus system (Controller Area Network) $\rightarrow$ một hệ thống dùng để kết nối với các bộ điều khiển trong xe hơi do Bosch phát triển từ những năm 1980.
-\medskip
+}
 
 \subsubsection{Manchester Code}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/man_code.jpg}
 \end{figure}
@@ -575,7 +547,7 @@ $\Rightarrow$ Tập trung vào hướng di chuyển (transition) của dòng đi
 
 \begin{itemize}
     \item Logical 1 $\rightarrow$ encoded with a rising edge (sườn lên) $\Rightarrow$ thay đổi từ signal level 1 (mức thấp) sang signal level 2 (mức cao).
-    \item Logical 2 $\rightarrow$ encoded with a falling edge (sườn xuống) $\Rightarrow$ thay đổi từ signal level 2 (mức cao) sang signal level 1 (mức thấp).
+    \item Logical 0 $\rightarrow$ encoded with a falling edge (sườn xuống) $\Rightarrow$ thay đổi từ signal level 2 (mức cao) sang signal level 1 (mức thấp).
 \end{itemize}
 \medskip
 
@@ -583,22 +555,18 @@ $\Rightarrow$ Tập trung vào hướng di chuyển (transition) của dòng đi
 \textbf{$\rightarrow$ Quy tắc đặt biệt:} nếu có 2 bit giống nhau đi liền (ví dụ: \texttt{0} và \texttt{0} ở sát nhau), thì tại cuối bit thứ nhất, tín hiệu sẽ phải đổi trạng thái để phân biệt cho việc đổi trạng thái của bit sau.
 \medskip
 
-\noindent
-\underline{Self-note:}
-
-$\Rightarrow$ Nếu quan sát kĩ trên hình vẽ thì Manschester encoding sẽ luôn có một transition ở giữa bit; nửa trái là để phân biệt giữa 2 bit, nửa phải là để biểu diễn giá trị của bit đó (0 hay 1 thông qua mức thấp hay cao).
-\medskip
-
 \begin{itemize}
     \item \textbf{Pros:} tự đồng bộ (self-synchronizing) $\rightarrow$ do ở chính giữa của mỗi bit luôn có một transition $\Rightarrow$ máy nhận có thể dùng cái này để đếm xung (clock) $\Rightarrow$ không bao giờ bị nhầm lẫn giữa các bit dù có gửi cả chuỗi bit giống nhau dài cách mấy.
     \item \textbf{Cons:} hiệu suất thấp, chỉ đạt cỡ 50\% so với NRZ $\Rightarrow$ vì khi 1 bit được gửi $\rightarrow$ tín hiệu phải thay đổi trạng thái tới 2 lần (nửa đầu khác, nửa sau khác) $\Rightarrow$ tốc độ Baud phải gấp đôi so với tốc dộ bit $\rightarrow$ tốn băng thông hơn so với NRZ.
 \end{itemize}
 
-\noindent
-\underline{Bonus:} 
+\sidebox[-10cm]{Self-note:}{
+$\Rightarrow$ Nếu quan sát kĩ trên hình vẽ thì Manschester encoding sẽ luôn có một transition ở giữa bit; nửa trái là để phân biệt giữa 2 bit, nửa phải là để biểu diễn giá trị của bit đó (0 hay 1 thông qua mức thấp hay cao).
+}
 
+\sidebox[-4cm]{Bonus:}{
 $\rightarrow$ Do tính ổn định và khả năng tự đồng bộ cao, mã này được sử dụng trong mạng Ethernet 10 Mbps (10BASE-T hay 10BASE2).
-\medskip
+}
 
 \subsection{Modulation}
 
@@ -616,14 +584,15 @@ $\rightarrow$ Modulation (biến đổi tín hiệu) $\rightarrow$ biến đổi
 \textbf{$\rightarrow$ Broadband} (dải rộng) $\rightarrow$ tín hiệu số được biến đổi (modulate) thành analog trước khi truyền $\Rightarrow$ cho phép chia đường truyền thành nhiều kênh tần số khác nhau (nhiều luồng dữ liệu có thể truyền cùng một lúc) $\rightarrow$ dùng cho truyền dẫn quãng dài như truyền hình cáp hay 4G chẳng hạn.
 \medskip
 
+\clearpage
+
 \subsubsection{Principle of Modulation}
 
-\noindent
-\textbf{Công thức electromagnetic signal (tín hiệu điện tử):}
-
+\begin{mybox}{Electromagnetic Signal (tín hiệu điện tử)}
 \begin{equation*}
     s(t) = A * \sin(2 \pi f t + \phi)
 \end{equation*}
+\end{mybox}
 
 \noindent
 Trong đó:
@@ -635,7 +604,7 @@ Trong đó:
     \item $t$ $\rightarrow$ time (thời gian).
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{assets/chap_2/electro_mag_wave.png}
 \end{figure}
@@ -645,7 +614,7 @@ Trong đó:
 $\Rightarrow$ Dữ liệu đã được biến đổi thành tần số mang (carrier frequency) $\rightarrow$ có thể truyền đi xa hơn và nhiều luồng dữ liệu có thể truyền cùng lúc.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/modem_illust.png}
 \end{figure}
@@ -667,7 +636,7 @@ $\rightarrow$ Là phương pháp điều chế cơ bản được sử dụng tr
 $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi biên độ} (amplitude) của sóng mang điện từ.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
 \end{figure}
@@ -676,7 +645,7 @@ $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổ
 \noindent
 Amplitude Modulation (discrete, Amplitude Shift Keying - ASK) $\rightarrow$ biến đổi biên độ $\Rightarrow$ kí hiệu $A$ từ công thức trên.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/ask_wave.png}
 \end{figure}
@@ -706,15 +675,12 @@ $\Rightarrow$ Do đó, ASK không được sử dụng rộng rãi cho truyền 
 \medskip
 
 \noindent
-Ứng dụng: thường được sử dụng trong truyền dẫn quang (optical transmission) $\rightarrow$ low noise.
+\textbf{Ứng dụng:} thường được sử dụng trong truyền dẫn quang (optical transmission) $\rightarrow$ low noise.
 \medskip
 
-\noindent
-\underline{Self-note:} 
-\medskip
-
+\sidebox[-4cm]{Self-note:}{
 $\rightarrow$ Cứ xem ASK như nhìn dãy đèn ở khoảng cách xa $\rightarrow$ đèn sáng (bit 1) và đèn tắt (bit 0) $\Rightarrow$ dễ thao tác, nhưng nếu trời bị sương mù dày đặc (nhiễu cao) $\rightarrow$ nhìn nhầm hoặc không thấy.
-\medskip
+}
 
 \subsubsection{Frequency Shift Keying (FSK)}
 
@@ -728,7 +694,7 @@ $\rightarrow$ Là phương pháp điều chế sử dụng trong broadband (phư
 $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi tần số} (frequency) của sóng mang điện từ.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
 \end{figure}
@@ -737,11 +703,13 @@ $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổ
 \noindent
 Frequency Modulation (discrete, Frequency Shift Keying - FSK) $\rightarrow$ biến đổi tần số $\Rightarrow$ kí hiệu $f$ từ công thức trên.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/fsk_wave.png}
 \end{figure}
 \medskip
+
+\clearpage
 
 \noindent
 \textbf{Nguyên lý hoạt động:}
@@ -765,16 +733,13 @@ $\rightarrow$ Do tốn nhiều băng thông $\Rightarrow$ ít được dùng cho
 \medskip
 
 \noindent
-Ứng dụng: nguyên lý ban đầu được dùng để truyền dữ liệu qua điện thoại (phone lines).
+\textbf{Ứng dụng:} nguyên lý ban đầu được dùng để truyền dữ liệu qua điện thoại (phone lines).
 \medskip
 
-\noindent
-\underline{Self-note:}
-\medskip
-
+\sidebox[-5cm]{Self-note:}{
 \noindent
 $\rightarrow$ Cứ xem FSK như giọng hát $\rightarrow$ nốt cao (bit 1) và nốt trầm (bit 0) $\Rightarrow$ dù có đang trong phòng ồn ào (bị noise) $\rightarrow$ vẫn phân biệt được nốt cao hay thấp (khó nhầm lẫn hơn so với ASK) $\rightarrow$ tuy nhiên, phải có quãng giọng rộng (được xem như cần nhiều bandwidth) mới có thể hát được cả 2 nốt này rõ ràng.
-\medskip
+}
 
 \subsubsection{Phase Shift Keying (PSK)}
 
@@ -788,7 +753,7 @@ $\rightarrow$ Là phương pháp điều chế sử dụng trong broadband (phư
 $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổi pha} ($\phi$ phase) của sóng mang điện từ.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/bit_illust.png}
 \end{figure}
@@ -797,7 +762,7 @@ $\Rightarrow$ Nơi dữ liệu được mã hóa bằng cách \textbf{thay đổ
 \noindent
 Phase Modulation (discrete, Phase Shift Keying - PSK) $\rightarrow$ biến đổi pha $\Rightarrow$ kí hiệu $\phi$ từ công thức trên.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_2/psk_wave.png}
 \end{figure}
@@ -820,11 +785,7 @@ $\rightarrow$ Tín hiệu bị ngắt và đảo ngược trạng thái mỗi kh
     \item \textbf{Cons:} quá trình giải điều chế phức tạp (complex demodulation process) $\Rightarrow$ receiver phải cực kì chính xác để có thể phát hiện ra sự lệch pha (dựa theo góc của sóng) $\rightarrow$ đòi hỏi phần cứng đắt tiền và phức tạp hơn so với việc chỉ cần đo độ cao (như ASK) hay đo tần số (như FSK).
 \end{itemize}
 
-\noindent
-\underline{Self-note:}
-\medskip
-
-\noindent
+\sidebox[-2cm]{Self-note:}{
 $\rightarrow$ Cứ xem như PSK là 2 người chạy tiếp sức:
 
 \begin{itemize}
@@ -836,7 +797,7 @@ $\rightarrow$ Dù trời mưa có to đi chăng nữa (noise) $\Rightarrow$ vẫ
 \medskip
 
 $\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có thể phân biệt được ai với ai (như cách máy phải chuẩn lắm mới phát hiện được, không đơn giản như ASK).
-\medskip
+}
 
 \subsubsection{Overview}
 
@@ -860,8 +821,6 @@ $\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có th
         \end{enumerate}
 \end{minipage}
 \end{center}
-
-\vspace{0.5cm}
 
 \noindent
 \textbf{Binary signal (tín hiệu nhị phân):}
@@ -894,6 +853,8 @@ $\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có th
 \end{itemize}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{Phase modulation (điều chế pha) - PSK:}
 
@@ -911,7 +872,7 @@ $\Rightarrow$ Tuy nhiên, trọng tài (receiver) phải cố nhìn mới có th
 \noindent
 Mô hình tổng thể:
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.78\textwidth]{assets/chap_2/class_trans_med.png}
 \end{figure}
@@ -942,7 +903,7 @@ $\Rightarrow$ Tín hiệu không truyền bên ngoài.
 Coaxial cable (cáp đồng trục) $\rightarrow$ là loại dây dẫn hữu tuyến phổ biến (dùng cho truyền hình cáp, mạng thế hệ cũ, ...).
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{assets/chap_2/coaxial.jpg}
 \end{figure}
@@ -950,10 +911,6 @@ Coaxial cable (cáp đồng trục) $\rightarrow$ là loại dây dẫn hữu tu
 
 \noindent
 $\rightarrow$ Một loại cáp đồng trục dùng để mang tín hiệu bipolar.
-\medskip
-
-\noindent
-\underline{Self-note:} tín hiệu dạng bipolar là tín hiệu điện có 3 mức điện áp: dương (+V), âm (-V) và không (0V) $\rightarrow$ thường dùng nhiều trong viễn thông và một số hệ thống truyền dữ liệu.
 \medskip
 
 \noindent
@@ -966,6 +923,8 @@ $\rightarrow$ Một loại cáp đồng trục dùng để mang tín hiệu bipo
     \item \textbf{Plastic jacket} (lớp vỏ nhựa) $\rightarrow$ bảo vệ vật lý cho sợi cáp (chống nước, trầy xước các kiểu).
 \end{itemize}
 \medskip
+
+\sidebox[-4cm]{Self-note:}{Tín hiệu dạng bipolar là tín hiệu điện có 3 mức điện áp: dương (+V), âm (-V) và không (0V) $\rightarrow$ thường dùng nhiều trong viễn thông và một số hệ thống truyền dữ liệu.}
 
 \subsubsection{Twisted Pair Cables}
 
@@ -988,14 +947,6 @@ $\Rightarrow$ Twisted pairs are better protected against alternating magnetic fi
 \medskip
 
 \noindent
-\underline{Self-note:}
-
-\begin{itemize}
-    \item Xuyên âm $\rightarrow$ là sự nhiễu loạn lẫn nhau giữa các dây dẫn chạy song song $\Rightarrow$ khi dòng điện chạy trong dây dẫn thứ nhất, nó sẽ tạo ra từ trường xung quanh nó $\rightarrow$ từ trường này gây hiện tượng cảm ứng sang dây kế bên mà nó nằm song song, tạo ra một dòng điện không mong muốn trên dây kia.
-    \item EMI $\rightarrow$ là nhiễu do các nguồn bên ngoài phát ra, tác động vào sợi cáp (như sấm sét, tia lửa điện, vi sóng, thiết bị Bluetooth, ...).
-\end{itemize}
-
-\noindent
 \textbf{Công dụng của việc xoắn:}
 
 \begin{itemize}
@@ -1003,7 +954,7 @@ $\Rightarrow$ Twisted pairs are better protected against alternating magnetic fi
     \item Chống xuyên âm (crosstalk) từ trong $\rightarrow$ mỗi cặp dây có tốc độ xoắn khác nhau $\Rightarrow$ giảm thiểu tối đa lượng nhiễu bị truyền từ cặp này sang cặp khác.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.6\textwidth}
         \centering
@@ -1020,6 +971,13 @@ $\Rightarrow$ Twisted pairs are better protected against alternating magnetic fi
 \noindent
 $\rightarrow$ Tất cả các chuẩn Ethernet dùng cáp xoắn đôi đều sử dụng đầu nối 8P8C, thường gọi là RJ45 (Registered Jack).
 \medskip
+
+\sidebox[-6.3cm]{Self-note:}{
+\begin{itemize}
+    \item Xuyên âm $\rightarrow$ là sự nhiễu loạn lẫn nhau giữa các dây dẫn chạy song song $\Rightarrow$ khi dòng điện chạy trong dây dẫn thứ nhất, nó sẽ tạo ra từ trường xung quanh nó $\rightarrow$ từ trường này gây hiện tượng cảm ứng sang dây kế bên mà nó nằm song song, tạo ra một dòng điện không mong muốn trên dây kia.
+    \item EMI $\rightarrow$ là nhiễu do các nguồn bên ngoài phát ra, tác động vào sợi cáp (như sấm sét, tia lửa điện, vi sóng, thiết bị Bluetooth, ...).
+\end{itemize}
+}
 
 \subsubsection{Shielding of different Twisted Pair Cables}
 
@@ -1077,6 +1035,8 @@ $\rightarrow$ Theo định luật Ohm, nếu có hiệu điện thế chênh l�
 \end{center}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{SFTP:} Shielded Foiled Twisted Pair (cáp xoắn đôi có lá bọc và vỏ bọc) $\rightarrow$ có lớp lá kim loại bọc bên ngoài từng cặp dây, đồng thời có lớp lưới kim loại bọc bên ngoài toàn bộ bó dây.
 \medskip
@@ -1121,7 +1081,7 @@ Hiệu suất của toàn bộ kết nối được quyết định từ categor
 \end{itemize}
 
 \noindent
-\textbf{Câu hỏi:} tại sao Cat càng lớn càng xịn hơn, nhanh hơn?
+\textbf{Câu hỏi:} Tại sao Cat càng lớn càng xịn hơn, nhanh hơn?
 
 $\Rightarrow$ Number of twists (số vòng xoắn) per wire length (cm) and thickness of the jacket (lớp vỏ bọc bên ngoài).
 
@@ -1138,8 +1098,6 @@ $\rightarrow$ Cat 5/5e có 1-2 vòng xoắn trên mỗi cm. Cat 6 có 2 vòng xo
 \noindent
 $\rightarrow$ Crosstalk là hiện tượng tín hiệu bị nhiễu lẫn nhau giữa các đường dây song song.
 \medskip
-
-\pagebreak
 
 \subsubsection{Fiber-optic Cables}
 
@@ -1194,8 +1152,6 @@ Fiber-optic cable (cáp quang) $\rightarrow$ là loại dây dẫn hữu tuyến
 $\rightarrow$ Chỉ dùng khi cáp đồng không thể cung cấp đủ bandwidth hoặc khoảng cách quá xa.
 \medskip
 
-\pagebreak
-
 \subsection{Unguided Transmission Media}
 
 \noindent
@@ -1211,7 +1167,7 @@ $\Rightarrow$ Tín hiệu truyền tự do ra bên ngoài.
 
 \subsubsection{Wireless Communication}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{assets/chap_2/wireless.png}
 \end{figure}
@@ -1231,8 +1187,6 @@ $\Rightarrow$ Tín hiệu truyền tự do ra bên ngoài.
 \textbf{Shared medium} (môi trường truyền dẫn chung) $\rightarrow$ các tần số không thể sử dụng tùy ý muốn (cannot be used arbitrarily) mà phải được phân bổ (must be allocated).
 \medskip
 
-\pagebreak
-
 \subsubsection{Challenges of Wireless Networks}
 
 \noindent
@@ -1245,17 +1199,19 @@ $\rightarrow$ Sóng điện từ suy giảm bị yếu dần (gradually weaken) 
 $\Rightarrow$ Càng đi xa Wifi hay vào chỗ khuất $\rightarrow$ sóng càng yếu $\Rightarrow$ mạng yếu đi hoặc mất kết nối.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{assets/chap_2/fading.png}
 \end{figure}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{Exposed terminal problem} (vấn đề "trạm lộ thiên")
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{assets/chap_2/exposed.png}
 \end{figure}
@@ -1271,13 +1227,11 @@ A node is prevented from sending packets to other nodes because of being within 
 $\Rightarrow$ Máy B bị chặn không cho gửi dữ liệu đến máy Y (theo quy tắc CSMA sẽ được mention sau: trước khi muốn truyền dữ liệu thì phải xem môi trường có máy nào đang truyền không) $\rightarrow$ lãng phí băng thông, giảm hiệu suất mạng.
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Hidden terminal problem} (vấn đề "trạm ẩn"; invisible or hidden terminal devices)
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{assets/chap_2/hidden.jpg}
 \end{figure}
@@ -1289,11 +1243,13 @@ $\rightarrow$ 2 thiết bị (như hình trên) nằm ở hai vị trí đối d
 $\Rightarrow$ X nghĩ không có dữ liệu nào đang truyền cho cục AP, và Y cũng nghĩ như thế $\rightarrow$ cả 2 tín hiệu cùng truyền lên AP $\Rightarrow$ bị xung đột (collision), AP không nghe được cái nào cả.
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{Multipath propagation} (đa đường truyền)
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{assets/chap_2/multipath.jpg}
 \end{figure}
@@ -1346,6 +1302,8 @@ $\rightarrow$ Là đoạn kết nối cuối cùng từ trạm cung cấp (ISP -
 \textbf{$\rightarrow$ Vấn đề:} làm thế nào để kết nối hàng triệu người dùng vào mạng Internet với chi phí rẻ nhất (cost-efficient)?
 \medskip
 
+\clearpage
+
 \noindent
 \underline{Common solutions:}
 
@@ -1387,7 +1345,7 @@ $\Rightarrow$ Modem chịu trách nhiệm xử lý thông tin tín hiệu (takes
 \end{itemize}
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{assets/chap_2/class_modem.png}
 \end{figure}
@@ -1421,8 +1379,6 @@ $\rightarrow$ Tận dụng được hạ tầng cũ $\Rightarrow$ vẫn dùng s�
     \includegraphics[width=1\textwidth]{assets/chap_2/DSL.png}
 \end{minipage}
 \end{center}
-
-\pagebreak
 
 \noindent
 \textbf{Thiết bị:}
@@ -1469,6 +1425,8 @@ $\Rightarrow$ Tận dụng hạ tầng $\rightarrow$ sử dụng lại hệ th�
 \end{minipage}
 \end{center}
 \medskip
+
+\clearpage
 
 \noindent
 \textbf{Đặc điểm kĩ thuật:}
@@ -1540,7 +1498,7 @@ $\rightarrow$ Được phát triển bởi Xerox PARC vào những năm 1970s.
 $\rightarrow$ Với bản vẽ này, Robert Metcalfe đã trình bày nguyên lý hoạt động của Ethernet tại Hội nghị Máy tính Quốc gia vào tháng 6 năm 1976.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.55\textwidth]{assets/chap_2/ether.jpg}
 \end{figure}
@@ -1606,7 +1564,7 @@ Ethernet đã trải qua nhiều lần nâng cấp theo thời gian:
     \item[$\rightarrow$] Sau đó, các chuẩn như 802.11a hoặc 802.11n được ban hành, mở rộng dải tần 5 GHz $\Rightarrow$ tránh bị tắc nghẽn.
 \end{itemize}
 
-\begin{table}[h]
+\begin{table}[H]
     \renewcommand{\arraystretch}{1.2}
     \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcc}
         \hline
@@ -1623,9 +1581,7 @@ Ethernet đã trải qua nhiều lần nâng cấp theo thời gian:
 \end{table}
 \medskip
 
-\noindent
-\underline{Self-note:}
-
+\sidebox[-8cm]{Self-note:}{
 \begin{itemize}
     \item Gross data rate (tốc độ tổng) $\rightarrow$ tốc độ truyền dữ liệu theo lý thuyết, không có nhiễu hay các tác nhân ngoại vi ảnh hưởng.
     \item Net data rate (tốc độ thực) $\rightarrow$ tốc độ thực tế đo được khi có ngoại vi gây ảnh hưởng đến đường truyền.
@@ -1634,7 +1590,7 @@ Ethernet đã trải qua nhiều lần nâng cấp theo thời gian:
 
 \noindent
 $\Rightarrow$ Do nhiễu, gửi kèm các header, sửa lỗi, ... nên sẽ bị giảm tốc độ so với lý thuyết $\rightarrow$ hiệu suất thực tế chỉ đạt khoảng 30-50\% so với lý thuyết.
-\medskip
+}
 
 \subsubsection{Non-overlapping Channels of IEEE 802.11b}
 
@@ -1642,7 +1598,7 @@ $\Rightarrow$ Do nhiễu, gửi kèm các header, sửa lỗi, ... nên sẽ b�
 Các kênh không chồng lấn (non-overlapping channels) $\rightarrow$ là vấn đề nan giải nhất của Wifi băng tần 2.4 GHz.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{assets/chap_2/non-overlap.jpg}
 \end{figure}
@@ -1665,9 +1621,7 @@ Dải tần 2.4 GHz được chia thành các kênh (channels), mỗi kênh rộ
 $\Rightarrow$ Quy tắc 1-6-11 $\rightarrow$ để không bị chồng lên nhau, mình phải chọn các kênh cách xa nhau $\rightarrow$ chỉ có bộ ba 1-6-11 là hoàn toàn cách xa nhau, không chồng lấn lên nhau (như hình trên mô tả).
 \medskip
 
-\noindent
-\underline{Fact:} ở Nhật nó có có kênh 14, nghĩa là nó có tới tận 4 kênh không chồng lấn (1, 6, 11, 14).
-\medskip
+\sidebox[-2cm]{Fact:}{Ở Nhật nó có có kênh 14, nghĩa là nó có tới tận 4 kênh không chồng lấn (1, 6, 11, 14).}
 
 \subsubsection{WLAN Security: WEP and WPA}
 
@@ -1694,17 +1648,14 @@ $\Rightarrow$ Sử dụng khóa tĩnh (static keys) với độ dài 40-bit ho�
     \item WPS (Wifi-Protected Setup) $\rightarrow$ kết nối nhanh bằng cách bấm nút trên Router hoặc nhập mã PIN, không cần gõ mật khẩu dài dòng.
 \end{itemize}
 
-\pagebreak
-
 \noindent
-\underline{Self-note:} (tổng quan về thuật toán RC4 và AES)
+\textbf{Tổng quan về thuật toán RC4 và AES:}
 
 \begin{itemize}
     \item RC4 $\rightarrow$ tạo ra một dòng các bit ngẫu nhiên vô tận (keystream), sau đó lấy dòng này XOR với các bit dữ liệu để mã hóa $\Rightarrow$ do sử dụng XOR nên nó tính reverse, nghĩa là nếu mà lấy được 2 gói tin được mã hóa bằng cùng một đoạn keystream (do nó lặp lại) $\rightarrow$ có thể dùng XOR để loại bỏ khóa và tìm ra dữ liệu gốc dễ dàng.
     \item AES $\rightarrow$ nó không mã hóa từng bit, mà cắt dữ liệu thành các khối vuông (ví dụ như 4x4 ô), sau đó thực hiện các phép biến đổi phức tạp: ShiftRows, SubBytes, MixColumns, lặp đi lặp lại nhiều lần. $\Rightarrow$ phá vỡ hoàn toàn cấu trúc của dữ liệu gốc $\rightarrow$ một thay đổi nhỏ ở đầu vào sẽ làm thay đổi toàn bộ khối dữ liệu đầu ra (Avalanche Effect - hiệu ứng tuyết lở).
 \end{itemize}
 
-\noindent
-\textbf{Công thức RC4:} $\text{Ciphertext} = \text{Plaintext} \oplus \text{Keystream}$
-
-\pagebreak
+\begin{mybox}{Công thức RC4}
+$\text{Ciphertext} = \text{Plaintext} \oplus \text{Keystream}$
+\end{mybox}

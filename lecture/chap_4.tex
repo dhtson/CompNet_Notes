@@ -1,4 +1,5 @@
 \chapter{Data Link Layer - Medium Access Control and Error Control}
+\chapterminitoc
 
 \subsection{Coordinated Medium Access}
 
@@ -30,8 +31,6 @@ $\rightarrow$ Có 2 nhóm phương pháp điều phối.
 \end{itemize}
 \medskip
 
-\pagebreak
-
 \noindent
 \textbf{Contention-free Protocols (giao thức không cạnh tranh):}
 
@@ -60,7 +59,7 @@ ALOHA $\rightarrow$ \textbf{A}dditive \textbf{L}inks \textbf{O}n-line \textbf{H}
 \textbf{Pure ALOHA} $\rightarrow$ đây là phiên bản sơ khai và đơn giản nhất.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{assets/chap_4/aloha.png}
 \end{figure}
@@ -86,7 +85,7 @@ $\Rightarrow$ Phương pháp rất đơn giản, không yêu cầu thêm gì.
 Slotted ALOHA $\rightarrow$ ALOHA phân khe $\Rightarrow$ đây là phiên bản cải tiến của pure ALOHA để giảm thiểu collision.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{assets/chap_4/slotted_aloha.png}
 \end{figure}
@@ -143,11 +142,6 @@ $\Rightarrow$ Được dùng trong GSM network (Global System for Mobile Communi
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:} cái hiệu suất nó mang tính "trong tổng số G attempt gửi đi thì có bao nhiêu phần trăm là may mắn không bị collision".
-
-$\rightarrow$ Dùng Poisson để tính xác suất lần thử thành công: $S = G \cdot P$ (vì mô hình này giả định số lượng trạm tham gia rất lớn).
-
 \begin{itemize}
     \item[$\rightarrow$] Với pure ALOHA: xác suất để không có trạm nào gửi tin trong khoảng thời gian $2t$ (tương ứng $2G$) $\rightarrow$ $P = e^{-2G}$.
     \item[$\rightarrow$] Với slotted ALOHA: xác suất để không có trạm nào gửi tin trong khoảng thời gian $t$ (tương ứng $G$) $\rightarrow$ $P = e^{-G}$.
@@ -157,6 +151,14 @@ $\rightarrow$ Dùng Poisson để tính xác suất lần thử thành công: $S
 \noindent
 $\Rightarrow$ Từ đây có thể thấy được slotted ALOHA giảm phân nửa khoảng thời gian collision.
 \medskip
+
+\sidebox[-5cm]{Self-note:}{
+Cái hiệu suất nó mang tính "trong tổng số G attempt gửi đi thì có bao nhiêu phần trăm là may mắn không bị collision".
+\medskip
+
+\noindent
+$\rightarrow$ Dùng Poisson để tính xác suất lần thử thành công: $S = G \cdot P$ (vì mô hình này giả định số lượng trạm tham gia rất lớn).
+}
 
 \subsection{CSMA}
 
@@ -188,12 +190,13 @@ Có 2 phương pháp chính để thực hiện CSMA.
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:} gửi $p$ xác suất ở đây như trò tung đồng xu $\rightarrow$ thấy đường dây rảnh thì bắt đầu random $\Rightarrow$ nếu rơi vào mặt ngửa ($p$) thì gửi, còn rơi vào mặt sấp ($1-p$) thì đợi đến slot tiếp theo rồi random lại $\rightarrow$ nếu đang tung mà thấy đường dây có đứa khác gửi thì chờ đến slot tiếp theo rồi random tiếp.
+\sidebox[-5cm]{Self-note:}{
+Gửi $p$ xác suất ở đây như trò tung đồng xu $\rightarrow$ thấy đường dây rảnh thì bắt đầu random $\Rightarrow$ nếu rơi vào mặt ngửa ($p$) thì gửi, còn rơi vào mặt sấp ($1-p$) thì đợi đến slot tiếp theo rồi random lại $\rightarrow$ nếu đang tung mà thấy đường dây có đứa khác gửi thì chờ đến slot tiếp theo rồi random tiếp.
 \medskip
 
+\noindent
 $\Rightarrow$ Sẽ có lúc bị collision do dính xác suất cả 2 cùng chọn gửi trong cùng 1 slot, hoặc có thể bị delay do cả 2 đứa đều chờ mà nguyên đường dây không đứa nào gửi.
-\medskip
+}
 
 \noindent
 \textbf{Non-persistent CSMA (không kiên trì):}
@@ -225,16 +228,15 @@ Theo đồ thị biểu diễn hiệu suất của các phương pháp $\rightar
 \end{itemize}
 \medskip
 
-\pagebreak
-
 \noindent
-\underline{Self-note:} non-persistent khác với 1-persistent:
+\sidebox[-5cm]{Self-note:}{
+Non-persistent khác với 1-persistent:
 
 \begin{itemize}
     \item \textbf{Non-persistent:} đường truyền đợi một khoảng thời gian random rồi mới nghe lại $\rightarrow$ nếu đường truyền rảnh thì gửi ngay.
     \item \textbf{1-persistent:} đường truyền cứ nghe liên tục đến khi rảnh thì gửi ngay.
 \end{itemize}
-\medskip
+}
 
 \subsection{CSMA/CA and MACA}
 
@@ -243,8 +245,6 @@ Theo đồ thị biểu diễn hiệu suất của các phương pháp $\rightar
 \noindent
 $\rightarrow$ Tránh xung đột (collision avoidance) thay vì phát hiện xung đột (collision detection).
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 \textbf{Tại sao không dùng CSMA/CD (collision detection)?}
@@ -283,8 +283,6 @@ $\Rightarrow$ Chính vì không thể phát hiện xung đột $\rightarrow$ ch�
 $\Rightarrow$ Mạng không dây không thấy được trạm ẩn khi phát sóng, và không thấy được collision $\rightarrow$ nó không thể tự bắt lỗi được $\rightarrow$ phải dựa vào ACK từ receiver để biết có lỗi hay không.
 \medskip
 
-\pagebreak
-
 \subsubsection{Functioning of CSMA/CA}
 
 \begin{figure}[h]
@@ -306,8 +304,6 @@ $\Rightarrow$ Khoảng thời gian này được gọi là DIFS (Distributed Int
 \noindent
 $\rightarrow$ Nếu kênh truyền không có tín hiệu trong suốt 1 DIFS $\rightarrow$ trạm có thể bắt đầu gửi frame.
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 \textbf{Ở receiver:}
@@ -349,17 +345,14 @@ Nếu trong thời gian backoff mà có một trạm khác nhảy vào chiếm �
 $\rightarrow$ Đợi cho đến khi đường truyền rảnh trở lại trong ít nhất 1 DIFS $\rightarrow$ tiếp tục đếm ngược giá trị backoff còn lại.
 \medskip
 
-\pagebreak
-
 \noindent
-\underline{Self-note:} \textit{(Tóm tắt)}
-
+\sidebox[-6cm]{Self-note: \textit{(Tóm tắt)}}{
 \begin{itemize}
     \item Muốn gửi data $\rightarrow$ phải chờ DIFS $\Rightarrow$ tốn thời gian hơn.
     \item Muốn gửi ACK $\rightarrow$ chỉ cần chờ SIFS $\Rightarrow$ nhanh hơn vì ACK được ưu tiên chạy trước.
     \item Nếu đường bận $\rightarrow$ chọn random backoff time để xếp hàng chờ gửi $\Rightarrow$ nếu có đứa nào chen vào thì dừng đếm, chờ DIFS, rồi đếm tiếp.
 \end{itemize}
-\medskip
+}
 
 \subsubsection{MACA (Multiple Access with Collision Avoidance)}
 
@@ -391,7 +384,7 @@ Các frame điểu khiển bao gồm \textbf{RTS} (Request to Send - yêu cầu 
 $\Rightarrow$ Những khung này chứa thông tin về khoảng thời gian kênh truyền sẽ bị sử dụng (occupation time of the channel).
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{assets/chap_4/maca_dia.png}
 \end{figure}
@@ -406,7 +399,7 @@ $\rightarrow$ Collision chỉ có thể xảy ra trong quá trình truyền các
 
 \subsubsection{Functioning of MACA}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{assets/chap_4/maca_functioning.png}
 \end{figure}
@@ -420,8 +413,6 @@ $\rightarrow$ Collision chỉ có thể xảy ra trong quá trình truyền các
 Đầu tiên, sender lắng nghe kênh truyền $\rightarrow$ sau khoảng thời gian DIFS, sender gửi một RTS frame đến receiver.
 \medskip
 
-\vspace{0.3cm}
-
 \noindent
 \textbf{Ở receiver:}
 \medskip
@@ -430,19 +421,13 @@ $\rightarrow$ Collision chỉ có thể xảy ra trong quá trình truyền các
 $\rightarrow$ Xác nhận yêu cầu sử dụng kênh (reservation request) $\rightarrow$ chờ một khoảng thời gian SIFS $\rightarrow$ gửi lại (transmit) một CTS frame chứa khoảng thời gian mà sender muốn dành riêng để sử dụng transmission medium.
 \medskip
 
-\vspace{0.3cm}
-
 \noindent
 $\Rightarrow$ Sau khi receiver nhận thành công dữ data frame $\rightarrow$ nó sẽ chờ một khoảng thời gian SIFS $\rightarrow$ gửi ACK trở lại cho sender.
 \medskip
 
-\vspace{0.3cm}
-
 \noindent
 Khi transmission medium bận (occupied) $\rightarrow$ các trạm khác sẽ không cố để truyền data frame mới cho đến khi NAV (Network Allocation Vector - bộ đếm thời gian dành riêng cho kênh) kết thúc.
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 \textbf{Cơ chế NAV:}
@@ -473,7 +458,7 @@ Khi transmission medium bận (occupied) $\rightarrow$ các trạm khác sẽ kh
 \medskip
 
 \noindent
-\underline{Self-note:} \textit{(Tóm gọn MACA functioning)}
+\textbf{Tóm gọn MACA functioning}
 \medskip
 
 \noindent
@@ -506,7 +491,9 @@ Xin (RTS) $\rightarrow$ cho phép (CTS) $\rightarrow$ các bên khác im lặng 
 
 \noindent
 \textbf{Cấu trúc mạng (topology):} thường được hình dung trong cấu trúc mạng dạng vòng (ring) $\rightarrow$ nơi token đi từ trạm này sang trạm liền kề theo một chiều cố định.
+\medskip
 
+\noindent
 $\Rightarrow$ Tuy nhiên, ý tưởng này cũng có thể áp dụng cho các cấu trúc khác; chẳng hạn như token bus.
 \medskip
 
@@ -516,7 +503,7 @@ $\Rightarrow$ Tuy nhiên, ý tưởng này cũng có thể áp dụng cho các c
 TDMA $\rightarrow$ \textbf{T}ime \textbf{D}ivision \textbf{M}ultiple \textbf{A}ccess $\rightarrow$ phân chia theo thời gian.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{assets/chap_4/tdma.png}
 \end{figure}
@@ -525,8 +512,6 @@ TDMA $\rightarrow$ \textbf{T}ime \textbf{D}ivision \textbf{M}ultiple \textbf{A}c
 \noindent
 $\rightarrow$ Tại một thời điểm, chỉ có 1 người dùng toàn bộ tần số $\rightarrow$ nhưng họ thay phiên nhau theo thời gian \textit{(hình minh họa trên)}.
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 \textbf{Nguyên lý hoạt động:}
@@ -538,6 +523,8 @@ $\rightarrow$ Tại một thời điểm, chỉ có 1 người dùng toàn bộ 
 \end{itemize}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{Cách lên lịch (scheduling):} có thể thực hiện bằng 2 cách:
 
@@ -547,21 +534,19 @@ $\rightarrow$ Tại một thời điểm, chỉ có 1 người dùng toàn bộ 
 \end{itemize}
 \medskip
 
-\noindent
-$\Rightarrow$ \underline{Note:} một số time slot có thể được dành riêng cho broadcast traffic.
-\medskip
+\sidebox[-2.5cm]{Note:}{
+Một số time slot có thể được dành riêng cho broadcast traffic.
+}
 
-\vspace{0.3cm}
-
-\noindent
-\underline{Self-note:} TDMA giống kiểu như chia nhau theo giờ, đến giờ của ai thì người đó dùng, dùng xong thì nhường cho người tiếp theo $\rightarrow$ tuy nhiên thì trong lúc dùng, mình được phép dùng hết công suất.
-\medskip
+\sidebox{Self-note:}{
+TDMA giống kiểu như chia nhau theo giờ, đến giờ của ai thì người đó dùng, dùng xong thì nhường cho người tiếp theo $\rightarrow$ tuy nhiên thì trong lúc dùng, mình được phép dùng hết công suất.
+}
 
 \subsection{FDMA}
 
 \subsubsection{Frequency Division Multiple Access (FDMA)}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{assets/chap_4/fdma.png}
 \end{figure}
@@ -595,21 +580,17 @@ $\rightarrow$ Chia thành các kênh con (sub-channels) riêng biệt $\rightarr
 \end{itemize}
 \medskip
 
-\pagebreak
-
 \noindent
-\underline{Self-note:} \textit{(tổng kết lại)}
-\medskip
-
+\sidebox[-6cm]{Self-note:}{
 \begin{itemize}
     \item TDMA $\rightarrow$ chia thời gian thành các time slots $\rightarrow$ mỗi time slot chỉ được 1 host sử dụng, và máy đó được dùng toàn bộ băng thông.
     \item FDMA $\rightarrow$ chia băng thông thành các sub-channels $\rightarrow$ tất cả các host đều hoạt động song song nhưng chỉ trong một dải băng tần nhất định, không lấn nhau.
 \end{itemize}
-\medskip
+}
 
 \subsubsection{Example: IEEE 802.15.4e}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{assets/chap_4/ieee.jpg}
 \end{figure}
@@ -618,8 +599,6 @@ $\rightarrow$ Chia thành các kênh con (sub-channels) riêng biệt $\rightarr
 \noindent
 $\rightarrow$ Là một tiêu chuẩn (specification) cho mạng cá nhân không dây (PAN); chẳng hạn như Zigbee.
 \medskip
-
-\vspace{0.3cm}
 
 \noindent
 Là một bản chỉnh sửa (amendment) của tầng MAC $\Rightarrow$ hỗ trợ cơ chế time-slotted channel hopping (TiSCH) dựa trên TDMA và FDMA \textit{(theo hình)}:
@@ -653,13 +632,15 @@ Là một bản chỉnh sửa (amendment) của tầng MAC $\Rightarrow$ hỗ tr
 \end{itemize}
 \medskip
 
+\clearpage
+
 \subsection{CDMA}
 
 \noindent
 CDMA $\rightarrow$ \textbf{C}ode \textbf{D}ivision \textbf{M}ultiple \textbf{A}ccess $\rightarrow$ phân chia theo mã.
 \medskip
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{assets/chap_4/cdma.png}
 \end{figure}
@@ -678,8 +659,6 @@ Nếu FDMA chia tần số, TDMA chia thời gian $\rightarrow$ thì CDMA cho ph
     \item \textbf{Orthogonal (tính trực giao)} $\rightarrow$ nghĩa là các mã này hoàn toàn độc lập nhau $\rightarrow$ khi cộng gộp lại, chúng không làm hỏng nhau, và người nhận có thể tách riêng từng mã được (giống kiểu trong phòng ồn ào mà có giọng bạn mình nói thì mình vẫn lọc được).
 \end{itemize}
 \medskip
-
-\pagebreak
 
 \noindent
 \textbf{Cách tạo tín hiệu:}
@@ -737,8 +716,6 @@ $\rightarrow$ Là một giá trị được tính toán dựa trên nội dung c
 $\Rightarrow$ \textbf{Mục đích:} xác minh tính toàn vẹn của dữ liệu (data integrity).
 \medskip
 
-\vspace{0.3cm}
-
 \noindent
 \textbf{Quy trình:}
 
@@ -768,9 +745,9 @@ $\Rightarrow$ \textbf{Mục đích:} xác minh tính toàn vẹn của dữ li�
 \end{itemize}
 \medskip
 
-\noindent
-\textbf{Công thức:} $n = m + r$.
-\medskip
+\begin{mybox}{Công thức}
+$n = m + r$
+\end{mybox}
 
 \noindent
 $\rightarrow$ Trong tổng số $2^n$ chuỗi bit có thể tạo ra $\rightarrow$ chỉ có một số ít là valid codewords (mã hợp lệ) $2^m$.
@@ -974,6 +951,8 @@ $\rightarrow$ Nếu dùng đa thức bậc $k$ $\rightarrow$ phần dư (checksu
 \end{itemize}
 \medskip
 
+\clearpage
+
 \noindent
 \textbf{Double bit errors (phát hiện tất cả các lỗi kép):}
 
@@ -992,11 +971,9 @@ $\rightarrow$ Nếu dùng đa thức bậc $k$ $\rightarrow$ phần dư (checksu
 \end{itemize}
 \medskip
 
-\noindent
-\underline{Self-note:} đây là lý do tại sao nhiều chuẩn CRC (như CRC-16 hay CRC-32) đều có thừa số $(x+1)$ trong đa thức sinh của chúng.
-\medskip
-
-\vspace{0.2cm}
+\sidebox[-2cm]{Self-note:}{
+Đây là lý do tại sao nhiều chuẩn CRC (như CRC-16 hay CRC-32) đều có thừa số $(x+1)$ trong đa thức sinh của chúng.
+}
 
 \noindent
 \textbf{Burst error (phát hiện lỗi chùm):}
@@ -1019,8 +996,6 @@ Gọi $r$ là bậc của đa thức sinh (chẳng hạn như CRC-16 thì $r = 1
 \noindent
 $\rightarrow$ CRC có thể được tính toán thông qua kỹ thuật dịch bit (shift register).
 \medskip
-
-\pagebreak
 
 \subsection{Error Correction}
 
@@ -1120,5 +1095,3 @@ $\Rightarrow$ Khoảng cách nhỏ nhất là 5 $\rightarrow$ $d = 5$.
 \noindent
 $\rightarrow$ Với $d = 5$: hệ thống chỉ đảm bảo sửa đúng nếu lỗi $\leq 2$ bit $\Rightarrow$ nếu lỗi 3 bit trở lên, hệ thống sẽ bị lầm và sửa sai thành frame khác.
 \medskip
-
-\pagebreak

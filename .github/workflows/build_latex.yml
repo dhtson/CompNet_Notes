@@ -18,7 +18,7 @@ jobs:
 
       - name: Generate Version Name
         id: version_step
-        run: echo "VERSION_TAG=v1.0.4.${{ github.run_number }}" >> $GITHUB_ENV
+        run: echo "VERSION_TAG=v2.0.0.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
