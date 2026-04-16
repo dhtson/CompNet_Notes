@@ -1,0 +1,226 @@
+\chapter{Network Layer - Internet Protocol}
+\chapterminitoc
+
+\section{Addressing}
+
+\subsection{Purpose and Format}
+
+\subsubsection{Addressing in the Network Layer}
+
+Physical addresses / MAC addresses $\rightarrow$ thường được gắn chặt với với một thiết bị (bound to a device).
+
+$\Rightarrow$ Do đó, ta \textbf{hoàn toàn không thể} duy trì logical hierarchy (cấu trúc phân cấp logic) hay thay thế các máy chủ một cách "không gián đoạn" (in a transparent manner).
+\medskip
+
+\noindent
+Logical addresses $\rightarrow$ luôn bị bắt buộc do chúng hoạt động độc lập với các thiết bị phần cứng cụ thể.
+
+$\Rightarrow$ Việc đánh như vậy giúp tách biệt vị trí logic bên trong network khỏi physical device.
+
+\sidebox[-3cm]{Logical address}{
+$\rightarrow$ Được sử dụng để giải quyết những limitation của MAC address trong Network Layer như:
+
+\begin{itemize}
+    \item Định tuyến và liên kết mạng (inter-networking \& routing).
+    \item Xác định vị trí của thiết bị mạng trong network.
+    \item Hoạt động độc lập với phần cứng.
+    \item Duy trì cấu trúc phân cấp \& tính linh hoạt.
+\end{itemize}
+}
+
+\begin{mybox}{Address Assignment (Cấp phát địa chỉ)}
+
+\noindent
+Với local network $\rightarrow$ việc assign một address thường không phổ biến.
+
+\noindent
+$\Rightarrow$ Hệ thống cần phải có một cơ chế tự động cấu hình địa chỉ (\textit{address autoconfiguration}).
+\end{mybox}
+
+\subsubsection{Format of IP Addresses}
+
+\begin{itemize}
+    \item \textbf{IPv4 addresses:} \begin{itemize}
+        \item Độ dài: 32 bits (4 bytes) $\rightarrow$ chứa $2^{32} \approx$ 4.2 tỉ possible addresses.
+        \item Sử dụng \textbf{dot-decimal notation} để biểu diễn.
+        \item Ví dụ: \texttt{198.51.100.23}.
+    \end{itemize}
+    \item \textbf{IPv6 addresses:} \begin{itemize}
+        \item Độ dài: 128 bits (16 bytes) $\rightarrow$ chứa $2^{128} = 3.4 \cdot 10^{38}$ possible addresses.
+        \item Sử dụng các cụm \textbf{hexadectets/quad-nibbles} (cụm 4 số thập lục phân) được phân tách thành các dấu hai chấm (colons).
+        \item Ví dụ: \texttt{2001:0db8:0000:0000:0000:ff00:0042:8329} (hoặc viết gọn: \texttt{2001:db8::ff00:42:8329}).
+    \end{itemize}
+\end{itemize}
+
+\begin{mybox}{Address Space}
+\noindent
+Là tổng số lượng \textbf{tất cả} các mã định danh mạng hợp lệ (valid network identifiers).
+\end{mybox}
+
+\section{Address Resolution}
+
+\subsection{Address Resolution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_5/addr_resolution.png}
+\end{figure}
+\medskip
+
+\noindent
+Network Layer yêu cầu việc ánh xạ (mapping) giữa các physical network address (ví dụ như MAC) và logic network address (ví dụ như IP) để có thể truyền dữ liệu thành công.
+\medskip
+
+\sidebox{Address Resolution Protocol (ARP)}{
+Là giao thức \textbf{phân giải địa chỉ}.
+
+\noindent
+$\Rightarrow$ Dùng để tìm (phân giải) physical MAC address của một thiết bị mạng khi đã biết trước logic address của nó.
+\medskip
+
+\noindent
+\textit{*ARP chỉ áp dụng trong IPv4.}
+}
+
+\noindent
+\textbf{ARP} sử dụng để phân giải từ \textbf{IPv4 address} sang MAC address.
+\medskip
+
+\noindent
+\textbf{Cách ARP vận hành:}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=1.6cm,
+  every node/.style={font=\small},
+  device/.style={draw, rectangle, rounded corners=4pt,
+    minimum width=2.4cm, minimum height=0.8cm,
+    align=center, thick},
+  msg/.style={draw=none, align=center, font=\footnotesize},
+  arrow/.style={-{Stealth[length=6pt]}, thick},
+  darrow/.style={-{Stealth[length=6pt]}, thick, dashed},
+]
+
+\def\leftx{0}
+\def\rightx{8}
+\def\midx{4}
+
+\node[device] (A) at (\leftx, 0) {Máy gửi\\{\scriptsize 192.168.1.10}};
+\node[device] (B) at (\rightx, 0) {Thiết bị đích\\{\scriptsize 192.168.1.20}};
+
+\draw[gray!50, thin] (\leftx, -0.4) -- (\leftx, -6.2);
+\draw[gray!50, thin] (\rightx, -0.4) -- (\rightx, -6.2);
+
+\node[msg, anchor=south] at (\midx, -1.2) {\textbf{1.} ARP Request (Broadcast)};
+\draw[darrow] (\leftx, -1.4) -- (\rightx, -1.4);
+
+\node[msg] at (\rightx+1.5, -2.3) {};
+\node[msg, anchor=west, font=\footnotesize] at (\rightx+0.15, -2.3)
+  {\textbf{2.} So khớp IP};
+
+\node[msg, anchor=south] at (\midx, -3.2) {\textbf{3.} ARP Reply (Unicast) — gửi kèm MAC};
+\draw[arrow] (\rightx, -3.4) -- (\leftx, -3.4);
+
+\node[msg, anchor=east, font=\footnotesize] at (\leftx-0.15, -4.6)
+  {\textbf{4.} Lưu IP $\leftrightarrow$ MAC};
+\node[device, fill=gray!10] (cache) at (\leftx, -5.5)
+  {ARP Cache\\{\scriptsize IP $\leftrightarrow$ MAC}};
+\draw[arrow] (\leftx, -4.8) -- (cache);
+
+\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Gửi yêu cầu:} gửi MAC broadcast frame chứa địa chỉ IP của thiết bị cần tìm đến trong mạng LAN.
+    \item \textbf{Kiểm tra:} mỗi thiết bị nhận được frame này sẽ lấy IP address bên trong để đối chiếu với IP của mình.
+    \item \textbf{Phản hồi:} thiết bị nào có IP trùng khớp thì sẽ gửi unicast response trực tiếp cho máy gửi ban đầu, trong đó có chứa MAC address của nó.
+    \item \textbf{Ánh xạ:} máy sẽ map địa chỉ MAC vừa nhận được với địa chỉ IP mà nó đang tìm kiếp để tiến hành truyền dữ liệu.
+\end{enumerate}
+\medskip
+
+\pagebreak
+
+\noindent
+\textbf{NDP} đảm nhận vai trò tương tự như ARP nhưng dành cho mạng \textbf{IPv6}.
+\medskip
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/chap_5/ndp.jpg}
+\end{figure}
+\medskip
+
+\sidebox[-8cm]{Neighbor Discovery Protocol (NDP)}{
+Là giao thức "khám phá láng giềng" $\rightarrow$ phân giải địa chỉ để mapping giữa logic address (IPv6) và physical address (MAC).
+\medskip
+
+\noindent
+\textit{*NDP chỉ áp dụng trong IPv6.}
+}
+
+\noindent
+\textbf{Cách NDP vận hành:}
+
+\begin{figure}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  node distance=1.6cm,
+  every node/.style={font=\small},
+  device/.style={draw, rectangle, rounded corners=4pt,
+    minimum width=2.4cm, minimum height=0.8cm,
+    align=center, thick},
+  msg/.style={draw=none, align=center, font=\footnotesize},
+  arrow/.style={-{Stealth[length=6pt]}, thick},
+  darrow/.style={-{Stealth[length=6pt]}, thick, dashed},
+]
+
+\def\ax{0}
+\def\bx{5}
+\def\cx{10}
+
+\node[device] (A) at (\ax, 0) {Node A\\{\scriptsize fe80::1}};
+\node[device] (B) at (\bx, 0) {Solicited-node\\{\scriptsize ff02::1:ff\textbf{XX:XXYY}}};
+\node[device] (C) at (\cx, 0) {Node B\\{\scriptsize fe80::XX:XXYY}};
+
+\draw[gray!50, thin] (\ax, -0.4) -- (\ax, -10.5);
+\draw[gray!50, thin] (\bx, -0.4) -- (\bx, -10.5);
+\draw[gray!50, thin] (\cx, -0.4) -- (\cx, -10.5);
+
+\node[msg, anchor=south] at (2.5, -1.2) {\textbf{1.} Neighbor Solicitation (Multicast)};
+\draw[darrow] (\ax, -1.4) -- (\bx, -1.4);
+
+\node[msg, anchor=west, font=\footnotesize] at (\bx+0.15, -2.5)
+  {\textbf{2.} Solicited-node multicast address};
+\node[msg, anchor=west, font=\scriptsize\itshape, text=gray] at (\bx+0.15, -2.95)
+  {prefix \texttt{ff02::1:ff00:0/104}};
+\node[msg, anchor=west, font=\scriptsize\itshape, text=gray] at (\bx+0.15, -3.35)
+  {+ 24 bits cuối của unicast};
+
+\node[msg, anchor=south] at (7.5, -4.3) {\textbf{3.} Đăng kí nhóm — chỉ Node B xử lý};
+\draw[darrow] (\bx, -4.5) -- (\cx, -4.5);
+
+\node[msg, anchor=south] at (5, -5.7) {\textbf{4.} Neighbor Advertisement (Unicast)};
+\draw[arrow] (\cx, -5.9) -- (\ax, -5.9);
+
+\node[msg, anchor=south] at (5, -7.1) {Router Advertisement / Solicitation};
+\draw[darrow] (\ax, -7.3) -- (\cx, -7.3);
+
+\node[msg, anchor=east, font=\footnotesize] at (\ax-0.15, -8.5)
+  {\textbf{5.} Lưu IP $\leftrightarrow$ MAC};
+\node[device, fill=gray!10] (cache) at (\ax, -9.8)
+  {NDP Cache\\{\scriptsize IP $\leftrightarrow$ MAC}};
+\draw[-{Stealth[length=6pt]}, gray!60, thin] (\ax, -8.8) -- (cache);
+
+\end{tikzpicture}%
+}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Dùng multicast:} NDP hoạt động tối ưu hơn bằng cách sử dụng multicast messages.
+    \item \textbf{Solicited-node multicast address:} giao thức này sử dụng một destination address đặc biệt có prefix là \texttt{ff02::1::ff00:0000/104}; 24 bits còn lại được lấy từ 24 bits cuối của unicast address tương ứng với thiết bị.
+    \item \textbf{Đăng kí nhóm multicast address:} mỗi node sẽ tự động đăng kí tham gia vào nhóm này cho từng unicast address được config $\rightarrow$ chỉ những node nào có đăng kí address này thì mới nhận và xử lý các tin nhắn ICMP tương ứng $\Rightarrow$ giảm tải cho các thiết bị không liên quan.
+    \item \textbf{Giao tiếp linh hoạt:} các routers và các nodes có thể chủ động phát đi các advertisements (tin nhắn thông báo) hoặc phản hồi lại các truy vấn thông qua yêu cầu từ router và neighbor solicitations (thiết bị láng giềng).
+\end{enumerate}
+\medskip
