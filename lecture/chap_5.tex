@@ -17,7 +17,7 @@ Logical addresses $\rightarrow$ luôn bị bắt buộc do chúng hoạt động
 
 $\Rightarrow$ Việc đánh như vậy giúp tách biệt vị trí logic bên trong network khỏi physical device.
 
-\sidebox[-3cm]{Logical address}{
+\sidebox[-3cm]{Logical address:}{
 $\rightarrow$ Được sử dụng để giải quyết những limitation của MAC address trong Network Layer như:
 
 \begin{itemize}
@@ -61,7 +61,7 @@ Là tổng số lượng \textbf{tất cả} các mã định danh mạng hợp 
 
 \subsection{Address Resolution}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/chap_5/addr_resolution.png}
 \end{figure}
@@ -71,7 +71,13 @@ Là tổng số lượng \textbf{tất cả} các mã định danh mạng hợp 
 Network Layer yêu cầu việc ánh xạ (mapping) giữa các physical network address (ví dụ như MAC) và logic network address (ví dụ như IP) để có thể truyền dữ liệu thành công.
 \medskip
 
-\sidebox{Address Resolution Protocol (ARP)}{
+\subsection{IPv4: Address Resolution Protocol (ARP)}
+
+\noindent
+\textbf{ARP} được sử dụng để phân giải từ \textbf{IPv4 address} sang MAC address.
+\medskip
+
+\sidebox{Address Resolution Protocol (ARP):}{
 Là giao thức \textbf{phân giải địa chỉ}.
 
 \noindent
@@ -83,53 +89,14 @@ $\Rightarrow$ Dùng để tìm (phân giải) physical MAC address của một t
 }
 
 \noindent
-\textbf{ARP} sử dụng để phân giải từ \textbf{IPv4 address} sang MAC address.
-\medskip
-
-\noindent
 \textbf{Cách ARP vận hành:}
 
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-  node distance=1.6cm,
-  every node/.style={font=\small},
-  device/.style={draw, rectangle, rounded corners=4pt,
-    minimum width=2.4cm, minimum height=0.8cm,
-    align=center, thick},
-  msg/.style={draw=none, align=center, font=\footnotesize},
-  arrow/.style={-{Stealth[length=6pt]}, thick},
-  darrow/.style={-{Stealth[length=6pt]}, thick, dashed},
-]
-
-\def\leftx{0}
-\def\rightx{8}
-\def\midx{4}
-
-\node[device] (A) at (\leftx, 0) {Máy gửi\\{\scriptsize 192.168.1.10}};
-\node[device] (B) at (\rightx, 0) {Thiết bị đích\\{\scriptsize 192.168.1.20}};
-
-\draw[gray!50, thin] (\leftx, -0.4) -- (\leftx, -6.2);
-\draw[gray!50, thin] (\rightx, -0.4) -- (\rightx, -6.2);
-
-\node[msg, anchor=south] at (\midx, -1.2) {\textbf{1.} ARP Request (Broadcast)};
-\draw[darrow] (\leftx, -1.4) -- (\rightx, -1.4);
-
-\node[msg] at (\rightx+1.5, -2.3) {};
-\node[msg, anchor=west, font=\footnotesize] at (\rightx+0.15, -2.3)
-  {\textbf{2.} So khớp IP};
-
-\node[msg, anchor=south] at (\midx, -3.2) {\textbf{3.} ARP Reply (Unicast) — gửi kèm MAC};
-\draw[arrow] (\rightx, -3.4) -- (\leftx, -3.4);
-
-\node[msg, anchor=east, font=\footnotesize] at (\leftx-0.15, -4.6)
-  {\textbf{4.} Lưu IP $\leftrightarrow$ MAC};
-\node[device, fill=gray!10] (cache) at (\leftx, -5.5)
-  {ARP Cache\\{\scriptsize IP $\leftrightarrow$ MAC}};
-\draw[arrow] (\leftx, -4.8) -- (cache);
-
-\end{tikzpicture}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_5/arp_simplify.png}
 \end{figure}
+
+\sidebox[1cm]{Note:}{ARP sử dụng \textbf{broadcast messages}.}
 
 \begin{enumerate}
     \item \textbf{Gửi yêu cầu:} gửi MAC broadcast frame chứa địa chỉ IP của thiết bị cần tìm đến trong mạng LAN.
@@ -139,19 +106,13 @@ $\Rightarrow$ Dùng để tìm (phân giải) physical MAC address của một t
 \end{enumerate}
 \medskip
 
-\pagebreak
+\subsection{IPv6: Neighbor Discovery Protocol (NDP)}
 
 \noindent
 \textbf{NDP} đảm nhận vai trò tương tự như ARP nhưng dành cho mạng \textbf{IPv6}.
 \medskip
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{assets/chap_5/ndp.jpg}
-\end{figure}
-\medskip
-
-\sidebox[-8cm]{Neighbor Discovery Protocol (NDP)}{
+\sidebox{Neighbor Discovery Protocol (NDP):}{
 Là giao thức "khám phá láng giềng" $\rightarrow$ phân giải địa chỉ để mapping giữa logic address (IPv6) và physical address (MAC).
 \medskip
 
@@ -163,64 +124,85 @@ Là giao thức "khám phá láng giềng" $\rightarrow$ phân giải địa ch�
 \textbf{Cách NDP vận hành:}
 
 \begin{figure}[H]
-\centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[
-  node distance=1.6cm,
-  every node/.style={font=\small},
-  device/.style={draw, rectangle, rounded corners=4pt,
-    minimum width=2.4cm, minimum height=0.8cm,
-    align=center, thick},
-  msg/.style={draw=none, align=center, font=\footnotesize},
-  arrow/.style={-{Stealth[length=6pt]}, thick},
-  darrow/.style={-{Stealth[length=6pt]}, thick, dashed},
-]
-
-\def\ax{0}
-\def\bx{5}
-\def\cx{10}
-
-\node[device] (A) at (\ax, 0) {Node A\\{\scriptsize fe80::1}};
-\node[device] (B) at (\bx, 0) {Solicited-node\\{\scriptsize ff02::1:ff\textbf{XX:XXYY}}};
-\node[device] (C) at (\cx, 0) {Node B\\{\scriptsize fe80::XX:XXYY}};
-
-\draw[gray!50, thin] (\ax, -0.4) -- (\ax, -10.5);
-\draw[gray!50, thin] (\bx, -0.4) -- (\bx, -10.5);
-\draw[gray!50, thin] (\cx, -0.4) -- (\cx, -10.5);
-
-\node[msg, anchor=south] at (2.5, -1.2) {\textbf{1.} Neighbor Solicitation (Multicast)};
-\draw[darrow] (\ax, -1.4) -- (\bx, -1.4);
-
-\node[msg, anchor=west, font=\footnotesize] at (\bx+0.15, -2.5)
-  {\textbf{2.} Solicited-node multicast address};
-\node[msg, anchor=west, font=\scriptsize\itshape, text=gray] at (\bx+0.15, -2.95)
-  {prefix \texttt{ff02::1:ff00:0/104}};
-\node[msg, anchor=west, font=\scriptsize\itshape, text=gray] at (\bx+0.15, -3.35)
-  {+ 24 bits cuối của unicast};
-
-\node[msg, anchor=south] at (7.5, -4.3) {\textbf{3.} Đăng kí nhóm — chỉ Node B xử lý};
-\draw[darrow] (\bx, -4.5) -- (\cx, -4.5);
-
-\node[msg, anchor=south] at (5, -5.7) {\textbf{4.} Neighbor Advertisement (Unicast)};
-\draw[arrow] (\cx, -5.9) -- (\ax, -5.9);
-
-\node[msg, anchor=south] at (5, -7.1) {Router Advertisement / Solicitation};
-\draw[darrow] (\ax, -7.3) -- (\cx, -7.3);
-
-\node[msg, anchor=east, font=\footnotesize] at (\ax-0.15, -8.5)
-  {\textbf{5.} Lưu IP $\leftrightarrow$ MAC};
-\node[device, fill=gray!10] (cache) at (\ax, -9.8)
-  {NDP Cache\\{\scriptsize IP $\leftrightarrow$ MAC}};
-\draw[-{Stealth[length=6pt]}, gray!60, thin] (\ax, -8.8) -- (cache);
-
-\end{tikzpicture}%
-}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_5/ndp_simplify.png}
 \end{figure}
 
+\sidebox[1cm]{Note:}{NDP sử dụng \textbf{multicast messages}.}
+
 \begin{enumerate}
-    \item \textbf{Dùng multicast:} NDP hoạt động tối ưu hơn bằng cách sử dụng multicast messages.
-    \item \textbf{Solicited-node multicast address:} giao thức này sử dụng một destination address đặc biệt có prefix là \texttt{ff02::1::ff00:0000/104}; 24 bits còn lại được lấy từ 24 bits cuối của unicast address tương ứng với thiết bị.
-    \item \textbf{Đăng kí nhóm multicast address:} mỗi node sẽ tự động đăng kí tham gia vào nhóm này cho từng unicast address được config $\rightarrow$ chỉ những node nào có đăng kí address này thì mới nhận và xử lý các tin nhắn ICMP tương ứng $\Rightarrow$ giảm tải cho các thiết bị không liên quan.
-    \item \textbf{Giao tiếp linh hoạt:} các routers và các nodes có thể chủ động phát đi các advertisements (tin nhắn thông báo) hoặc phản hồi lại các truy vấn thông qua yêu cầu từ router và neighbor solicitations (thiết bị láng giềng).
+    \item \textbf{Solicited-node multicast address:} giao thức này sử dụng một destination address đặc biệt có prefix là \texttt{ff02::1:ff00:0000/104}; 24 bits còn lại được lấy từ 24 bits cuối của unicast address tương ứng với thiết bị.
+    \item \textbf{Đăng kí nhóm multicast address:} mỗi node sẽ tự động đăng kí tham gia vào nhóm multicast này cho từng unicast address được config $\rightarrow$ chỉ những node nào có đăng kí address này thì mới nhận và xử lý các tin nhắn ICMP tương ứng (ví dụ: \textit{Type 135} cho yêu cầu, \textit{Type 136} cho phản hồi) $\Rightarrow$ giảm tải cho các thiết bị không liên quan trong mạng.
+    \item \textbf{Giao tiếp linh hoạt:} các routers và các nodes có thể chủ động phát đi các advertisements (tin nhắn thông báo) hoặc phản hồi lại các truy vấn thông qua yêu cầu từ router và neighbor solicitations (truy vấn láng giềng).
 \end{enumerate}
 \medskip
+
+\sidebox[-3cm]{Internet Control Message Protocol (ICMP):}{
+Được sử dụng chủ yếu để trao đổi tin nhắn chẩn đoán (diagnostic), điều khiển \& báo lỗi (error messages) trong hệ thống mạng.
+
+\noindent
+$\Rightarrow$ Tất cả các routers và terminal devices (thiết bị đầu cuối) đều có khả năng xử lý giao thức này.
+}
+
+\subsection{Neighbor Cache}
+
+\noindent
+\textbf{Neighbor cache} (bộ nhớ đệm láng giềng) $\rightarrow$ sử dụng để làm \textbf{tăng tốc độ phân giải địa chỉ} (speed up the address resolution).
+\medskip
+
+\noindent
+$\Rightarrow$ Chứa một bảng lưu trữ các thông tin cho mỗi entry (bản ghi) gồm:
+
+\begin{itemize}
+    \item Layer 3 protocol type (như IPv4).
+    \item Layer 3 address (như IP address).
+    \item Layer 2 address (MAC address).
+\end{itemize}
+\medskip
+
+\begin{mybox}{Tips}
+\noindent
+Command để hiển thị neighbor cache trên máy: \textbf{\texttt{arp -n}} hoặc \textbf{\texttt{ip neighbour}}.
+\end{mybox}
+\medskip
+
+\begin{verbatim}
+# arp -n
+Address         HWtype  HWaddress          Flags Mask  Iface
+192.168.178.1   ether   9c:c7:a6:b9:32:aa  C           wlan0
+192.168.178.24  ether   d4:85:64:3b:9f:65  C           wlan0
+192.168.178.41  ether   ec:1f:72:70:08:25  C           wlan0
+192.168.178.25  ether   cc:3a:61:d3:b3:bc  C           wlan0
+\end{verbatim}
+\medskip
+
+\section{IPv4 Networks}
+
+\subsection{Network Identifier and Host Identifier}
+
+\noindent
+32 bits của IPv4 address được chia thành 2 phần:
+
+\begin{itemize}
+    \item \textbf{Network identifier} (mã định danh mạng, còn gọi là network ID): dùng để xác định mạng lưới đang kết nối vào $\rightarrow$ tất cả các thiết bị (host) \textbf{kết nối vào cùng một mạng} thì sẽ \textbf{bắt buộc phải có chung phần network ID} này.
+    \item \textbf{Host identifier} (mã định danh thiết bị, còn gọi là host ID): dùng để xác định một thiết bị cụ thể nằm bên trong network đó.
+\end{itemize}
+\medskip
+
+\noindent
+$\rightarrow$ Số lượng bits dành cho \textit{network ID} và \textit{host ID} \textbf{có thể thay đổi} theo nhu cầu chứ không cố định.
+\medskip
+
+\begin{mybox}{Nguyên lý phân bổ số bits cho Network ID}
+\noindent
+Nếu mạng dùng \textbf{ít bits} cho phần network ID $\rightarrow$ \textbf{bits còn lại} cho phần host ID sẽ \textbf{nhiều lên} $\Rightarrow$ mạng đó sẽ chứa được \textbf{nhiều thiết bị kết nối} hơn.
+\end{mybox}
+\medskip
+
+\sidebox[-3cm]{Self-note:}{
+Độ dài của IPv4 nó luôn 32 bits, nên là nếu host ID chiếm nhiều bit hơn $\rightarrow$ sẽ cho nhiều connection hơn. 
+\medskip
+
+\noindent
+Tương tự như network ID.
+}
