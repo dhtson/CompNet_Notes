@@ -229,7 +229,7 @@ Thời trước, người ta chia IP address theo các lớp cố định (class
 $\Rightarrow$ Cách chia này gây lãng phí lớn các IP address và khó thay đổi.
 }
 
-\pagebreak
+\clearpage
 
 \noindent
 \textbf{Cấu trúc của netmask:}
@@ -264,4 +264,27 @@ Có \textbf{hai host ID} được hệ thống giữ lại mà \textbf{không th
     \item \textbf{Broadcast address (địa chỉ quảng bá):} xảy ra khi tất cả các bit của phần host ID đều được set thành \texttt{1} $\rightarrow$ địa chỉ này dành riêng để broadcast (được dùng khi muốn dữ liệu gửi đến cho toàn bộ máy trong network đó).
 \end{itemize}
 \end{mybox}
+\medskip
+
+\subsection{Address Classes}
+
+\noindent
+Thời kì đầu, để việc quản lý trở nên dễ dàng $\rightarrow$ IPv4 address được chia thành các lớp (class) cố định từ A đến C để cấp phát cho người dùng.
+
+$\rightarrow$ Có thêm class D, E cho những mục đích đặc biệt.
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lllll}
+        \hline
+        \textbf{Class} & \textbf{Prefix} & \textbf{Address range} & \textbf{Network ID} & \textbf{Host ID} \\
+        \hline
+        A & \texttt{0} & 0.0.0.0 - 127.255.255.255 & 7 bits & 24 bits \\
+        B & \texttt{10} & 128.0.0.0 - 191.255.255.255 & 14 bits & 16 bits \\
+        C & \texttt{110} & 192.0.0.0 - 223.255.255.255 & 21 bits & 8 bits \\
+        D & \texttt{1110} & 224.0.0.0 - 239.255.255.255 & -- & -- \\
+        E & \texttt{1111} & 240.0.0.0 - 255.255.255.255 & -- & -- \\
+        \hline
+    \end{tabular*}
+\end{table}
 \medskip
