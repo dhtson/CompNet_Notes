@@ -288,3 +288,34 @@ $\rightarrow$ Có thêm class D, E cho những mục đích đặc biệt.
     \end{tabular*}
 \end{table}
 \medskip
+
+\begin{itemize}
+    \item \textbf{Class A:} lớp này chỉ dùng 7 bit cho network ID ($2^7$ network), và dành 24 bit cho host ID ($2^{24}$ connection).
+    \item \textbf{Class B:} lớp này sử dụng 14 bit cho network ID ($2^{14}$ network), và dành 16 bit cho host ID ($2^{16}$ connection).
+    \item \textbf{Class C:} lớp này sử dụng 21 bit cho network ID ($2^{21}$ network), và dành 8 bit cho host ID ($2^{8}$ connection).
+    \item \textbf{Class D:} lớp này không được chia thành phần network và phần host như các lớp trên $\rightarrow$ được dùng riêng cho việc làm multicast address để gửi dữ liệu.
+    \item \textbf{Class E:} lớp này cũng không chia network ID hay host ID $\rightarrow$ được hệ thống giữ lại để dự phòng cho tương lai hoặc dùng cho research.
+\end{itemize}
+\medskip
+
+\sidebox[-3.3cm]{}{
+\textit{*\underline{Nhắc lại:} multicast address được dùng trong group communication; khác với broadcast là gửi cho toàn network đó.}
+
+\noindent
+\textit{$\Rightarrow$ Multicast là tập con trong broadcast.}
+}
+
+\subsection{Drawback of Address Classes}
+
+\begin{itemize}
+    \item \textbf{Không thể điều chỉnh linh hoạt:} do kích tưởng của các class được ấn định cố định $\Rightarrow$ hệ thống không thể tự động điều chỉnh theo nhu cầu sử dụng thực tế.
+    \item \textbf{Gây lãng phí lượng lớn IP address:} tuy class C khá nhỏ $\rightarrow$ nếu một network class C chỉ có 2 thiết bị kết nối $\Rightarrow$ nó sẽ lãng phí 253 address còn lại (tương tự như các class kia).
+    \item \textbf{Khó quản lý \& chuyển đổi:} rất khó để migrating (di dời) các host từ class này sang class khác.
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{\underline{Giải pháp:}} sử dụng \textbf{CIDR} (\textbf{C}lassless \textbf{I}nter\textbf{d}omain \textbf{R}outing - định tuyến liên miền không phân lớp).
+
+$\Rightarrow$ Giúp \textbf{loại bỏ} khái niệm phân lớp cố định \& cho phép chia các logic address thành các subnets nhỏ hơn tùy ý $\rightarrow$ tiết kiệm được IP address tối đa.
+\medskip
