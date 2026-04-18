@@ -206,3 +206,62 @@ Nếu mạng dùng \textbf{ít bits} cho phần network ID $\rightarrow$ \textbf
 \noindent
 Tương tự như network ID.
 }
+
+\subsection{(Sub)Netmasks}
+
+\noindent
+Để biết được vị trí cắt giữa network ID và host ID $\rightarrow$ \textbf{netmask} đảm nhận làm ranh giới phân chia.
+\medskip
+
+\noindent
+$\Rightarrow$ Để xác định được \textbf{kích thước} của network $\rightarrow$ cần phải có một \textbf{(sub-)netmask}:
+
+\begin{itemize}
+    \item Tất cả các hosts trong cùng một network đều phải được gán một netmask.
+    \item Một network có thể được chia nhỏ hơn nữa bằng cách sử dụng các bit đầu tiên của host làm subnet identifier.
+\end{itemize}
+\medskip
+
+\sidebox[-4cm]{Self-note:}{
+Thời trước, người ta chia IP address theo các lớp cố định (class A, B, C) gọi là \textbf{subnet} (mạng con).
+
+\noindent
+$\Rightarrow$ Cách chia này gây lãng phí lớn các IP address và khó thay đổi.
+}
+
+\pagebreak
+
+\noindent
+\textbf{Cấu trúc của netmask:}
+
+\begin{itemize}
+    \item \textbf{\texttt{1-bits}:} chỉ ra khoảng nào của address được sử dụng cho mã định danh mạng (network IDs).
+    \item \textbf{\texttt{0-bits}:} chỉ ra khoảng nào của address được sử dụng cho mã định danh thiết bị (host IDs).
+\end{itemize}
+\medskip
+
+\noindent
+\textbf{Ví dụ minh họa:}
+
+\begin{figure}[h]
+    \begin{minipage}{0.485\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/chap_5/netmask01.png}
+    \end{minipage}
+    \begin{minipage}{0.485\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/chap_5/netmask02.png}
+    \end{minipage}
+\end{figure}
+\medskip
+
+\begin{mybox}{Lưu ý}
+\noindent
+Có \textbf{hai host ID} được hệ thống giữ lại mà \textbf{không thể được cấp phát} cho các thiết bị mạng thông thường:
+
+\begin{itemize}
+    \item \textbf{Network address (địa chỉ mạng):} xảy ra khi tất cả các host ID đều được set thành \texttt{0} $\rightarrow$ địa chỉ này dành riêng để nhận diện chính cái network đó.
+    \item \textbf{Broadcast address (địa chỉ quảng bá):} xảy ra khi tất cả các bit của phần host ID đều được set thành \texttt{1} $\rightarrow$ địa chỉ này dành riêng để broadcast (được dùng khi muốn dữ liệu gửi đến cho toàn bộ máy trong network đó).
+\end{itemize}
+\end{mybox}
+\medskip
