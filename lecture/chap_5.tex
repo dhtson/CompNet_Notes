@@ -349,3 +349,37 @@ $\Rightarrow$ Giúp \textbf{loại bỏ} khái niệm phân lớp cố định \
     \end{tabular*}
 \end{table}
 \medskip
+
+\subsection{Subnetting Example}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/chap_5/subnet_example.png}
+\end{figure}
+\medskip
+
+\begin{itemize}
+    \item \textbf{Dải đầu tiên (class B IP address):} là cấu trúc mặc định ban đầu cho network class B $\rightarrow$ được chia làm hai phần bằng nhau: nửa đầu là network ID; nửa sau là host ID.
+    \item \textbf{Dải thứ hai (subnet mask):} là chìa khóa của việc chia network $\rightarrow$ gồm \texttt{0} và \texttt{1} $\Rightarrow$ số \texttt{225.225.248.0} khi quy dưới dạng binary thì sẽ thấy được 21 bit \texttt{1} liên tiếp (đại diện cho phần network ID) và 11 bit \texttt{0} (đại diện cho phần host ID).
+    \item \textbf{Dải thứ ba (cấu trúc sau khi chia subnet):} do class B chỉ dùng 16 bit cho phần network, tuy nhiên ở đây tới 21 bit \texttt{1} lận $\rightarrow$ hệ thống đã "mượn" đi 5 bit của host ID để làm phần network $\Rightarrow$ cấu trúc địa chỉ IP lúc này chia làm 3 phần: \begin{itemize}
+        \item \textbf{Network ID:} 16 bit gốc từ class B.
+        \item \textbf{Subnet ID:} phần mượn thêm này được dùng để đánh dấu sub-network $\rightarrow$ nhờ dải này mà hệ thống chia được thêm nhiều network con khác nhau.
+        \item \textbf{Host ID:} 11 bit còn lại.
+    \end{itemize}
+\end{itemize}
+\medskip
+
+\sidebox[-12cm]{Self-note:}{
+$\Rightarrow$ Thay vì bị kẹt ở ranh giới cố định của class B $\rightarrow$ hệ thống dùng subnet mask để có thể di dời đường biên sang phải.
+
+\noindent
+$\Rightarrow$ Mượn tạm vào phần thiết bị để tạo ra subnet ID nhằm chia nhỏ network cho dễ quản lý \& đỡ lãng phí.
+}
+
+\subsection{Subnets and Routing}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/chap_5/subnet_routing.png}
+\end{figure}
+\medskip
