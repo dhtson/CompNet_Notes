@@ -319,3 +319,33 @@ $\rightarrow$ Có thêm class D, E cho những mục đích đặc biệt.
 
 $\Rightarrow$ Giúp \textbf{loại bỏ} khái niệm phân lớp cố định \& cho phép chia các logic address thành các subnets nhỏ hơn tùy ý $\rightarrow$ tiết kiệm được IP address tối đa.
 \medskip
+
+\subsection{Syntax of the Classless Interdomain Routing (CIDR)}
+
+\noindent
+\underline{\textbf{Theo chuẩn CIDR:}} các dải IP address được biểu diễn dưới định dạng \textbf{network address/mask bits}.
+
+\begin{itemize}
+    \item \textbf{Ý nghĩa mask bits:} con số nằm sau dấu gạch chéo (\texttt{/}) chiinhs là prefix $\rightarrow$ cho biết có chính xác bao nhiêu bit mang giá trị \texttt{1} nằm trong subnet mask. \begin{itemize}
+        \item[$\rightarrow$] \textit{Ví dụ: bằng cách sử dụng CIDR $\rightarrow$ người ta có thể linh hoạt chia mạng bằng các dải mask bits như \texttt{/24}, \texttt{/25}, v.v.}
+    \end{itemize}
+    \item \textbf{Mối quan hệ với network size:} số mask bits càng tăng $\rightarrow$ số lượng bit để cho hosting càng giảm $\Rightarrow$ chia ra được nhiều subnet hơn nhưng mỗi subnet không chứa được nhiều hosts. \begin{itemize}
+        \item[$\rightarrow$] \textit{Ví dụ: với prefix \texttt{/24} thì network chỉ có thể chứa tối đa $2^8$ host IDs và không bị chia nhỏ; nếu chia \texttt{/25}, hệ thống sẽ lấy đi 1 bit để làm subnet ID (tạo thành 2 sub-network) $\rightarrow$ chỉ còn lại $2^7$ host IDs.}
+    \end{itemize}
+\end{itemize}
+
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrrrrrr}
+        \hline
+        Mask bits (prefix) & \texttt{/24} & \texttt{/25} & \texttt{/26} & \texttt{/27} & \texttt{/28} & \texttt{/29} & \texttt{/30} & \texttt{/31} & \texttt{/32} \\
+        Subnet mask & \texttt{0} & \texttt{128} & \texttt{192} & \texttt{224} & \texttt{240} & \texttt{248} & \texttt{252} & \texttt{254} & \texttt{255} \\
+        Subnet bits & \texttt{0} & \texttt{1} & \texttt{2} & \texttt{3} & \texttt{4} & \texttt{5} & \texttt{6} & \texttt{7} & \texttt{8} \\
+        Subnet IDs & \texttt{1} & \texttt{2} & \texttt{4} & \texttt{8} & \texttt{16} & \texttt{32} & \texttt{64} & \texttt{128} & \texttt{256} \\
+        Host bits & \texttt{8} & \texttt{7} & \texttt{6} & \texttt{5} & \texttt{4} & \texttt{3} & \texttt{2} & \texttt{1} & \texttt{0} \\
+        Host IDs & \texttt{256} & \texttt{128} & \texttt{64} & \texttt{32} & \texttt{16} & \texttt{8} & \texttt{4} & \texttt{2} & \texttt{--} \\
+        Hosts (maximum) & \texttt{254} & \texttt{126} & \texttt{62} & \texttt{30} & \texttt{14} & \texttt{6} & \texttt{2} & \texttt{0} & \texttt{--} \\
+        \hline
+    \end{tabular*}
+\end{table}
+\medskip
